@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "Please cite this software using these metadata."
+title: CO2ntaZero
+authors:
+  - family-names: "de Oliveira e Silva"
+    given-names: "Saulo Luiz"
+  - family-names: "Vieira da Silva"
+    given-names: "Heron Victor"
+  - family-names: "Rodrigues Santos"
+    given-names: "Joao Vinicius"
+  - family-names: "Costa Pinho Tavares"
+    given-names: "Gustavo"
+  - family-names: "Vieira de Freitas"
+    given-names: "Caio"
+  - family-names: "Soares Vieira de Vasconcelos"
+    given-names: "Amália"
+    name-suffix: "Professor(a)"
+    affiliation: PUC Minas
+keywords:
+    - sustentabilidade
+    - pegada de carbono
+    - ESG
+    - gestão de consumo
+    - multitenancy
+repository-code: https://github.com/ICEI-PUC-Minas-PBE-SI-TI/2026-1-p5-tias-co2ntazero
+license: CC-BY-4.0
+version: 1.0.0
+date-released: 2026-03-05

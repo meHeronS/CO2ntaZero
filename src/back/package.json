@@ -1,0 +1,50 @@
+{
+  "name": "co2ntazero-backend",
+  "version": "1.0.0",
+  "description": "Backend da aplicação CO2ntaZero - Sistema de Gestão de Pegada de Carbono.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "concurrently \"npm:start:backend\" \"npm:start:react\" \"npm:summary\"",
+    "start:legacy": "concurrently \"npm:start:backend\" \"npm:start:legacy-ui\"",
+    "start:backend": "node server.js",
+    "start:react": "wait-on http://localhost:5000/api/health && npm start --prefix ../front/react",
+    "start:legacy-ui": "wait-on http://localhost:5000/api/health && http-server ../front/legacy -p 8080 -c-1 --cors",
+    "test:server": "node test-server.js",
+    "dev": "nodemon server.js",
+    "summary": "wait-on tcp:5000 && node Scripts/print-summary.js",
+    "create-test-users": "node -r dotenv/config ../db/create-test-companies.js",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --config=../Testes/config/jest.config.cjs --runInBand",
+    "test:all": "npm test",
+    "test:auth": "npm test -- ../Testes/1-auth",
+    "test:features": "npm test -- ../Testes/2-features",
+    "test:security": "npm test -- ../Testes/3-security",
+    "test:persistence": "npm test -- ../Testes/3-security/persistence.test.js",
+    "test:no-clean": "cross-env PERSISTENCE_TEST_RUN=true npm test",
+    "db:populate": "node -r dotenv/config ../db/seed.js",
+    "db:clean": "node -r dotenv/config ../db/clean.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^8.19.3",
+    "morgan": "^1.10.1",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.2",
+    "@faker-js/faker": "^10.1.0",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "http-server": "^14.1.1",
+    "jest": "^30.2.0",
+    "mongodb-memory-server": "^10.3.0",
+    "nodemon": "^3.1.10",
+    "wait-on": "^7.2.0"
+  }
+}
