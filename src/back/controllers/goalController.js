@@ -20,19 +20,19 @@ export const getGoals = async (req, res) => {
 };
 
 /**
- * @desc    Obter uma meta de sustentabilidade específica por ID.
+ * @desc    Obter uma meta de sustentabilidade especÃ­fica por ID.
  * @route   GET /api/goals/:id
  * @access  Private
  */
 export const getGoalById = async (req, res) => {
     try {
-        if (!mongoose.Types.ObjectId.isValid(req.params.id)) return errorResponse(res, { status: 404, message: "Meta não encontrada" });
+        if (!mongoose.Types.ObjectId.isValid(req.params.id)) return errorResponse(res, { status: 404, message: "Meta nÃ£o encontrada" });
 
         const companyId = req.user.companyId;
         const goal = await Goal.findOne({ _id: req.params.id, companyId });
 
         if (!goal) {
-            return errorResponse(res, { status: 404, message: "Meta não encontrada" });
+            return errorResponse(res, { status: 404, message: "Meta nÃ£o encontrada" });
         }
         return successResponse(res, { data: goal });
     } catch (error) {
@@ -41,7 +41,7 @@ export const getGoalById = async (req, res) => {
 };
 
 /**
- * @desc    Criar uma nova meta de redução de consumo/emissão.
+ * @desc    Criar uma nova meta de reduÃ§Ã£o de consumo/emissÃ£o.
  * @route   POST /api/goals
  * @access  Private
  */
@@ -92,7 +92,7 @@ export const updateGoal = async (req, res) => {
             { new: true }
         );
 
-        if (!updatedGoal) return errorResponse(res, { status: 404, message: "Meta não encontrada" });
+        if (!updatedGoal) return errorResponse(res, { status: 404, message: "Meta nÃ£o encontrada" });
 
         await createLog({
             userId: req.user.userId,
@@ -120,7 +120,7 @@ export const deleteGoal = async (req, res) => {
 
         const deletedGoal = await Goal.findOneAndDelete({ _id: id, companyId });
 
-        if (!deletedGoal) return errorResponse(res, { status: 404, message: "Meta não encontrada" });
+        if (!deletedGoal) return errorResponse(res, { status: 404, message: "Meta nÃ£o encontrada" });
 
         await createLog({
             userId: req.user.userId,
@@ -135,4 +135,3 @@ export const deleteGoal = async (req, res) => {
         return errorResponse(res, { status: 500, message: "Erro ao remover meta", errors: error });
     }
 };
-

@@ -1,8 +1,8 @@
 
 // =================================================================================
 // ARQUIVO: models/Consumption.js
-// DESCRI��O: Define o Schema para a cole��o Consumptions no MongoDB.
-//            Representa o consumo de recursos (�gua, energia, etc.) para c�lculo de pegada de carbono.
+// DESCRIÇÃO: Define o Schema para a coleção Consumptions no MongoDB.
+//            Representa o consumo de recursos (água, energia, etc.) para cálculo de pegada de carbono.
 // =================================================================================
 
 import mongoose from "mongoose";
@@ -19,7 +19,7 @@ const ConsumptionSchema = new Schema({
     required: true 
   },
 
-  // Quantidade consumida na unidade f�sica
+  // Quantidade consumida na unidade física
   quantity: { type: Number, required: true, min: 0 },
   
   // Unidade de medida (ex: kWh, m3, liters, kg)
@@ -29,7 +29,7 @@ const ConsumptionSchema = new Schema({
     enum: ["kWh", "m3", "liters", "L", "kg", "gallons"]
   },
 
-  // Valor monet�rio associado (custo da fatura/conta)
+  // Valor monetário associado (custo da fatura/conta)
   cost: { type: Number, min: 0 },
 
   // Data do consumo/fatura
@@ -38,11 +38,12 @@ const ConsumptionSchema = new Schema({
   // Pegada de carbono calculada (em kg CO2e)
   carbonFootprint: { type: Number, default: 0 },
 
-  // Fator de emiss�o utilizado no c�lculo
+  // Fator de emissão utilizado no cálculo
   emissionFactorUsed: { type: Number },
   
-  // Descri��o
+  // Descrição
   description: { type: String, trim: true },
+  notes: { type: String, trim: true }, // Adicionado para compatibilidade com o controller
   
   // Arquivo de comprovante/fatura
   attachment: { type: String },
@@ -62,4 +63,3 @@ const ConsumptionSchema = new Schema({
 ConsumptionSchema.index({ companyId: 1, date: -1 });
 
 export default mongoose.models.Consumption || model("Consumption", ConsumptionSchema);
-

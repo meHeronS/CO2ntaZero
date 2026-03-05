@@ -16,7 +16,7 @@ export const getAllLogs = async (req, res) => {
     }
 
     const filter = {};
-    // Se n„o for ROOT, restringe ‡ empresa do usu·rio
+    // Se n√£o for ROOT, restringe √† empresa do usu√°rio
     if (userRole !== "ROOT") {
         filter.companyId = req.user.companyId;
     } else {
@@ -41,7 +41,7 @@ export const getAllLogs = async (req, res) => {
 };
 
 /**
- * @desc    Listar logs de um usu·rio especÌfico.
+ * @desc    Listar logs de um usu√°rio espec√≠fico.
  * @route   GET /api/logs/user/:userId
  * @access  Private
  */
@@ -53,16 +53,16 @@ export const getLogsByUser = async (req, res) => {
 
     // Regra de acesso:
     // 1. ROOT pode ver de qualquer um.
-    // 2. ADMIN_COMPANY pode ver de usu·rios da SUA empresa (Assumindo que o frontend/backend validam se o targetUser pertence ‡ mesma empresa, 
-    //    mas aqui filtramos logs pelo userId. Se o userId for de outra empresa, o ADMIN n„o deveria saber, mas se souber o ID, teoricamente conseguiria ver.
-    //    Para seguranÁa total, deverÌamos buscar o usu·rio alvo e checar a empresa. 
-    //    Como simplificaÁ„o aqui: permitimos se for o prÛprio usu·rio ou ROOT.
-    //    Para ADMIN: Melhor pr·tica seria checar o companyId nos logs tambÈm.)
+    // 2. ADMIN_COMPANY pode ver de usu√°rios da SUA empresa (Assumindo que o frontend/backend validam se o targetUser pertence √† mesma empresa, 
+    //    mas aqui filtramos logs pelo userId. Se o userId for de outra empresa, o ADMIN n√£o deveria saber, mas se souber o ID, teoricamente conseguiria ver.
+    //    Para seguran√ßa total, dever√≠amos buscar o usu√°rio alvo e checar a empresa. 
+    //    Como simplifica√ß√£o aqui: permitimos se for o pr√≥prio usu√°rio ou ROOT.
+    //    Para ADMIN: Melhor pr√°tica seria checar o companyId nos logs tamb√©m.)
     
-    // SimplificaÁ„o segura:
-    // Se n„o for ROOT e n„o for o prÛprio dono dos logs...
+    // Simplifica√ß√£o segura:
+    // Se n√£o for ROOT e n√£o for o pr√≥prio dono dos logs...
     if (userRole !== "ROOT" && req.user.userId.toString() !== targetUserId) {
-        // ... verificamos se È ADMIN_COMPANY
+        // ... verificamos se √© ADMIN_COMPANY
         if (userRole === "ADMIN_COMPANY") {
             // ADMIN pode ver logs, mas idealmente precisamos garantir que os logs retornados sejam da empresa dele.
             // O filtro abaixo garante isso.
@@ -73,13 +73,12 @@ export const getLogsByUser = async (req, res) => {
 
     const filter = { userId: targetUserId };
     if (userRole !== "ROOT") {
-        filter.companyId = userCompanyId; // Garante que sÛ retorna logs da empresa do solicitante
+        filter.companyId = userCompanyId; // Garante que s√≥ retorna logs da empresa do solicitante
     }
 
     const items = await Logs.find(filter).sort({ createdAt: -1 }).limit(500);
     return successResponse(res, { data: items });
   } catch (error) {
-    return errorResponse(res, { status: 500, message: "Erro ao listar logs por usu·rio.", errors: error });
+    return errorResponse(res, { status: 500, message: "Erro ao listar logs por usu√°rio.", errors: error });
   }
 };
-

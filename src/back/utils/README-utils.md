@@ -23,7 +23,3 @@ Esta pasta contém funções e módulos auxiliares (utilitários) que são reuti
 ### `responseHelper.js`
 
 **Função:** Fornece funções (`successResponse` e `errorResponse`) para padronizar a estrutura de todas as respostas JSON enviadas pela API. Isso garante que o frontend sempre saiba qual formato de dados esperar, seja em caso de sucesso ou de erro.
-
-### `encrypt.js` e `jwt.js` (se existirem)
-
-**Função:** Em versões anteriores ou futuras, esta pasta também pode conter helpers para criptografia de senhas (`bcrypt`) e para a criação/validação de JSON Web Tokens (JWT), centralizando ainda mais a lógica de segurança.

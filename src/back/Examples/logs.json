@@ -2,8 +2,8 @@
   {
     "companyId": "ObjectId('66f9a7f7d15e4d1b4b8e1123')",
     "userId": "ObjectId('66f9a7f7d15e4d1b4b8e2123')",
-    "action": "CREATE_TRANSACTION",
-    "endpoint": "/api/transactions",
+    "action": "CREATE_CONSUMPTION",
+    "endpoint": "/api/consumptions",
     "ip": "127.0.0.1",
     "statusCode": 201,
     "createdAt": "2025-10-15T12:10:00Z"

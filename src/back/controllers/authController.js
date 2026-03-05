@@ -5,13 +5,6 @@
  *            login, logout e recuperação de senha.
  * =================================================================================
  */
-/**
- * =================================================================================
- * ARQUIVO: controllers/authController.js
- * DESCRIÇÃO: Controladores para as funcionalidades de autenticação, como registro,
- *            login, logout e recuperação de senha.
- * =================================================================================
- */
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
@@ -170,12 +163,6 @@ export const loginUser = async (req, res) => {
 };
 
 /**
- * @desc    Realiza o logout do usuário, invalidando o refresh token no servidor.
- * @route   POST /api/auth/logout
- * @access  Public (mas requer um `refreshToken` válido no corpo)
- * @note    Esta função implementa um logout *stateful*.
- */
-/**
  * @desc    Realizar o logout do usuário, invalidando o refresh token.
  * @route   POST /api/auth/logout
  * @access  Private
@@ -307,7 +294,7 @@ export const deleteCurrentUser = async (req, res) => {
     // Etapa 3: Exclui todas as metas da empresa.
     await Goal.deleteMany({ companyId: companyId }, { session });
     // Etapa 4: Exclui todas as transações da empresa.
-    await Transaction.deleteMany({ companyId: companyId }, { session });
+    await Consumption.deleteMany({ companyId: companyId }, { session });
     // Etapa 5: Exclui todos os clientes da empresa (Se aplicável no futuro)
     // await Client.deleteMany({ companyId: companyId }, { session });
     // Etapa 6: Exclui o próprio usuário.

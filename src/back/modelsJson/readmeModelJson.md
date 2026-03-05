@@ -1,4 +1,4 @@
-# 📦 Modelos JSON para Requisições da API
+# Modelos JSON para Requisições da API
 
 Esta pasta contém exemplos de **corpos de requisição (payloads)** em formato JSON para os principais endpoints de escrita (`POST` e `PUT`) da API do CO2ntaZero.
 
@@ -25,17 +25,15 @@ Cada arquivo `.json` nesta pasta representa o corpo (body) de uma requisição p
 
 - **`authLogin.json`**: Usado na rota `POST /api/auth/login`.
 - **`authRegister.json`**: Usado na rota `POST /api/auth/register`.
-- **`goal.json`**: Usado nas rotas `POST /api/goals` e `PUT /api/goals/:id`.
 
 ### Exemplo de uso com `curl`
 
-Para criar uma nova meta, você pode usar o conteúdo de `goal.json`:
+Para realizar o login, você pode usar o conteúdo de `authLogin.json`:
 
 ```bash
-curl -X POST http://localhost:5000/api/goals \
+curl -X POST http://localhost:5000/api/auth/login \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer SEU_TOKEN_AQUI" \
-  -d @goal.json
+  -d @authLogin.json
 ```
 
 > **Nota**: Lembre-se que os valores nos arquivos são apenas exemplos. Você deve substituí-los pelos dados reais da sua requisição. Para mais detalhes sobre cada endpoint, consulte o `README-backend.md`.

@@ -17,7 +17,7 @@ const router = express.Router();
 // Listar alertas
 router.get("/", authMiddleware, getAllAlerts);
 
-// Obter alerta específico
+// Obter alerta especÃ­fico
 router.get("/:id", authMiddleware, companyScopeMiddleware, getAlertById);
 
 // Criar alerta
@@ -30,4 +30,3 @@ router.patch("/:id/read", authMiddleware, companyScopeMiddleware, auditMiddlewar
 router.delete("/:id", authMiddleware, companyScopeMiddleware, auditMiddleware("DELETE_ALERT"), deleteAlert);
 
 export default router;
-

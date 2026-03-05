@@ -12,7 +12,7 @@
 // Usando template literals para uma formatação mais limpa e legível no console.
 const summary = `
 =================================================
-    ✅ SISTEMA DISPONÍVEL PARA ACESSO:
+    [OK] SISTEMA DISPONIVEL PARA ACESSO:
 =================================================
    - Backend (API):          http://localhost:5000
    - Verificação de Saúde:   http://localhost:5000/api/health

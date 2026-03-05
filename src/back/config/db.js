@@ -30,12 +30,10 @@ export const connectDB = async (dbUri) => {
     }
 
     // Tenta estabelecer a conexão com o MongoDB usando a URI e as opções de configuração.
-    // As opções `useNewUrlParser` e `useUnifiedTopology` são recomendadas pelo Mongoose
-    // para garantir a compatibilidade com as versões mais recentes do driver do MongoDB.
-    await mongoose.connect(dbUri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    // Nota: No Mongoose 6+ (e 8+ que estamos usando), as opções useNewUrlParser e 
+    // useUnifiedTopology são padrão, então não precisamos mais passá-las explicitamente.
+    // A conexão é gerenciada automaticamente pelo driver do MongoDB.
+    await mongoose.connect(dbUri);
 
     console.log("Conexão com o MongoDB estabelecida com sucesso.");
   } catch (error) {

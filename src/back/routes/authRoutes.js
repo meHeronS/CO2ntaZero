@@ -8,6 +8,7 @@ import express from "express";
 import { registerUser, loginUser, logoutUser, refreshToken, deleteCurrentUser, forgotPassword, resetPassword } from '../controllers/authController.js';
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { auditMiddleware } from "../middlewares/auditMiddleware.js";
+import { roleMiddleware } from "../middlewares/roleMiddleware.js";
 
 const router = express.Router();
 
@@ -39,6 +40,6 @@ router.post('/reset-password/:token', resetPassword);
 // Rota protegida para excluir um usuário específico por ID.
 // Esta rota é destrutiva e foi implementada para facilitar a limpeza durante os testes.
 // DELETE /api/auth/users/:id
-router.delete('/users/:id', authMiddleware, auditMiddleware('DELETE_USER_BY_ID'), deleteCurrentUser);
+router.delete('/users/:id', authMiddleware, roleMiddleware(["ROOT"]), auditMiddleware('DELETE_USER_BY_ID'), deleteCurrentUser);
 
 export default router;

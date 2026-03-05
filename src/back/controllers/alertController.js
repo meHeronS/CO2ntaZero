@@ -37,7 +37,7 @@ export const getAlertById = async (req, res) => {
     const companyId = req.user.companyId;
 
     const alert = await Alert.findOne({ _id: id, companyId });
-    if (!alert) return errorResponse(res, { status: 404, message: "Alerta n„o encontrado." });
+    if (!alert) return errorResponse(res, { status: 404, message: "Alerta n√£o encontrado." });
 
     return successResponse(res, { data: alert });
   } catch (error) {
@@ -95,7 +95,7 @@ export const markAsRead = async (req, res) => {
       { new: true }
     );
 
-    if (!updated) return errorResponse(res, { status: 404, message: "Alerta n„o encontrado." });
+    if (!updated) return errorResponse(res, { status: 404, message: "Alerta n√£o encontrado." });
 
     return successResponse(res, { data: updated });
   } catch (error) {
@@ -114,11 +114,10 @@ export const deleteAlert = async (req, res) => {
       const companyId = req.user.companyId;
 
       const deleted = await Alert.findOneAndDelete({ _id: id, companyId });
-      if (!deleted) return errorResponse(res, { status: 404, message: "Alerta n„o encontrado" });
+      if (!deleted) return errorResponse(res, { status: 404, message: "Alerta n√£o encontrado" });
 
       return successResponse(res, { message: "Alerta removido." });
   } catch (error) {
       return errorResponse(res, { status: 500, message: "Erro ao remover alerta", errors: error });
   }
 };
-

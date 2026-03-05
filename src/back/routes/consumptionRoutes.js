@@ -16,7 +16,7 @@ const router = express.Router();
 // Listar todos os consumos (com filtros opcionais via query)
 router.get("/", authMiddleware, getAllConsumptions);
 
-// Obter um consumo específico
+// Obter um consumo especÃ­fico
 router.get("/:id", authMiddleware, companyScopeMiddleware, getConsumptionById);
 
 // Criar um novo registro de consumo (gera log de auditoria e pode disparar alertas)
@@ -29,4 +29,3 @@ router.put("/:id", authMiddleware, companyScopeMiddleware, auditMiddleware("UPDA
 router.delete("/:id", authMiddleware, companyScopeMiddleware, auditMiddleware("DELETE_CONSUMPTION"), deleteConsumption);
 
 export default router;
-

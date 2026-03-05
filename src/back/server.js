@@ -36,7 +36,7 @@ import { connectDB } from "./config/db.js";
 // Importa o script de inicialização que garante que as permissões (roles)
 // essenciais do sistema (como ROOT, ADMIN_COMPANY) existam no banco de dados.
 import { errorHandler } from "./middlewares/errorMiddleware.js";
-import { initPermissions } from "../db/initPermissions.js";
+import { initPermissions } from "./scripts/initPermissions.js";
 
 // --- Importação de Todas as Rotas da API ---
 // Cada arquivo de rota agrupa os endpoints de um módulo específico da aplicação (ex: autenticação, consumo).
@@ -131,13 +131,13 @@ let server;
  */
 const getDbUri = () => {
   if (process.env.NODE_ENV === 'production') {
-    return process.env.MONGO_URI_PROD;
+    return process.env.MONGO_URI_PROD || process.env.MONGO_URI;
   }
   if (process.env.NODE_ENV === 'test') {
     // Alinhado com o globalSetup.cjs, que espera MONGO_URI para os testes.
     return process.env.MONGO_URI; 
   }
-  return process.env.MONGO_URI_DEV;
+  return process.env.MONGO_URI_DEV || process.env.MONGO_URI;
 };
 /**
  * Inicia o servidor programaticamente (útil para testes in-process).
@@ -150,7 +150,9 @@ export async function startServer({ dbUri = getDbUri(), port = PORT } = {}) {
   try {
     console.log('⏳ Iniciando servidor CO2ntaZero (startServer)...');
     
+    const dbHost = dbUri?.split('@')[1]?.split('/')[0] || 'Local/Desconhecido';
     await connectDB(dbUri); // Passa a URI de conexão correta para a função connectDB
+    console.log(`🗄️  Conectado ao MongoDB em: ${dbHost}`);
     console.log('✅ [1/1] Conexão com o banco de dados estabelecida!');
 
     // Lógica aprimorada para tentar portas alternativas se a padrão estiver em uso.

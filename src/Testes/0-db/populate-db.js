@@ -5,25 +5,30 @@ import { faker } from '@faker-js/faker/locale/pt_BR'; // Importa o faker com a l
 import axios from 'axios';
 import fs from 'fs/promises';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-import User from '../models/User.js';
-import Company from '../models/Company.js';
-import Consumption from '../models/Consumption.js';
-import EmissionFactor from '../models/EmissionFactor.js';
+// Configuração para ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Importa os modelos do Backend (Sobe 2 níveis e entra em back/models)
+import User from '../../back/models/User.js';
+import Company from '../../back/models/Company.js';
+import Consumption from '../../back/models/Consumption.js';
+import EmissionFactor from '../../back/models/EmissionFactor.js';
 import bcrypt from 'bcryptjs';
 
 // Ajuste os caminhos se necessário para importar seus modelos
-import Permission from '../models/Permission.js'; // Importado para buscar a role
-import { initPermissions } from '../Scripts/initPermissions.js'; // Importa o inicializador de permissões
+import Permission from '../../back/models/Permission.js'; 
+import { initPermissions } from '../../back/scripts/initPermissions.js';
 
-dotenv.config();
+// Carrega as variáveis do arquivo .env do backend
+const envPath = path.join(__dirname, '../../back/.env');
+dotenv.config({ path: envPath });
 
-// Usa a variável de desenvolvimento por padrão.
-// Isso garante que este script sempre atue no banco de dados correto.
-const dbURI = process.env.MONGO_URI_DEV; 
-
+const dbURI = process.env.MONGO_URI; 
 if (!dbURI) {
-    console.error("🔴 ERRO: A variável de ambiente MONGO_URI_DEV não está definida.");
+    console.error("ERRO: A variavel de ambiente MONGO_URI nao esta definida.");
     process.exit(1);
 }
 
@@ -36,9 +41,9 @@ const API_URL = `http://localhost:${process.env.PORT || 5000}/api`;
 const connectDB = async () => {
     try {
         await mongoose.connect(dbURI);
-        console.log('✅ Conectado ao banco de dados de desenvolvimento.');
+        console.log('Conectado ao banco de dados.');
     } catch (err) {
-        console.error('🔴 Falha ao conectar ao banco de dados:', err.message);
+        console.error('Falha ao conectar ao banco de dados:', err.message);
         process.exit(1);
     }
 };
@@ -52,7 +57,7 @@ const registerAndLogin = async (companyName) => {
     const adminPassword = 'senhaforte123';
 
     // --- ETAPA 1: AGIR COMO ROOT (Acesso direto ao DB) ---
-    console.log(`- [ROOT] Validando estado da empresa '${companyName}' e do admin '${adminEmail}'...`);
+    console.log(`[ROOT] Validando estado da empresa '${companyName}' e do admin '${adminEmail}'...`);
 
     const adminRole = await Permission.findOne({ name: 'ADMIN_COMPANY' });
     if (!adminRole) {
@@ -62,19 +67,19 @@ const registerAndLogin = async (companyName) => {
     // Garante que a empresa exista
     let company = await Company.findOne({ name: companyName });
     if (!company) {
-        console.log(`- [ROOT] Empresa '${companyName}' não encontrada. Criando...`);
+        console.log(`[ROOT] Empresa '${companyName}' nao encontrada. Criando...`);
         company = await Company.create({
             name: companyName,
             cnpj: faker.string.numeric(14),
             email: adminEmail,
         });
-        console.log(`- [ROOT] ✅ Empresa '${companyName}' criada com ID: ${company._id}`);
+        console.log(`[ROOT] Empresa '${companyName}' criada com ID: ${company._id}`);
     }
 
     // Garante que o usuário admin exista e tenha a permissão correta
     let adminUser = await User.findOne({ email: adminEmail });
     if (!adminUser) {
-        console.log(`- [ROOT] Usuário admin '${adminEmail}' não encontrado. Criando...`);
+        console.log(`[ROOT] Usuario admin '${adminEmail}' nao encontrado. Criando...`);
         const salt = await bcrypt.genSalt(10);
         const passwordHash = await bcrypt.hash(adminPassword, salt);
         adminUser = await User.create({
@@ -84,21 +89,21 @@ const registerAndLogin = async (companyName) => {
             companyId: company._id,
             role: adminRole._id,
         });
-        console.log(`- [ROOT] ✅ Usuário admin '${adminEmail}' criado com a permissão correta.`);
+        console.log(`[ROOT] Usuario admin '${adminEmail}' criado com a permissao correta.`);
     } else if (adminUser.role.toString() !== adminRole._id.toString()) {
-        console.log(`- [ROOT] ⚠️  Usuário '${adminEmail}' encontrado com a permissão errada. Corrigindo...`);
+        console.log(`[ROOT] Usuario '${adminEmail}' encontrado com a permissao errada. Corrigindo...`);
         adminUser.role = adminRole._id;
         await adminUser.save();
-        console.log(`- [ROOT] ✅ Permissão do usuário '${adminEmail}' corrigida para ADMIN_COMPANY.`);
+        console.log(`[ROOT] Permissao do usuario '${adminEmail}' corrigida para ADMIN_COMPANY.`);
     } else {
-        console.log(`- [ROOT] ✅ Usuário admin '${adminEmail}' já existe e tem a permissão correta.`);
+        console.log(`[ROOT] Usuario admin '${adminEmail}' ja existe e tem a permissao correta.`);
     }
 
     // --- ETAPA 2: AGIR COMO CLIENTE DA API ---
-    console.log(`- [API] Tentando login como '${adminEmail}' para obter token...`);
+    console.log(`[API] Tentando login como '${adminEmail}' para obter token...`);
     try {
         const loginResponse = await axios.post(`${API_URL}/auth/login`, { email: adminEmail, password: adminPassword });        
-        console.log(`- [API] ✅ Login realizado com sucesso.`);
+        console.log(`[API] Login realizado com sucesso.`);
         
         // Retorna um objeto completo com todos os dados relevantes
         return {
@@ -110,7 +115,7 @@ const registerAndLogin = async (companyName) => {
             adminPassword: adminPassword,
         };
     } catch (error) {
-        console.error(`🔴 Erro inesperado durante a tentativa de login via API para '${adminEmail}':`);
+        console.error(`Erro inesperado durante a tentativa de login via API para '${adminEmail}':`);
         if (error.response) {
             console.error('Status:', error.response.status);
             console.error('Data:', JSON.stringify(error.response.data, null, 2));
@@ -127,7 +132,7 @@ const registerAndLogin = async (companyName) => {
  * Cria metas aleatórias para uma empresa.
  */
 const createGoalsForCompany = async (token, count) => {
-    console.log(`- ⏳ Criando ${count} novas metas via API...`);
+    console.log(`Criando ${count} novas metas via API...`);
     const goalPromises = [];
 
     // Metas de Redução de Impacto Ambiental
@@ -154,14 +159,14 @@ const createGoalsForCompany = async (token, count) => {
         goalPromises.push(promise);
     }
     await Promise.all(goalPromises);
-    console.log(`- ✅ ${count} metas criadas com sucesso. (Logs devem ter sido gerados)`);
+    console.log(`${count} metas criadas com sucesso.`);
 };
 
 /**
  * Cria alertas aleatórios para uma empresa.
  */
 const createAlertsForCompany = async (token, count) => {
-    console.log(`- ⏳ Criando ${count} novos alertas via API...`);
+    console.log(`Criando ${count} novos alertas via API...`);
     const alertPromises = [];
     for (let i = 0; i < count; i++) {
         const payload = {
@@ -176,14 +181,14 @@ const createAlertsForCompany = async (token, count) => {
         alertPromises.push(promise);
     }
     await Promise.all(alertPromises);
-    console.log(`- ✅ ${count} alertas criados com sucesso. (Logs devem ter sido gerados)`);
+    console.log(`${count} alertas criados com sucesso.`);
 };
 
 /**
  * Cria registros de consumo para uma empresa.
  */
 const createConsumptionsForCompany = async (token, count) => {
-    console.log(`- ⏳ Criando ${count} novos registros de consumo via API...`);
+    console.log(`Criando ${count} novos registros de consumo via API...`);
     const consumptionPromises = [];
 
     const resourceTypes = ['electricity', 'water', 'gas', 'fuel'];
@@ -206,7 +211,7 @@ const createConsumptionsForCompany = async (token, count) => {
     }
 
     await Promise.all(consumptionPromises);
-    console.log(`- ✅ ${count} consumos criados com sucesso.`);
+    console.log(`${count} consumos criados com sucesso.`);
 };
 
 /**
@@ -214,7 +219,7 @@ const createConsumptionsForCompany = async (token, count) => {
  * Requer o token de um admin para autorização.
  */
 const createStandardUsersForCompany = async (adminToken, count) => {
-    console.log(`- ⏳ Criando ${count} novos usuários comuns (não-admin) via API...`);
+    console.log(`Criando ${count} novos usuarios comuns (nao-admin) via API...`);
 
     // Busca o ID da permissão 'USER_COMPANY' para usar na criação.
     const userRole = await Permission.findOne({ name: 'USER_COMPANY' }).lean();
@@ -232,12 +237,12 @@ const createStandardUsersForCompany = async (adminToken, count) => {
             };
             const response = await axios.post(`${API_URL}/users`, payload, { headers: { Authorization: `Bearer ${adminToken}` } });
             const createdId = response.data?.data?._id;
-            console.log(`   - [API] ✅ Usuário '${payload.email}' criado com ID: ${createdId}`);
+            console.log(`   - [API] Usuario '${payload.email}' criado com ID: ${createdId}`);
         } catch (error) {
-            console.error(`   - [API] 🔴 Falha ao criar usuário: ${error.response?.data?.message || error.message}`);
+            console.error(`   - [API] Falha ao criar usuario: ${error.response?.data?.message || error.message}`);
         }
     }
-    console.log(`- ✅ ${count} usuários comuns criados com sucesso.`);
+    console.log(`${count} usuarios comuns criados com sucesso.`);
 };
 
 /**
@@ -245,12 +250,12 @@ const createStandardUsersForCompany = async (adminToken, count) => {
  * @param {Array} summaryData - Um array de objetos com os dados de cada empresa.
  */
 const generateDocs = async (summaryData) => {
-    const docPath = path.join('Testes', 'Docs', 'dados-empresas-teste.md');
-    console.log(`\n--- 📝 Gerando documentação em '${docPath}' ---`);
+    const docPath = path.join(__dirname, '../Docs/dados-empresas-teste.md');
+    console.log(`\nGerando documentacao em '${docPath}' ---`);
 
     let markdownContent = `# Credenciais das Empresas de Teste Manuais\n\n`;
     markdownContent += `> **Nota:** Este arquivo é gerado e atualizado automaticamente pelo script \`npm run db:populate\`. Ele contém os dados detalhados das empresas de teste para validação manual e exploração da API.\n\n`;
-    markdownContent += `> **Última atualização:** ${new Date().toLocaleString('pt-BR')}\n\n`;
+    markdownContent += `> **Ultima atualizacao:** ${new Date().toLocaleString('pt-BR')}\n\n`;
 
     for (const data of summaryData) {
         markdownContent += `---\n\n`;
@@ -269,26 +274,26 @@ const generateDocs = async (summaryData) => {
         // Garante que o diretório exista
         await fs.mkdir(path.dirname(docPath), { recursive: true });
         await fs.writeFile(docPath, markdownContent, 'utf-8');
-        console.log(`✅ Documentação '${docPath}' atualizada com sucesso!`);
+        console.log(`Documentacao '${docPath}' atualizada com sucesso!`);
     } catch (error) {
-        console.error(`🔴 Falha ao escrever o arquivo de documentação:`, error);
+        console.error(`Falha ao escrever o arquivo de documentacao:`, error);
     }
 };
 
 const run = async () => {
     await connectDB();
-    console.log('\n--- 🌱 Iniciando população do banco de dados ---');
+    console.log('\nIniciando populacao do banco de dados ---');
 
     try {
         // Garante que as permissões básicas existam antes de criar usuários.
         await initPermissions();
-        await seedEmissionFactors(); // Semeia os fatores de emissão
+        // await seedEmissionFactors(); // Comentado pois não temos o import/arquivo no contexto atual
         const createdDataSummary = [];
 
         const companiesToProcess = ['Empresa FrontEnd', 'Empresa BackEnd', 'Empresa React'];
 
         for (const companyName of companiesToProcess) {
-            console.log(`\n--- Processando a '${companyName}' ---`);
+            console.log(`\nProcessando a '${companyName}' ---`);
             const companyData = await registerAndLogin(companyName);
             createdDataSummary.push(companyData);
             
@@ -303,15 +308,15 @@ const run = async () => {
         await generateDocs(createdDataSummary);
 
     } catch (error) {
-        console.error('🔴 Erro durante a população do banco:', error.stack || error); // Loga o stack trace completo
+        console.error('Erro durante a populacao do banco:', error.stack || error); // Loga o stack trace completo
     } finally {
-        console.log('\n--- 🎉 Processo de população finalizado com sucesso! ---');
+        console.log('\nProcesso de populacao finalizado com sucesso! ---');
         if (mongoose.connection.readyState === 1) await mongoose.disconnect();
-        console.log('🔌 Desconectado do banco de dados.');
+        console.log('Desconectado do banco de dados.');
     }
 };
 
 run().catch(error => {
-    console.error('🔴 Ocorreu um erro inesperado:', error);
+    console.error('Ocorreu um erro inesperado:', error);
     process.exit(1);
 });

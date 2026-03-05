@@ -4,7 +4,7 @@ import Company from "../models/Company.js";
 import { successResponse, errorResponse } from "../utils/responseHelper.js";
 
 /**
- * @desc    Gera relatório de emissões e consumo.
+ * @desc    Gera relatÃ³rio de emissÃµes e consumo.
  * @route   GET /api/reports/emissions
  * @access  Private
  */
@@ -20,7 +20,7 @@ export const getEmissionsReport = async (req, res) => {
             if (end) filter.date.$lte = new Date(end);
         }
 
-        // Agregação por tipo de recurso
+        // AgregaÃ§Ã£o por tipo de recurso
         const report = await Consumption.aggregate([
             { $match: filter },
             {
@@ -45,7 +45,6 @@ export const getEmissionsReport = async (req, res) => {
             }
         });
     } catch (error) {
-        return errorResponse(res, { status: 500, message: "Erro ao gerar relatório de emissões", errors: error });
+        return errorResponse(res, { status: 500, message: "Erro ao gerar relatÃ³rio de emissÃµes", errors: error });
     }
 };
-

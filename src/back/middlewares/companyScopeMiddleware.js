@@ -9,9 +9,10 @@ import mongoose from 'mongoose';
 // Mapeia prefixos de rota para os nomes dos modelos Mongoose correspondentes.
 const getModelFromUrl = (url) => {
   const modelMap = {
-    '/api/transactions': 'Transaction',
-    '/api/clients': 'Client',
+    '/api/consumptions': 'Consumption',
     '/api/goals': 'Goal',
+    '/api/alerts': 'Alert',
+    '/api/wastes': 'Waste',
   };
   const modelName = Object.keys(modelMap).find(key => url.startsWith(key));
   return modelName ? mongoose.model(modelMap[modelName]) : null;
@@ -22,7 +23,7 @@ const getModelFromUrl = (url) => {
  * Pré-requisito: Deve ser executado DEPOIS do `authMiddleware`.
  *
  * Funcionalidades:
- * 1. Atua apenas em rotas que contêm um ID de recurso (ex: `/api/transactions/:id`).
+ * 1. Atua apenas em rotas que contêm um ID de recurso (ex: `/api/consumptions/:id`).
  * 2. Busca o documento no banco e valida se o `companyId` do documento corresponde ao `companyId` do usuário.
  * 3. Se não corresponder, retorna um erro 404 para não vazar a informação de que o recurso existe.
  */

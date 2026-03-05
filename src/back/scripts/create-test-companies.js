@@ -49,7 +49,7 @@ const companiesToCreate = [
 ];
 
 const createTestCompanies = async () => {
-  console.log('\n--- 🚀 Iniciando criação de empresas de teste fixas ---');
+  console.log('\n--- Iniciando criacao de empresas de teste fixas ---');
   try {
     await mongoose.connect(process.env.MONGO_URI);
 
@@ -65,7 +65,7 @@ const createTestCompanies = async () => {
       const existingCompany = await Company.findOne({ cnpj: companyData.cnpj });
 
       if (existingCompany) {
-        console.log(`⚠️  Aviso: Empresa com CNPJ "${companyData.cnpj}" já existe. Pulando criação.`);
+        console.log(`[AVISO] Empresa com CNPJ "${companyData.cnpj}" ja existe. Pulando criacao.`);
         const user = await User.findOne({ email: companyData.email });
         createdData.push({ ...companyData, userId: user?._id });
         continue;
@@ -86,11 +86,11 @@ const createTestCompanies = async () => {
       });
 
       createdData.push({ ...companyData, userId: newUser._id });
-      console.log(`✅ Empresa "${companyData.companyName}" e usuário associado criados com sucesso.`);
+      console.log(`[OK] Empresa "${companyData.companyName}" e usuario associado criados com sucesso.`);
     }
 
   } catch (error) {
-    console.error('\n❌ Erro ao criar empresas de teste:', error.message);
+    console.error('\n[ERRO] Erro ao criar empresas de teste:', error.message);
   } finally {
     await mongoose.disconnect();
   }

@@ -16,7 +16,7 @@ const router = express.Router();
 // Rota para listar todas as metas de sustentabilidade da empresa.
 router.get("/", authMiddleware, getGoals);
 
-// Rota para obter uma meta específica.
+// Rota para obter uma meta especÃ­fica.
 router.get("/:id", authMiddleware, companyScopeMiddleware, getGoalById);
 
 // Rota para criar uma nova meta.
@@ -29,4 +29,3 @@ router.put("/:id", authMiddleware, companyScopeMiddleware, auditMiddleware("UPDA
 router.delete("/:id", authMiddleware, companyScopeMiddleware, auditMiddleware("DELETE_GOAL"), deleteGoal);
 
 export default router;
-

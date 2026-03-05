@@ -69,7 +69,7 @@ Diferente da abordagem tradicional de competir em mercados saturados ("Oceanos V
 | PESSOA (Role) | PAPEL | RESPONSABILIDADE PRINCIPAL |
 | :--- | :--- | :--- |
 | **Gestor ESG** | Administrador do Sistema | Configurar metas de redução, analisar relatórios de impacto e tomar decisões estratégicas baseadas nos dados. |
-| **Analista Financeiro** | Operador de Lançamentos | Inserir dados de faturas de energia, água e combustível no sistema para cálculo da pegada. |
+| **Analista Administrativo** | Operador de Lançamentos | Inserir dados de faturas de energia, água e combustível no sistema para cálculo da pegada. |
 | **Coletor de Resíduos** | Operador Operacional | Registrar a pesagem e tipagem de resíduos gerados antes do descarte ou reciclagem. |
 | **Auditor Externo** | Visualizador | Acessar relatórios de conformidade e históricos de logs (auditoria) para validação de dados. |
 

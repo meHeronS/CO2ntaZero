@@ -11,7 +11,7 @@ import { createLog } from "../utils/logger.js";
 
 /**
  * Cria um middleware de auditoria que registra uma ação específica após a finalização da requisição.
- * @param {string} actionName - Um nome curto e descritivo para a ação sendo auditada (ex: 'CREATE_TRANSACTION'). Se omitido, um nome será gerado dinamicamente.
+ * @param {string} actionName - Um nome curto e descritivo para a ação sendo auditada (ex: 'CREATE_CONSUMPTION'). Se omitido, um nome será gerado dinamicamente.
  * @returns {function} Um middleware Express.
  */
 export function auditMiddleware(actionName = "") {

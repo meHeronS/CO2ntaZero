@@ -45,40 +45,40 @@ Antes de iniciar, certifique-se de que:
 
 - [ ] **Cenário de Preparação (Empresa A):**
     1.  Faça login com a **Empresa Frontend**.
-    2.  Crie uma transação única, como `Receita Teste Isolamento`.
+    2.  Crie um registro único, como `Emissão Teste Isolamento`.
     3.  Faça logout.
 
 - [ ] **Cenário de Validação (Empresa B):**
     1.  Faça login com a **Empresa Backend**.
     2.  Navegue até a lista de transações.
-    3.  **Resultado Esperado:** A transação `Receita Teste Isolamento` **NÃO** deve estar visível.
+    3.  **Resultado Esperado:** O registro `Emissão Teste Isolamento` **NÃO** deve estar visível.
 
 ---
 
-## 3. Módulo de Transações (CRUD)
+## 3. Módulo de Consumo e Emissões (CRUD)
 
-- [ ] **Criar Transação:**
-    - **Ação:** Crie uma receita de `R$ 1.500,00` e uma despesa de `R$ 500,00`.
-    - **Resultado Esperado:** As transações devem aparecer na lista. O dashboard deve atualizar os saldos corretamente.
+- [ ] **Registrar Consumo:**
+    - **Ação:** Crie um registro de consumo de `500 kWh` (Energia) e outro de `100 Litros` (Combustível).
+    - **Resultado Esperado:** Os registros devem aparecer na lista. O dashboard deve atualizar a pegada de carbono total (kgCO2e) corretamente.
 
 - [ ] **Validação de Formulário:**
-    - **Ação:** Tente criar uma transação sem preencher o valor ou a descrição.
-    - **Resultado Esperado:** Mensagens de erro devem aparecer nos campos obrigatórios, e a transação não deve ser criada.
+    - **Ação:** Tente criar um registro sem preencher a quantidade ou a fonte de emissão.
+    - **Resultado Esperado:** Mensagens de erro devem aparecer nos campos obrigatórios, e o registro não deve ser criado.
 
-- [ ] **Editar Transação:**
-    - **Ação:** Edite a despesa de `R$ 500,00` para `R$ 600,00`.
-    - **Resultado Esperado:** O valor deve ser atualizado na lista e o saldo do dashboard deve ser recalculado.
+- [ ] **Editar Consumo:**
+    - **Ação:** Edite o consumo de `500 kWh` para `600 kWh`.
+    - **Resultado Esperado:** O valor deve ser atualizado na lista e o total de carbono no dashboard deve ser recalculado.
 
-- [ ] **Excluir Transação:**
-    - **Ação:** Exclua a receita de `R$ 1.500,00`.
-    - **Resultado Esperado:** A transação deve sumir da lista e o saldo do dashboard deve ser recalculado.
+- [ ] **Excluir Consumo:**
+    - **Ação:** Exclua o registro de `100 Litros`.
+    - **Resultado Esperado:** O registro deve sumir da lista e o cálculo total deve ser atualizado.
 
 ---
 
 ## 4. Módulo de Anexos (Upload)
 
 - [ ] **Fazer Upload de Anexo:**
-    - **Ação:** Em uma transação existente, use a função de upload para anexar um arquivo PDF e, em outra, um arquivo de imagem (PNG/JPG).
+    - **Ação:** Em um registro de consumo existente, use a função de upload para anexar um arquivo PDF (ex: fatura de luz) e, em outra, um arquivo de imagem.
     - **Resultado Esperado:** A interface deve indicar que o anexo foi enviado com sucesso (ex: exibindo um ícone de clipe ou o nome do arquivo).
 
 - [ ] **Validação de Tipo de Arquivo (Opcional/Avançado):**
@@ -94,11 +94,11 @@ Antes de iniciar, certifique-se de que:
 ## 5. Módulo de Metas (CRUD)
 
 - [ ] **Criar Meta:**
-    - **Ação:** Crie uma nova meta financeira (ex: "Economizar para equipamento").
+    - **Ação:** Crie uma nova meta de redução (ex: "Reduzir consumo de energia em 10%").
     - **Resultado Esperado:** A meta deve aparecer na lista.
 
 - [ ] **Editar Meta:**
-    - **Ação:** Edite o título ou o valor da meta criada.
+    - **Ação:** Edite o título ou o valor alvo da meta criada.
     - **Resultado Esperado:** As informações devem ser atualizadas na lista.
 
 - [ ] **Excluir Meta:**
@@ -111,30 +111,30 @@ Antes de iniciar, certifique-se de que:
 
 - [ ] **Cenário de Preparação:**
     1. Faça login.
-    2. Navegue até "Metas" e crie uma meta de **despesa** para a categoria "Alimentação" com valor de `R$ 100,00`.
+    2. Navegue até "Metas" e crie uma meta de **limite de emissão** para a categoria "Energia Elétrica" com valor de `1000 kgCO2e`.
     3. Verifique se não há nenhum alerta visível (o ícone de sino não deve ter um número).
 
 - [ ] **Disparar o Alerta:**
-    1. Navegue até "Transações" e crie uma despesa na categoria "Alimentação" de `R$ 80,00`.
+    1. Navegue até "Consumo" e crie um registro na categoria "Energia Elétrica" que gere `800 kgCO2e`.
     2. Volte para a página inicial ou atualize a página. O ícone de sino ainda não deve ter alertas.
-    3. Crie uma segunda despesa na categoria "Alimentação" de `R$ 30,00` (totalizando R$ 110,00).
+    3. Crie um segundo registro na mesma categoria que gere `300 kgCO2e` (totalizando 1100 kgCO2e).
 
 - [ ] **Validação do Alerta:**
     - **Ação:** Atualize a página.
-    - **Resultado Esperado:** O ícone de sino no cabeçalho agora deve exibir um badge com o número "1". Ao clicar no sino, um dropdown deve aparecer com a mensagem "Sua meta de gastos para a categoria 'Alimentação' foi atingida!".
+    - **Resultado Esperado:** O ícone de sino no cabeçalho agora deve exibir um badge com o número "1". Ao clicar no sino, um dropdown deve aparecer com a mensagem "Sua meta de emissões para a categoria 'Energia Elétrica' foi atingida!".
 
 ---
 
 ## 6. Módulo de Relatórios
 
-- [ ] **Exportar Relatório de Transações:**
-    - **Ação:** Com algumas transações cadastradas, vá para a página de relatórios e clique em "Exportar Relatório de Transações".
-    - **Resultado Esperado:** Um arquivo PDF chamado `relatorio-transacoes.pdf` (ou similar) deve ser baixado pelo navegador.
+- [ ] **Exportar Relatório de Emissões:**
+    - **Ação:** Com alguns consumos cadastrados, vá para a página de relatórios e clique em "Exportar Relatório de Emissões".
+    - **Resultado Esperado:** Um arquivo PDF chamado `relatorio-emissoes.pdf` (ou similar) deve ser baixado pelo navegador.
 
 - [ ] **Exportar Relatório de Clientes:**
     - **Ação:** Com alguns clientes cadastrados, clique em "Exportar Lista de Clientes".
     - **Resultado Esperado:** Um arquivo PDF com a lista de clientes deve ser baixado.
 
-- [ ] **Exportar Fatura (Invoice):**
-    - **Ação:** Em uma transação específica, encontre e clique na opção "Gerar Fatura".
-    - **Resultado Esperado:** Um arquivo PDF da fatura correspondente àquela transação deve ser baixado.
+- [ ] **Exportar Comprovante de Registro:**
+    - **Ação:** Em um registro específico, encontre e clique na opção "Gerar Comprovante".
+    - **Resultado Esperado:** Um arquivo PDF do comprovante correspondente àquele registro deve ser baixado.

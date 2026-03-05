@@ -5,8 +5,7 @@ import { authMiddleware } from "../middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-// Rota para obter relatÛrio de emissıes (resumo JSON)
+// Rota para obter relat√≥rio de emiss√µes (resumo JSON)
 router.get("/emissions", authMiddleware, getEmissionsReport);
 
 export default router;
-
