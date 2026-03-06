@@ -123,7 +123,7 @@ Exemplo: os artefatos do projeto são desenvolvidos a partir de diversas platafo
 | Projeto de interface                | Figma                              | https://www.figma.com/...              |
 | Gerenciamento do projeto            | GitHub Projects                    | https://github.com/orgs/ICEI-PUC-Minas-PBE-SI-TI/projects |
 | Hospedagem Frontend                 | Vercel                             | https://co2ntazero.vercel.app          |
-| Hospedagem Backend                  | Railway                            | https://railway.app/                   |
+| Hospedagem Backend                  | Azure App Service                  | https://portal.azure.com/              |
 | Banco de Dados                      | MongoDB Atlas                      | https://www.mongodb.com/cloud/atlas    |
 | Ambiente de Desenvolvimento         | Docker / VS Code                   | N/A                                    |
  

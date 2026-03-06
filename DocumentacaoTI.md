@@ -32,7 +32,7 @@ O problema central abordado é a dificuldade de mensuração do impacto ambienta
 O "cliente" (parceiro extensionista) deste projeto são pequenas indústrias e escritórios comerciais que buscam certificações ambientais ou redução de custos, mas não possuem orçamento para softwares complexos.
 
 ### 1.1. Objetivos geral e específicos
-**Objetivo Geral:** desenvolver uma aplicação web para cálculo, monitoramento e gestão da pegada de carbono e resíduos corporativos, utilizando uma esteira DevOps moderna (Docker, Railway, Vercel).
+**Objetivo Geral:** desenvolver uma aplicação web para cálculo, monitoramento e gestão da pegada de carbono e resíduos corporativos, utilizando uma esteira DevOps moderna (Docker, Azure, Vercel).
 
 **Objetivos Específicos:**
 1.  Automatizar o cálculo de emissões de CO2 com base em fatores de emissão padronizados (MCTI/GHG Protocol).
@@ -135,7 +135,7 @@ A arquitetura do sistema adota o padrão **Serverless First**, priorizando plata
 
 3.  **Infraestrutura e DevOps (CI/CD):**
     *   **Docker:** Utilizado para containerização da API. O `Dockerfile` garante que o ambiente de desenvolvimento seja idêntico ao de produção, eliminando o problema de "funciona na minha máquina".
-    *   **Railway (PaaS):** Plataforma de Hospedagem (Platform as a Service) escolhida para rodar o Container Docker da API. Diferente de VPS tradicionais, o Railway gerencia o deploy automaticamente a cada `git push`, facilitando a Integração Contínua (CI/CD).
+    *   **Microsoft Azure (App Service):** Plataforma de nuvem (PaaS) utilizada para hospedar a API Backend. Oferece escalabilidade, segurança corporativa e integração nativa com VS Code e GitHub.
     *   **Vercel (Frontend Hosting):** Plataforma especializada em frameworks frontend modernos. Utilizada para servir os arquivos estáticos (React/HTML), aproveitando sua CDN global (Edge Network) para garantir baixa latência no carregamento da página.
 
 4.  **Frontend (Interface do Usuário):**
@@ -143,7 +143,7 @@ A arquitetura do sistema adota o padrão **Serverless First**, priorizando plata
     *   **Web Responsiva:** O frontend é construído para se adaptar a diferentes tamanhos de tela, permitindo acesso via navegadores móveis, embora o foco principal seja a experiência web desktop.
 
 **Visão Estrutural:**
-[Cliente Web (Vercel)] --(HTTPS/JSON)--> [API Backend (Railway + Docker)] --(Mongoose)--> [MongoDB Atlas Cluster]
+[Cliente Web (Vercel)] --(HTTPS/JSON)--> [API Backend (Azure App Service)] --(Mongoose)--> [MongoDB Atlas Cluster]
 
 *   **Segurança:** Implementação de JWT (JSON Web Tokens) para sessão stateless e Bcrypt para hash unidirecional de senhas.
 *   **Versionamento:** GitHub para controle de fonte e gestão de issues.

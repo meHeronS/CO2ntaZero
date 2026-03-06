@@ -9,7 +9,7 @@ O backend é uma API RESTful robusta, projetada para alta disponibilidade e fác
 *   **Node.js & Express**: Core da aplicação. Arquitetura Decoupled MVC.
 *   **MongoDB Atlas**: Banco de dados na nuvem (DBaaS), garantindo escalabilidade e acesso remoto seguro para todo o time.
 *   **Docker**: Containerização completa da aplicação, eliminando problemas de "funciona na minha máquina".
-*   **Railway**: Plataforma de PaaS escolhida para o deploy contínuo (CI/CD) do backend.
+*   **Microsoft Azure**: Plataforma de nuvem utilizada para hospedagem (App Service) e escalabilidade do backend.
 
 ### Destaques da Implementação
 *   **Camada de Serviços (Service Layer):** Lógica complexa (cálculos de carbono, regras de conversão) isolada dos controladores.

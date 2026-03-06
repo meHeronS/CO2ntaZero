@@ -104,7 +104,7 @@ A arquitetura do sistema adota o padrão **Serverless First**, priorizando plata
 
 1.  **Backend (Lógica de Negócio):** **Node.js (v18+)** e **Express.js**. Runtime Javascript escolhido pela vasta comunidade e IO não bloqueante, ideal para operações de muitos requests (High Throughput).
 2.  **Banco de Dados (Persistência):** **MongoDB Atlas (Cloud)**. Escolhido pela flexibilidade do Schema JSON (BSON), essencial para um sistema que lida com faturas de diferentes formatos.
-3.  **Infraestrutura e DevOps (CI/CD):** **Docker** e **Railway (PaaS)**. O `Dockerfile` garante que o ambiente de desenvolvimento seja idêntico ao de produção.
+3.  **Infraestrutura e DevOps (CI/CD):** **Docker** e **Azure App Service (PaaS)**. O `Dockerfile` garante que o ambiente de desenvolvimento seja idêntico ao de produção.
 4.  **Frontend (Interface do Usuário):** **React.js** e **Vercel**. Plataforma especializada em frameworks frontend modernos, aproveitando CDN global.
 
 | **Dimensão**   | **Tecnologia**  |
@@ -113,7 +113,7 @@ A arquitetura do sistema adota o padrão **Serverless First**, priorizando plata
 | Back-end       | **Node.js + Express**: Abordagem ágil baseada em Javascript, ideal para I/O assíncrono. |
 | SGBD           | **MongoDB Atlas (NoSQL)**: Flexibilidade do BSON para absorver novas unidades de rastreamento sem migrações custosas. |
 | Infraestrutura | **Docker**: Padronização ambiental obrigatória para garantir paridade entre dev e produção. |
-| Deploy         | Vercel (Front) / Railway (Back) |
+| Deploy         | Vercel (Front) / Azure (Back) |
 
 ### Detalhamento dos Componentes
 
@@ -127,7 +127,7 @@ A arquitetura do sistema adota o padrão **Serverless First**, priorizando plata
 A hospedagem da plataforma foi realizada de forma distribuída para otimizar a performance e a escalabilidade:
 
 1.  **Frontend (Vercel):** O código React.js é hospedado na Vercel, que oferece uma rede de distribuição de conteúdo (CDN) global, garantindo carregamento rápido da interface para o usuário final.
-2.  **Backend (Railway):** A API Node.js é containerizada via Docker e hospedada na Railway. Isso garante que o ambiente de produção seja idêntico ao de desenvolvimento e facilita a escalabilidade horizontal.
+2.  **Backend (Azure):** A API Node.js é containerizada via Docker e hospedada no Azure App Service. Isso garante que o ambiente de produção seja idêntico ao de desenvolvimento e facilita a escalabilidade horizontal.
 3.  **Banco de Dados (MongoDB Atlas):** O banco de dados é gerenciado pelo MongoDB Atlas, um serviço de banco de dados como serviço (DBaaS) que provê segurança, backups automáticos e alta disponibilidade.
 
 > **Links úteis**:

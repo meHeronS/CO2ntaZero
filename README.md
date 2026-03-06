@@ -87,8 +87,8 @@ Abaixo, o histórico granular de cada etapa do desenvolvimento, desde a concepç
 *   **0.5.2 - Containerização (Docker):**
     *   Definição teórica do `Dockerfile` para Node.js (Alpine Linux).
     *   Planejamento do `docker-compose.yml` para orquestração local (API + MongoDB).
-*   **0.5.1 - Pipeline de CI/CD (Railway):**
-    *   Estudo da plataforma Railway para hospedagem do backend.
+*   **0.5.1 - Pipeline de CI/CD (Azure):**
+    *   Estudo da plataforma Microsoft Azure para hospedagem do backend.
     *   Planejamento das variáveis de ambiente (`OPENAI_API_KEY`, `MONGO_URI`).
 
 #### **v0.4.x - Refinamento e Documentação Técnica (Sprint Atual)**
