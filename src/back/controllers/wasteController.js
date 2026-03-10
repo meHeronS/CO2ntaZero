@@ -43,7 +43,7 @@ export const getWastes = async (req, res) => {
             }
         });
     } catch (error) {
-        return errorResponse(res, { status: 500, message: "Erro ao listar resíduos", error: error.message });
+        return errorResponse(res, { status: 500, message: "Erro ao listar resíduos", errors: error.message });
     }
 };
 
@@ -86,7 +86,7 @@ export const createWaste = async (req, res) => {
 
         return successResponse(res, { status: 201, data: waste });
     } catch (error) {
-        return errorResponse(res, { status: 500, message: "Erro ao registrar resíduo", error: error.message });
+        return errorResponse(res, { status: 500, message: "Erro ao registrar resíduo", errors: error.message });
     }
 };
 
@@ -104,7 +104,7 @@ export const getWasteById = async (req, res) => {
         
         return successResponse(res, { data: waste });
     } catch (error) {
-        return errorResponse(res, { status: 500, message: "Erro ao buscar resíduo", error: error.message });
+        return errorResponse(res, { status: 500, message: "Erro ao buscar resíduo", errors: error.message });
     }
 };
 
@@ -136,7 +136,7 @@ export const updateWaste = async (req, res) => {
 
         return successResponse(res, { data: updatedWaste });
     } catch (error) {
-         return errorResponse(res, { status: 500, message: "Erro ao atualizar resíduo", error: error.message });
+         return errorResponse(res, { status: 500, message: "Erro ao atualizar resíduo", errors: error.message });
     }
 };
 
@@ -163,6 +163,6 @@ export const deleteWaste = async (req, res) => {
 
         return successResponse(res, { message: "Registro excluído com sucesso" });
     } catch (error) {
-        return errorResponse(res, { status: 500, message: "Erro ao excluir resíduo", error: error.message });
+        return errorResponse(res, { status: 500, message: "Erro ao excluir resíduo", errors: error.message });
     }
 };

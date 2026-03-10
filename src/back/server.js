@@ -33,10 +33,7 @@ import mongoose from "mongoose";
 // Importa a função responsável por estabelecer a conexão com o banco de dados MongoDB.
 import { connectDB } from "./config/db.js";
 
-// Importa o script de inicialização que garante que as permissões (roles)
-// essenciais do sistema (como ROOT, ADMIN_COMPANY) existam no banco de dados.
 import { errorHandler } from "./middlewares/errorMiddleware.js";
-import { initPermissions } from "./scripts/initPermissions.js";
 
 // --- Importação de Todas as Rotas da API ---
 // Cada arquivo de rota agrupa os endpoints de um módulo específico da aplicação (ex: autenticação, consumo).
@@ -48,7 +45,6 @@ import consumptionRoutes from "./routes/consumptionRoutes.js";
 import emissionFactorRoutes from "./routes/emissionFactorRoutes.js";
 import logRoutes from "./routes/logRoutes.js";
 import goalRoutes from "./routes/goalRoutes.js";
-import permissionRoutes from "./routes/permissionRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import wasteRoutes from "./routes/wasteRoutes.js";
@@ -108,7 +104,6 @@ app.use("/api/consumptions", consumptionRoutes);
 app.use("/api/emission-factors", emissionFactorRoutes);
 app.use("/api/logs", logRoutes);
 app.use("/api/goals", goalRoutes);
-app.use("/api/permissions", permissionRoutes);
 app.use("/api/reports", reportRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/wastes", wasteRoutes);
@@ -207,8 +202,6 @@ if (process.env.NODE_ENV !== 'test') {
   (async () => {
     try {
       await startServer();
-      // Em modo de produção/desenvolvimento, inicializamos as permissões após o servidor subir.
-      await initPermissions();
     } catch (err) {
       console.error('Erro ao iniciar o servidor automaticamente:', err.message);
       process.exit(1);

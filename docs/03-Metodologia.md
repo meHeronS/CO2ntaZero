@@ -70,10 +70,10 @@ Atualizado em: 21/04/2026
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| Saulo Luiz    | Introdução | 01/02/2026     | 07/02/2026 | ✔️    | 05/02/2026      |
 | Gustavo Costa | Objetivos    | 03/02/2026     | 10/02/2026 | 📝    |                 |
 | Heron Victor  | Histórias de usuário  | 01/01/2026     | 07/01/2026 | ⌛     |                 |
 | Joao Vinicius | Personas 1  |    01/01/2026        | 12/02/2026 | ❌    |       |
+| Saulo Luiz    | Introdução | 01/02/2026     | 07/02/2026 | ✔️    | 05/02/2026      |
 
 #### Sprint 2
 
@@ -81,10 +81,10 @@ Atualizado em: 21/04/2026
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| Saulo Luiz    | Página inicial   | 01/02/2026     | 07/03/2026 | ✔️    | 05/02/2026      |
 | Caio Vieira   | CSS unificado    | 03/02/2026     | 10/03/2026 | 📝    |                 |
 | Heron Victor  | Página de login  | 01/02/2026     | 07/03/2026 | ⌛     |                 |
 | Joao Vinicius | Script de login  | 01/01/2026     | 12/03/2026 | ❌    |                 |
+| Saulo Luiz    | Página inicial   | 01/02/2026     | 07/03/2026 | ✔️    | 05/02/2026      |
 
 
 Legenda:

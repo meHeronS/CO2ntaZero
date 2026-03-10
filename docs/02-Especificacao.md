@@ -23,9 +23,9 @@ A seguir, apresenta-se um exemplo que deve ser adaptado pelo grupo de acordo com
 
 ## Personas
 
-1. **Vander (O Pai e Empreendedor):** 65 anos. Controla as contas de casa e do seu bar. Precisa de facilidade para gerenciar ambos os contextos. O sistema deve permitir que ele cadastre sua residência e o bar (múltiplos CNPJs/CPFs) e alterne entre eles conforme necessário, mantendo a simplicidade e o alerta de variações.
-2. **Ana (Pequena Empresária):** 32 anos, dona de uma padaria. Precisa reduzir custos fixos. Quer monitorar o consumo de gás e energia dos fornos e saber se seus funcionários estão desperdiçando recursos.
-3. **Carlos (Gestor ESG):** 45 anos. Precisa de dados precisos baseados em tabelas oficiais para relatórios de sustentabilidade da empresa.
+1. **Ana (Pequena Empresária):** 32 anos, dona de uma padaria. Precisa reduzir custos fixos. Quer monitorar o consumo de gás e energia dos fornos e saber se seus funcionários estão desperdiçando recursos.
+2. **Carlos (Gestor ESG):** 45 anos. Precisa de dados precisos baseados em tabelas oficiais para relatórios de sustentabilidade da empresa.
+3. **Vander (O Pai e Empreendedor):** 65 anos. Controla as contas de casa e do seu bar. Precisa de facilidade para gerenciar ambos os contextos. O sistema deve permitir que ele cadastre sua residência e o bar (múltiplos CNPJs/CPFs) e alterne entre eles conforme necessário, mantendo a simplicidade e o alerta de variações.
 
 > **Links úteis**:
 > - [Rock content](https://rockcontent.com/blog/personas/)
@@ -37,12 +37,11 @@ A seguir, apresenta-se um exemplo que deve ser adaptado pelo grupo de acordo com
 
 ## Participantes do Processo de Negócio
 
-| PESSOA (Role) | PAPEL | RESPONSABILIDADE PRINCIPAL |
-| :--- | :--- | :--- |
-| **Gestor ESG** | Administrador do Sistema | Configurar metas de redução, analisar relatórios de impacto e tomar decisões estratégicas baseadas nos dados. |
-| **Analista Financeiro** | Operador de Lançamentos | Inserir dados de faturas de energia, água e combustível no sistema para cálculo da pegada. |
-| **Coletor de Resíduos** | Operador Operacional | Registrar a pesagem e tipagem de resíduos gerados antes do descarte ou reciclagem. |
-| **Auditor Externo** | Visualizador | Acessar relatórios de conformidade e históricos de logs (auditoria) para validação de dados. |
+| PERFIL DE USO | RESPONSABILIDADE PRINCIPAL |
+| :--- | :--- |
+| **Proprietário (User)** | Ator central do sistema. Realiza o cadastro (CPF), gerencia múltiplas unidades (CNPJ/Residência) e lança todos os dados. |
+| **Operador Administrativo** | *Perfil Conceitual*: No MVP, este papel é desempenhado pelo próprio Proprietário ao realizar lançamentos de rotina. |
+| **Auditor** | *Perfil Conceitual*: No MVP, este papel é desempenhado pelo Proprietário ao extrair relatórios para fins de conformidade. |
 
 ## Histórias de usuários
 
@@ -50,12 +49,12 @@ Com base na análise das personas, foram identificadas as seguintes histórias d
 
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
-|Vander (Pai)        | Ser alertado se houver uma variação grande (acima de 15%) no consumo | Verificar se há vazamentos ou problemas na rede elétrica imediatamente. |
-|Vander (Pai)        | Ver quantas árvores eu precisaria plantar para compensar meu consumo | Ter uma noção real do meu impacto ambiental e como posso ajudar o planeta. |
-|Vander (Pai)        | Alternar entre o perfil de casa e do bar | Gerenciar as contas de ambos os locais em um único lugar. |
 |Ana (Empresária)    | Lançar o consumo de combustível das entregas | Calcular a pegada de carbono da logística da minha padaria. |
 |Carlos (Gestor)     | Configurar a sensibilidade do alerta de variação | Ajustar o monitoramento para a realidade sazonal da minha empresa (respeitando o mínimo de 15%). |
 |Usuário Geral       | Ver dicas de como reduzir meu consumo | Aprender a ser mais sustentável e economizar dinheiro. |
+|Vander (Pai)        | Ser alertado se houver uma variação grande (acima de 15%) no consumo | Verificar se há vazamentos ou problemas na rede elétrica imediatamente. |
+|Vander (Pai)        | Ver quantas árvores eu precisaria plantar para compensar meu consumo | Ter uma noção real do meu impacto ambiental e como posso ajudar o planeta. |
+|Vander (Pai)        | Alternar entre o perfil de casa e do bar | Gerenciar as contas de ambos os locais em um único lugar. |
 
 Apresente aqui as histórias de usuários que são relevantes para o projeto da sua solução. As histórias de usuários consistem em uma ferramenta poderosa para a compreensão e elicitação dos requisitos funcionais e não funcionais da sua aplicação. Se possível, agrupe as histórias de usuários por contexto, para facilitar consultas recorrentes a esta parte do documento.
 
@@ -80,6 +79,8 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-004| O sistema deve apresentar dicas de conscientização e redução de desperdício baseadas no tipo de consumo lançado. | MÉDIA |
 |RF-005| O sistema deve permitir o controle de acesso e autenticação de usuários. | ALTA |
 |RF-006| O sistema deve garantir o isolamento de dados entre diferentes empresas (Multi-tenancy). | ALTA |
+|RF-007| O sistema deve permitir que um único usuário (CPF) gerencie múltiplos CNPJs (Matriz/Filiais ou Negócios distintos). | ALTA |
+|RF-008| O sistema deve bloquear o cadastro de CNPJ ou E-mail Corporativo já existentes para evitar fraudes e duplicidade. | ALTA |
 
 ### Requisitos não funcionais
 
@@ -126,6 +127,7 @@ O projeto está restrito aos itens apresentados na tabela a seguir.
 |001| O sistema será desenvolvido exclusivamente como aplicação web. O suporte a dispositivos móveis será via navegador (responsividade), sem desenvolvimento de aplicativo nativo. |
 |002| O sistema deve respeitar as diretrizes da LGPD, garantindo a privacidade dos dados dos usuários. |
 |003| O backend deve ser desenvolvido em Node.js e o banco de dados deve ser MongoDB (NoSQL). |
+|004| É obrigatório o cadastro de um e-mail pessoal (para o CPF) e um e-mail corporativo (para o CNPJ) distintos ou iguais, para fins de auditoria e recuperação. |
 
 ## Diagrama de casos de uso
 

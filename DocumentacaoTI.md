@@ -2,11 +2,11 @@
 **Título do Trabalho:** CO2ntaZero - Sistema Inteligente de Gestão de Pegada de Carbono e Resíduos  
 
 **Membros do Grupo:**
-1. Saulo Luiz de Oliveira e Silva
-2. Heron Victor Vieira da Silva
-3. Joao Vinicius Rodrigues Santos
-4. Gustavo Costa Pinho Tavares
-5. Caio Vieira de Freitas
+1. Caio Vieira de Freitas
+2. Gustavo Costa Pinho Tavares
+3. Heron Victor Vieira da Silva
+4. Joao Vinicius Rodrigues Santos
+5. Saulo Luiz de Oliveira e Silva
 
 **Professor(a):** Amália Soares Vieira de Vasconcelos
 
@@ -66,12 +66,11 @@ Diferente da abordagem tradicional de competir em mercados saturados ("Oceanos V
 
 ## 2. PARTICIPANTES DO PROCESSO DE NEGÓCIO
 
-| PESSOA (Role) | PAPEL | RESPONSABILIDADE PRINCIPAL |
+| PERFIL DE USO | RESPONSABILIDADE PRINCIPAL |
 | :--- | :--- | :--- |
-| **Gestor ESG** | Administrador do Sistema | Configurar metas de redução, analisar relatórios de impacto e tomar decisões estratégicas baseadas nos dados. |
-| **Analista Administrativo** | Operador de Lançamentos | Inserir dados de faturas de energia, água e combustível no sistema para cálculo da pegada. |
-| **Coletor de Resíduos** | Operador Operacional | Registrar a pesagem e tipagem de resíduos gerados antes do descarte ou reciclagem. |
-| **Auditor Externo** | Visualizador | Acessar relatórios de conformidade e históricos de logs (auditoria) para validação de dados. |
+| **Proprietário / Gestor** | Responsável único pelo cadastro da empresa e gerenciamento de todos os dados (faturas, metas, resíduos). |
+| **Operador Administrativo** | (Contexto de uso) Pessoa que realiza os lançamentos diários utilizando a conta do proprietário ou filial. |
+| **Auditor** | (Contexto de uso) Pessoa que visualiza os relatórios gerados pelo sistema para validação externa. |
 
 ---
 

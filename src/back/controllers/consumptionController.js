@@ -19,7 +19,7 @@ const checkAnomaly = async (companyId, resourceType, currentQuantity, consumptio
         $match: {
           companyId: new mongoose.Types.ObjectId(companyId),
           resourceType: resourceType,
-          date: { $gte: threeMonthsAgo }
+          date: { $gte: threeMonthsAgo },
         }
       },
       {
@@ -73,7 +73,7 @@ export const getAllConsumptions = async (req, res) => {
     const items = await Consumption.find(filter).sort({ date: -1 });
     return successResponse(res, { data: items });
   } catch (error) {
-    return errorResponse(res, { status: 500, message: "Erro ao listar consumos", error: error.message });
+    return errorResponse(res, { status: 500, message: "Erro ao listar consumos", errors: error.message });
   }
 };
 
@@ -87,7 +87,7 @@ export const getConsumptionById = async (req, res) => {
 
     return successResponse(res, { data: item });
   } catch (error) {
-    return errorResponse(res, { status: 500, message: "Erro ao buscar consumo", error: error.message });
+    return errorResponse(res, { status: 500, message: "Erro ao buscar consumo", errors: error.message });
   }
 };
 
@@ -128,7 +128,7 @@ export const createConsumption = async (req, res) => {
 
     return successResponse(res, { status: 201, data: newConsumption });
   } catch (error) {
-    return errorResponse(res, { status: 500, message: "Erro ao criar consumo", error: error.message });
+    return errorResponse(res, { status: 500, message: "Erro ao criar consumo", errors: error.message });
   }
 };
 
@@ -169,7 +169,7 @@ export const updateConsumption = async (req, res) => {
 
     return successResponse(res, { data: updated });
   } catch (error) {
-    return errorResponse(res, { status: 500, message: "Erro ao atualizar consumo", error: error.message });
+    return errorResponse(res, { status: 500, message: "Erro ao atualizar consumo", errors: error.message });
   }
 };
 
@@ -185,14 +185,13 @@ export const deleteConsumption = async (req, res) => {
       userId: req.user.userId,
       companyId,
       action: "DELETE_CONSUMPTION",
-      description: `Deletado consumo ${id}`,
+      description: `Deletado (hard delete) consumo ${id}`,
       route: req.originalUrl,
       resourceId: id
     });
 
     return successResponse(res, { message: "Removido com sucesso" });
   } catch (error) {
-    return errorResponse(res, { status: 500, message: "Erro ao deletar consumo", error: error.message });
+    return errorResponse(res, { status: 500, message: "Erro ao deletar consumo", errors: error.message });
   }
 };
-

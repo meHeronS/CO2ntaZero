@@ -5,30 +5,28 @@
  *            login, logout e recuperação de senha.
  * =================================================================================
  */
-import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
-// Transaction removido (substituído por Consumption)
-import Consumption from "../models/Consumption.js"; 
-import User from '../models/User.js';
-import SessionToken from '../models/SessionToken.js';
-import Company from '../models/Company.js';
-import Permission from '../models/Permission.js';
+import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
-// Client removido do projeto base, pois empresas agora gerenciam usuários diretamente
-// import Client from '../models/Client.js';
-import Goal from '../models/Goal.js';
+
 import Alert from '../models/Alert.js';
-import { ADMIN_COMPANY } from '../utils/constants.js';
-import { successResponse, errorResponse } from '../utils/responseHelper.js';
+import Company from '../models/Company.js';
+import Consumption from "../models/Consumption.js"; 
+import Goal from '../models/Goal.js';
+import SessionToken from '../models/SessionToken.js';
+import User from '../models/User.js';
+import { createLog } from '../utils/logger.js';
+
+import { errorResponse, successResponse } from '../utils/responseHelper.js';
 
 /**
- * @desc    Registra uma nova empresa e seu primeiro usuário (administrador).
+ * @desc    Registra uma nova empresa e seu primeiro usuário (proprietário).
  * @route   POST /api/auth/register
  * @access  Public
  */
 export const registerUser = async (req, res) => {
-  const { name, email, password, companyName, cnpj } = req.body;
+  const { name, email, password, cpf, type, companyName, cnpj, companyEmail, address } = req.body;
   const session = await mongoose.startSession();
 
   try {
@@ -39,40 +37,86 @@ export const registerUser = async (req, res) => {
     if (existingUser) {
       throw new Error("E-mail já cadastrado.");
     }
-    const existingCompanyCnpj = await Company.findOne({ cnpj }).session(session);
-    if (existingCompanyCnpj) {
-      throw new Error("CNPJ já cadastrado.");
+
+    const existingCpf = await User.findOne({ cpf }).session(session);
+    if (existingCpf) {
+      throw new Error("CPF já cadastrado.");
     }
+    
+    // Validação Específica por Tipo de Unidade
+    if (type === 'BUSINESS') {
+      if (!cnpj || !companyEmail) throw new Error("Para empresas, CNPJ e E-mail corporativo são obrigatórios.");
+
+      // LÓGICA DE SEGURANÇA: Verificação de CNPJ existente
+      const existingCompanyCnpj = await Company.findOne({ cnpj }).session(session);
+      if (existingCompanyCnpj) {
+        // Simulação do envio de e-mail de segurança
+        console.log(`\n[SECURITY ALERT EMAIL]`);
+        console.log(`Para: ${existingCompanyCnpj.email}`);
+        console.log(`Assunto: Tentativa de cadastro do seu CNPJ`);
+        console.log(`Mensagem: Olá. O usuário '${name}' (Email: ${email}) tentou cadastrar sua empresa (CNPJ: ${cnpj}) no CO2ntaZero.`);
+        console.log(`Como este CNPJ já está vinculado a outro responsável, a operação foi bloqueada.\n`);
+        throw new Error("CNPJ já cadastrado.");
+      }
+      
+      // Validação de Fraude: E-mail da empresa duplicado
+      const existingCompanyEmail = await Company.findOne({ email: companyEmail }).session(session);
+      if (existingCompanyEmail) throw new Error("Este e-mail corporativo já está em uso por outra empresa.");
+    } else {
+      // RESIDENTIAL
+      if (!address) throw new Error("Para residências, o endereço é obrigatório.");
+    }
+
     const existingCompanyName = await Company.findOne({ name: companyName }).session(session);
     if (existingCompanyName) {
       throw new Error("Uma empresa com este nome já está cadastrada.");
     }
 
-    // 2. Permissão - Busca a permissão de administrador ('ADMIN_COMPANY') no banco.
-    // Isso garante que o primeiro usuário da empresa seja um administrador.
-    const adminRole = await Permission.findOne({ name: ADMIN_COMPANY }).session(session);
-    if (!adminRole) throw new Error("Permissão de administrador padrão (ADMIN_COMPANY) não encontrada. O sistema pode não ter sido inicializado corretamente.");
-
-    // 3. Criação da Empresa: Salva a nova empresa no banco de dados.
-    const newCompany = new Company({ name: companyName, cnpj, email: email });
-    await newCompany.save({ session });
-
-    // 4. Criptografia da Senha - Gera um "sal" e cria um hash seguro da senha.
+    // 2. Criptografia da Senha - Gera um "sal" e cria um hash seguro da senha.
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(password, salt);
 
-    // 5. Criação do Usuário: Salva o novo usuário com a senha criptografada e os IDs da empresa e permissão.
+    // 3. Instância do Usuário: Cria o objeto na memória para obter o ID (necessário para o ownerId).
     const newUser = new User({
       name: name,
       email,
+      cpf,
       passwordHash,
-      companyId: newCompany._id,
-      role: adminRole._id, // Garante que a role de ADMIN_COMPANY seja atribuída
+      // companyId será definido após a criação da empresa
     });
+
+    // 4. Criação da Empresa: Vincula o ownerId ao usuário recém-criado e salva no banco.
+    const newCompany = new Company({ 
+      name: companyName, 
+      type: type || 'BUSINESS',
+      ownerId: newUser._id 
+    });
+
+    if (type === 'BUSINESS') {
+      newCompany.cnpj = cnpj;
+      newCompany.email = companyEmail;
+    } else {
+      newCompany.address = address;
+    }
+
+    await newCompany.save({ session });
+
+    // 5. Finalização do Usuário: Atualiza com a empresa criada e salva no banco.
+    newUser.companyId = newCompany._id; // Define como empresa ativa
+    newUser.companies = [newCompany._id]; // Adiciona à lista de empresas
     await newUser.save({ session });
 
-    // 6. Confirma a transação
+    // 6. Confirmação: Efetiva a transação no banco de dados.
     await session.commitTransaction();
+
+    // 7. Auditoria: Cria o log após o sucesso da operação.
+    await createLog({
+      userId: newUser._id,
+      companyId: newCompany._id,
+      action: "REGISTER_COMPANY_USER",
+      description: `Novo usuário/empresa registrado: ${newUser.email} / ${newCompany.name}`,
+      route: req.originalUrl,
+    });
 
     // Adicionado para retornar o ID do usuário, necessário para os testes
     const userResponse = newUser.toObject();
@@ -102,7 +146,7 @@ export const loginUser = async (req, res) => {
   try {
     // 1. Busca do Usuário - Procura o usuário pelo e-mail. O método .select('+passwordHash')
     // é CRUCIAL para forçar a inclusão do campo de senha, que por padrão é oculto no Schema.
-    const user = await User.findOne({ email }).select("+passwordHash").populate('role');
+    const user = await User.findOne({ email }).select("+passwordHash");
     if (!user) { // Se o usuário não for encontrado, retorna erro 401.
       return errorResponse(res, { status: 401, message: "Credenciais inválidas." });
     }
@@ -116,7 +160,7 @@ export const loginUser = async (req, res) => {
     // --- Geração dos Tokens ---
     // 3. Geração do Access Token: um token de curta duração para autenticar as próximas requisições.
     const accessToken = jwt.sign(
-      { userId: user._id, role: user.role._id, companyId: user.companyId }, // Enviamos o ID da role no token
+      { userId: user._id, companyId: user.companyId }, // Removido role do token
       process.env.JWT_SECRET, // Chave secreta do .env
       { expiresIn: '15m' } // Expira em 15 minutos
     );
@@ -124,7 +168,7 @@ export const loginUser = async (req, res) => {
     // 4. Geração do Refresh Token: um token de longa duração usado para obter um novo Access Token sem precisar de um novo login.
     const refreshTokenValue = jwt.sign(
      { userId: user._id, companyId: user.companyId },
-      process.env.JWT_REFRESH_SECRET, // Chave secreta diferente do .env
+      process.env.REFRESH_TOKEN_SECRET, // Chave secreta diferente do .env
       { expiresIn: '7d' } // Expira em 7 dias
     );
 
@@ -150,11 +194,20 @@ export const loginUser = async (req, res) => {
       { upsert: true, new: true } // Opções: upsert cria se não existir, new retorna o doc atualizado
     );
 
+    // Auditoria de Login
+    await createLog({
+      userId: user._id,
+      companyId: user.companyId,
+      action: "LOGIN_USER",
+      description: `Usuário ${user.email} logado com sucesso.`,
+      route: req.originalUrl,
+    });
+
     // Padroniza a resposta usando o `responseHelper` para consistência em toda a API.
     return successResponse(res, { data: {
         token: accessToken,
         refreshToken: refreshTokenValue,
-        user: { id: user._id, name: user.name, email: user.email, companyId: user.companyId, role: user.role ? user.role.name : null } // Acesso seguro a user.role.name
+        user: { id: user._id, name: user.name, email: user.email, companyId: user.companyId } 
       }
     });
   } catch (error) {
@@ -182,8 +235,22 @@ export const logoutUser = async (req, res) => {
  
   try {
     const refreshTokenHash = crypto.createHash('sha256').update(refreshToken).digest('hex');
-    // Encontra o token e o marca como inativo.
-    await SessionToken.findOneAndUpdate({ tokenHash: refreshTokenHash }, { active: false });
+    // Encontra o token, o marca como inativo e retorna o documento para auditoria.
+    const sessionDoc = await SessionToken.findOneAndUpdate({ tokenHash: refreshTokenHash }, { active: false });
+
+    // Auditoria de Logout (se a sessão foi encontrada)
+    if (sessionDoc) {
+      const user = await User.findById(sessionDoc.userId);
+      if (user) {
+        await createLog({
+          userId: user._id,
+          companyId: user.companyId,
+          action: "LOGOUT_USER",
+          description: `Usuário ${user.email} deslogado.`,
+          route: req.originalUrl,
+        });
+      }
+    }
   } catch (error) {
     // A falha em invalidar o token não deve impedir o logout do lado do cliente.
     console.error("Erro ao invalidar refresh token durante o logout:", error);
@@ -268,16 +335,16 @@ export const refreshToken = async (req, res) => {
 };
 
 /**
- * @desc    Exclui um usuário e todos os seus dados associados (incluindo a empresa).
- * @route   DELETE /api/auth/users/:id
- * @access  Private (usado principalmente para limpeza em testes)
+ * @desc    Exclui a própria conta do usuário e todos os dados associados.
+ * @route   DELETE /api/auth/me
+ * @access  Private
  */
-export const deleteCurrentUser = async (req, res) => {
+export const deleteAccount = async (req, res) => {
   const session = await mongoose.startSession();
   try {
     session.startTransaction();
-    const userId = req.params.id;
-    const userToDelete = await User.findById(userId).session(session);
+    const userId = req.user.userId; // Deleta o usuário autenticado
+    const userToDelete = await User.findById(userId).session(session); // Busca o usuário para obter o companyId
 
     // Valida se o usuário a ser deletado realmente existe.
     if (!userToDelete) {

@@ -10,11 +10,11 @@ O **CO2ntaZero** é uma plataforma acadêmica de Sustentabilidade Digital conceb
 
 ## Integrantes
 
-* Saulo Luiz de Oliveira e Silva
-* Heron Victor Vieira da Silva
-* Joao Vinicius Rodrigues Santos
-* Gustavo Costa Pinho Tavares
 * Caio Vieira de Freitas
+* Gustavo Costa Pinho Tavares
+* Heron Victor Vieira da Silva
+* João Vinicius Rodrigues Santos
+* Saulo Luiz de Oliveira e Silva
 
 ## Professor
 
@@ -26,15 +26,15 @@ O **CO2ntaZero** é uma plataforma acadêmica de Sustentabilidade Digital conceb
 
 Para facilitar o entendimento técnico e de negócio deste projeto, definimos os seguintes termos e siglas:
 
-*   **MERN Stack**: Conjunto de tecnologias JavaScript utilizado para o desenvolvimento full-stack: **M**ongoDB (Banco de dados), **E**xpress (Framework backend), **R**eact (Biblioteca frontend) e **N**ode.js (Ambiente de execução).
-*   **MCTI**: Ministério da Ciência, Tecnologia e Inovação. Referência oficial brasileira para os fatores médios de emissão de CO2 do Sistema Interligado Nacional (SIN).
-*   **GHG Protocol (Greenhouse Gas Protocol)**: Padrão globalmente aceito para quantificação e gestão de emissões de Gases de Efeito Estufa (GEE).
-*   **MVP (Minimum Viable Product)**: Versão minimalista do produto, contendo apenas as funcionalidades essenciais para validar a proposta de valor (o cálculo de emissões).
 *   **ESG (Environmental, Social and Governance)**: Governança Ambiental, Social e Corporativa. Refere-se às práticas empresariais que priorizam a sustentabilidade, responsabilidade social e transparência, saindo do foco puramente financeiro.
+*   **GHG Protocol (Greenhouse Gas Protocol)**: Padrão globalmente aceito para quantificação e gestão de emissões de Gases de Efeito Estufa (GEE).
+*   **MCTI**: Ministério da Ciência, Tecnologia e Inovação. Referência oficial brasileira para os fatores médios de emissão de CO2 do Sistema Interligado Nacional (SIN).
+*   **MERN Stack**: Conjunto de tecnologias JavaScript utilizado para o desenvolvimento full-stack: **M**ongoDB (Banco de dados), **E**xpress (Framework backend), **R**eact (Biblioteca frontend) e **N**ode.js (Ambiente de execução).
+*   **MVP (Minimum Viable Product)**: Versão minimalista do produto, contendo apenas as funcionalidades essenciais para validar a proposta de valor (o cálculo de emissões).
+*   **Net Zero (Conceito Climático)**: Refere-se à meta global de zerar as emissões líquidas de carbono. *Nota: Este termo é utilizado aqui estritamente como conceito científico/ambiental (Net Zero Emissions), sem vínculo comercial com empresas homônimas do setor de créditos de carbono.*
 *   **ODS (Objetivos de Desenvolvimento Sustentável)**: Agenda global da ONU. Este projeto atende diretamente aos:
     *   **ODS 12 (Consumo e Produção Responsáveis)**: Incentivo ao uso eficiente de recursos naturais e gestão adequada de resíduos.
     *   **ODS 13 (Ação Contra a Mudança Global do Clima)**: Medidas urgentes para combater a mudança do clima e seus impactos através do monitoramento de CO2.
-*   **Net Zero (Conceito Climático)**: Refere-se à meta global de zerar as emissões líquidas de carbono. *Nota: Este termo é utilizado aqui estritamente como conceito científico/ambiental (Net Zero Emissions), sem vínculo comercial com empresas homônimas do setor de créditos de carbono.*
 
 ---
 
@@ -93,6 +93,10 @@ Abaixo, o histórico granular de cada etapa do desenvolvimento, desde a concepç
 
 #### **v0.4.x - Refinamento e Documentação Técnica (Sprint Atual)**
 *Fase de profissionalização dos artefatos do projeto.*
+*   **0.4.6 - Simplificação de Arquitetura (Single Owner):**
+    *   Remoção do sistema complexo de RBAC (Roles/Permissions).
+    *   Adoção do modelo de **Proprietário Único**, onde 1 CPF gerencia N Empresas/Residências.
+    *   Implementação de validação estrita de CPF para usuários e CNPJ/Endereço para unidades.
 *   **0.4.5 - Documentação Acadêmica (Relatórios):**
     *   Elaboração do `RELATORIO_TECNICO_PUC.md` seguindo normas ABNT/SBC.
     *   Detalhamento da arquitetura técnica no `DocumentacaoTI.md`.
@@ -123,7 +127,7 @@ Abaixo, o histórico granular de cada etapa do desenvolvimento, desde a concepç
     *   Desenvolvimento do Middleware `authGuard` para proteção de rotas privadas.
 *   **0.3.3 - CRUD de Entidades Core:**
     *   Rotas de `Profile` para gestão de dados do usuário.
-    *   Lógica de vínculo N:N entre Usuário (CPF) e Empresa (CNPJ).
+    *   Lógica de vínculo 1:N entre Usuário (CPF) e Múltiplas Unidades (CNPJ/Residência).
 *   **0.3.2 - Configuração do Servidor Express:**
     *   Setup inicial de `server.js` com middlewares essenciais: CORS, Body Parser e Helmet.
     *   Configuração de tratamento de erros global (Error Handling).

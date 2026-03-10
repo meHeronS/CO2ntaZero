@@ -37,7 +37,7 @@ O desenvolvimento da solução proposta requer a existência de bases de dados q
 O modelo de dados do CO2ntaZero foi projetado para suportar a rastreabilidade de emissões e auditoria. As principais entidades são:
 
 1. **Company:** A unidade gestora (Matriz ou Filial).
-2. **User:** Usuários com acesso ao sistema, vinculados a uma Company.
+2. **User:** O proprietário da conta (CPF), que pode gerenciar múltiplas Companies.
 3. **Consumption:** Registros de consumo (Energia, Água) que geram pegada de carbono.
 4. **EmissionFactor:** Fatores de conversão (ex: kgCO2/kWh) baseados no GHG Protocol.
 5. **Alert:** Notificações de anomalias de consumo.
@@ -67,18 +67,46 @@ O modelo lógico abaixo representa as coleções do banco de dados NoSQL e seus 
 
 Como utilizamos MongoDB com Mongoose, o modelo físico é definido através de **Schemas** na aplicação Node.js, e não por scripts SQL `CREATE TABLE`. Abaixo estão as definições dos principais Schemas baseados no Roteiro de Arquitetura:
 
+**User Schema (Proprietário)**
+```javascript
+const UserSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  cpf: { type: String, required: true, unique: true }, // Identificador da Pessoa Física
+  passwordHash: { type: String, required: true, select: false },
+  companyId: { type: mongoose.Schema.Types.ObjectId, ref: "Company" }, // Contexto atual
+  companies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Company" }], // Unidades gerenciadas
+  active: { type: Boolean, default: true }
+}, {
+  timestamps: true
+});
+```
+
 **Company Schema (Unidades de Gestão)**
 ```javascript
 const CompanySchema = new mongoose.Schema({
+  ownerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  type: { type: String, enum: ["BUSINESS", "RESIDENTIAL"], default: "BUSINESS" },
   name: { type: String, required: true },
-  cnpj: { type: String, required: true, unique: true }, // ou CPF
-  address: {
-    street: String,
-    city: String,
-    state: String,
-    zip: String
+  cnpj: { 
+    type: String, 
+    unique: true, 
+    sparse: true,
+    required: function() { return this.type === 'BUSINESS'; }
   },
-  createdAt: { type: Date, default: Date.now }
+  email: { 
+    type: String, 
+    unique: true, 
+    sparse: true,
+    required: function() { return this.type === 'BUSINESS'; }
+  },
+  address: { 
+    type: String, 
+    required: function() { return this.type === 'RESIDENTIAL'; }
+  },
+  isActive: { type: Boolean, default: true },
+}, {
+  timestamps: true
 });
 ```
 
@@ -133,8 +161,8 @@ A hospedagem da plataforma foi realizada de forma distribuída para otimizar a p
 > **Links úteis**:
 > - [Website com GitHub Pages](https://pages.github.com/)
 > - [Programação colaborativa com Repl.it](https://repl.it/)
-> - [Getting started with Heroku](https://devcenter.heroku.com/start)
-> - [Publicando seu site no Heroku](http://pythonclub.com.br/publicando-seu-hello-world-no-heroku.html)
+> - [Azure App Service Documentation](https://learn.microsoft.com/en-us/azure/app-service/)
+> - [Deploy Node.js to Azure App Service](https://learn.microsoft.com/en-us/azure/app-service/quickstart-nodejs)
 
 ## Qualidade de software
 

@@ -46,7 +46,7 @@ export const getAlertById = async (req, res) => {
 };
 
 /**
- * @desc    Criar alerta manualmente (Geralmente admin ou sistema).
+ * @desc    Criar alerta manualmente (Sistema).
  * @route   POST /api/alerts
  * @access  Private
  */

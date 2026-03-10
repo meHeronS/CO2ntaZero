@@ -6,15 +6,17 @@ Este documento é o guia técnico completo para o backend da aplicação CO2ntaZ
 
 O backend é uma API RESTful robusta, projetada para alta disponibilidade e fácil manutenção. Utilizamos uma stack alinhada com as melhores práticas de mercado:
 
-*   **Node.js & Express**: Core da aplicação. Arquitetura Decoupled MVC.
-*   **MongoDB Atlas**: Banco de dados na nuvem (DBaaS), garantindo escalabilidade e acesso remoto seguro para todo o time.
 *   **Docker**: Containerização completa da aplicação, eliminando problemas de "funciona na minha máquina".
 *   **Microsoft Azure**: Plataforma de nuvem utilizada para hospedagem (App Service) e escalabilidade do backend.
+*   **MongoDB Atlas**: Banco de dados na nuvem (DBaaS), garantindo escalabilidade e acesso remoto seguro para todo o time.
+*   **Node.js & Express**: Core da aplicação. Arquitetura Decoupled MVC.
 
 ### Destaques da Implementação
+*   **Modelo Single Owner:** Arquitetura simplificada onde cada usuário (CPF) é o proprietário soberano de suas unidades (Empresas ou Residências), eliminando a complexidade de gestão de permissões (RBAC) desnecessária para o MVP.
 *   **Camada de Serviços (Service Layer):** Lógica complexa (cálculos de carbono, regras de conversão) isolada dos controladores.
 *   **Segurança:** Implementação de JWT para autenticação stateless, Bcrypt para hash de senhas e sanitização de inputs.
 *   **Logs e Auditoria:** Sistema de logs persistente para rastreabilidade de ações críticas (quem alterou o quê).
+*   **Proteção de Identidade Corporativa:** Sistema de verificação no registro que impede o sequestro de CNPJs, alertando o proprietário original via e-mail em caso de tentativa de cadastro duplicado.
 
 ## 2. Estrutura de Pastas
 
@@ -50,8 +52,7 @@ Alguns arquivos são a espinha dorsal do projeto e não permitem comentários in
 2.  Configurar os middlewares globais (como `cors` para permitir acesso do frontend e `express.json` para interpretar requisições).
 3.  Registrar todas as rotas da API, associando cada endpoint (ex: `/api/transactions`) ao seu respectivo arquivo de rotas.
 4.  Iniciar a conexão com o banco de dados MongoDB.
-5.  Executar scripts de inicialização, como o `initPermissions`.
-6.  "Subir" o servidor, fazendo-o ouvir por requisições na porta configurada.
+5.  "Subir" o servidor, fazendo-o ouvir por requisições na porta configurada.
 
 ### `package.json`
 
@@ -62,11 +63,11 @@ Este arquivo é o manifesto do projeto Node.js. Ele define:
 -   **`dependencies`**: Pacotes necessários para a aplicação rodar em produção (Express, Mongoose, etc.).
 -   **`devDependencies`**: Pacotes usados apenas durante o desenvolvimento e teste (Nodemon, Jest, etc.).
 -   **`scripts`**: Comandos de atalho para executar tarefas comuns:
+    -   `"db:populate"`: Popula o banco de dados com um conjunto rico de dados de teste (empresas, usuários, transações) para desenvolvimento e validação manual.
     -   `"start"`: Inicia o ambiente de demonstração completo (backend, frontend legado e React). Este é o comando principal para executar o sistema.
-    -   `"start:backend"`: Inicia **apenas** o servidor do backend.    
+    -   `"start:backend"`: Inicia **apenas** o servidor do backend. (Nota: Utilize este comando como **Startup Command** no Azure App Service).
     -   `"start:frontend"`: Inicia um servidor estático simples para o frontend legado na porta 3000.    
     -   `"test"`: Executa a suíte completa de testes automatizados com Jest.
-    -   `"db:populate"`: Popula o banco de dados com um conjunto rico de dados de teste (empresas, usuários, transações) para desenvolvimento e validação manual.
 
 ### `.gitignore`
 
@@ -168,7 +169,7 @@ Como um projeto acadêmico com prazo definido, certas simplificações foram fei
 
 #### **Cache de Dados**
 -   **Implementação Atual (Simplificada):** Todas as requisições de leitura consultam o banco de dados diretamente.
--   **Implementação Robusta (Nível de Produção):** Implementar uma camada de cache com uma ferramenta como **Redis**. Dados que não mudam com frequência (como permissões, perfil do usuário, ou relatórios mensais) poderiam ser armazenados em cache. Isso reduziria drasticamente a carga no banco de dados e diminuiria a latência das requisições.
+-   **Implementação Robusta (Nível de Produção):** Implementar uma camada de cache com uma ferramenta como **Redis**. Dados que não mudam com frequência (como o perfil do usuário ou relatórios mensais) poderiam ser armazenados em cache. Isso reduziria drasticamente a carga no banco de dados e diminuiria a latência das requisições.
 
 #### **Clusterização e Balanceamento de Carga**
 -   **Implementação Atual (Simplificada):** O servidor roda em um único processo Node.js, utilizando apenas um núcleo da CPU.

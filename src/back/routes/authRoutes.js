@@ -5,25 +5,24 @@
 // =================================================================================
 
 import express from "express";
-import { registerUser, loginUser, logoutUser, refreshToken, deleteCurrentUser, forgotPassword, resetPassword } from '../controllers/authController.js';
+import { registerUser, loginUser, logoutUser, refreshToken, deleteAccount, forgotPassword, resetPassword } from '../controllers/authController.js';
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { auditMiddleware } from "../middlewares/auditMiddleware.js";
-import { roleMiddleware } from "../middlewares/roleMiddleware.js";
 
 const router = express.Router();
 
 // Rota pública para registrar um novo usuário e sua respectiva empresa.
 // POST /api/auth/register
-router.post('/register', auditMiddleware('REGISTER_COMPANY_USER'), registerUser);
+router.post('/register', registerUser);
 
 // Rota pública para autenticar um usuário e obter os tokens de acesso e de atualização.
 // POST /api/auth/login
-router.post("/login", auditMiddleware("LOGIN_USER"), loginUser);
+router.post("/login", loginUser);
 
 // Rota para deslogar um usuário, invalidando o Refresh Token no servidor.
 // Esta rota não usa `authMiddleware` para permitir que o logout funcione mesmo se o `accessToken` tiver expirado.
 // POST /api/auth/logout
-router.post("/logout", auditMiddleware("LOGOUT_USER"), logoutUser);
+router.post("/logout", logoutUser);
 
 // Rota para renovar um Access Token expirado usando um Refresh Token válido.
 // POST /api/auth/refresh-token
@@ -37,9 +36,8 @@ router.post('/forgot-password', forgotPassword);
 // POST /api/auth/reset-password/:token
 router.post('/reset-password/:token', resetPassword);
 
-// Rota protegida para excluir um usuário específico por ID.
-// Esta rota é destrutiva e foi implementada para facilitar a limpeza durante os testes.
-// DELETE /api/auth/users/:id
-router.delete('/users/:id', authMiddleware, roleMiddleware(["ROOT"]), auditMiddleware('DELETE_USER_BY_ID'), deleteCurrentUser);
+// Rota protegida para que o usuário exclua sua própria conta e todos os dados associados.
+// DELETE /api/auth/me
+router.delete('/me', authMiddleware, auditMiddleware('DELETE_ACCOUNT'), deleteAccount);
 
 export default router;

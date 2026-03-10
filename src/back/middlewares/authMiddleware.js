@@ -9,7 +9,6 @@
 
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
-import Permission from "../models/Permission.js";
 
 /**
  * Middleware para verificar a autenticação do usuário via JWT.
@@ -34,14 +33,12 @@ export async function authMiddleware(req, res, next) {
     }
 
     // 3. Validação do Usuário no Banco: Após verificar o token, buscamos o usuário no banco.
-    // Usamos .populate() para buscar o usuário e, em uma única query, trazer os dados da permissão.
-    const user = await User.findById(payload.userId).populate('role').lean();
+    // Utilizamos .lean() para performance, pois apenas precisamos ler os dados.
+    const user = await User.findById(payload.userId).lean();
 
     if (!user) {
-      return res.status(401).json({ message: "Usuário ou permissão associada a este token não foi encontrado." });
+      return res.status(401).json({ message: "Usuário associado a este token não foi encontrado." });
     }
-    // A permissão agora está em user.role
-    const permission = user.role;
 
     // Adiciona uma camada extra de segurança verificando se a conta está ativa.
     if (user.active === false) {
@@ -49,11 +46,9 @@ export async function authMiddleware(req, res, next) {
     }
 
     // 4. Injeção dos Dados na Requisição: Anexa as informações essenciais do usuário ao objeto `req`.
-    // A permissão (role) é anexada como um objeto completo, permitindo verificações como `req.user.role.name`.
     req.user = {
       userId: user._id, // Popula como ObjectId
       companyId: user.companyId, // Popula como ObjectId
-      role: permission, // Anexa o documento de permissão completo
       email: user.email,
     };
 

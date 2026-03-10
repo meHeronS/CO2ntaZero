@@ -1,7 +1,6 @@
 
 import express from 'express';
 import { authMiddleware as protect } from '../middlewares/authMiddleware.js';
-import { companyScopeMiddleware } from '../middlewares/companyScopeMiddleware.js';
 import { 
     getWastes, 
     createWaste, 
@@ -25,8 +24,8 @@ router.route('/')
     .post(createWaste); // POST /api/wastes - Cria novo registro
 
 router.route('/:id')
-    .get(companyScopeMiddleware, getWasteById) // GET /api/wastes/:id - Detalhes
-    .put(companyScopeMiddleware, updateWaste) // PUT /api/wastes/:id - Atualiza
-    .delete(companyScopeMiddleware, deleteWaste); // DELETE /api/wastes/:id - Remove
+    .get(getWasteById) // GET /api/wastes/:id - Detalhes
+    .put(updateWaste) // PUT /api/wastes/:id - Atualiza
+    .delete(deleteWaste); // DELETE /api/wastes/:id - Remove
 
 export default router;

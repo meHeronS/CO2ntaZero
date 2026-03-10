@@ -10,17 +10,29 @@ const { Schema } = mongoose;
 
 const UserSchema = new Schema(
   {
-    // Chave estrangeira que vincula o usuário à sua empresa. Essencial para a arquitetura multi-tenant.
+    // Empresa Ativa: Define qual contexto o usuário está visualizando no momento.
     companyId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Company",
       required: true,
       index: true, // Indexar este campo acelera a busca de todos os usuários de uma empresa.
     },
+    // Lista de todas as unidades (Empresas/Residências) que este usuário (CPF) gerencia.
+    companies: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company"
+    }],
     // Nome completo do usuário.
     name: {
       type: String,
       required: true,
+      trim: true,
+    },
+    // CPF do usuário (Pessoa Física). Obrigatório para todos os usuários do sistema.
+    cpf: {
+      type: String,
+      required: true,
+      unique: true,
       trim: true,
     },
     // E-mail de login do usuário. Deve ser único em todo o sistema.
@@ -46,12 +58,6 @@ const UserSchema = new Schema(
     passwordResetExpires: {
       type: Date,
       select: false,
-    },
-    // Chave estrangeira que define o nível de permissão do usuário (ex: ADMIN_COMPANY, USER_COMPANY).
-    role: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Permission",
-      required: true,
     },
     // Flag para "soft delete". Se `false`, o usuário é considerado inativo e não pode logar.
     active: {

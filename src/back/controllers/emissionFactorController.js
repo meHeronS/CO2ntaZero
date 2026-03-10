@@ -9,9 +9,9 @@ export const getAllFactors = async (req, res) => {
     if (req.query.year) filter.referenceYear = req.query.year;
 
     const factors = await EmissionFactor.find(filter).sort({ source: 1, referenceYear: -1 });
-    return successResponse(res, factors);
+    return successResponse(res, { data: factors });
   } catch (error) {
-    return errorResponse(res, 500, "Erro ao listar fatores de emissão", error);
+    return errorResponse(res, { status: 500, message: "Erro ao listar fatores de emissão", errors: error });
   }
 };
 
@@ -19,62 +19,9 @@ export const getAllFactors = async (req, res) => {
 export const getFactorById = async (req, res) => {
   try {
     const factor = await EmissionFactor.findById(req.params.id);
-    if (!factor) return errorResponse(res, 404, "Fator de emissão não encontrado");
-    return successResponse(res, factor);
+    if (!factor) return errorResponse(res, { status: 404, message: "Fator de emissão não encontrado" });
+    return successResponse(res, { data: factor });
   } catch (error) {
-    return errorResponse(res, 500, "Erro ao buscar fator", error);
-  }
-};
-
-// Criar novo fator de emissão (Apenas Admin Global deveria fazer isso, mas por enquanto deixaremos aberto ou protegido pela rota)
-export const createFactor = async (req, res) => {
-  try {
-    const { source, factor, unit, referenceYear, sourceReference } = req.body;
-
-    // Verificação simples se já existe para aquele ano e fonte
-    const existing = await EmissionFactor.findOne({ source, referenceYear });
-    if (existing) {
-      return errorResponse(res, 400, `Já existe um fator para ${source} no ano ${referenceYear}`);
-    }
-
-    const newFactor = await EmissionFactor.create({
-      source,
-      factor,
-      unit,
-      referenceYear,
-      sourceReference
-    });
-
-    return successResponse(res, newFactor, 201);
-  } catch (error) {
-    return errorResponse(res, 500, "Erro ao criar fator de emissão", error);
-  }
-};
-
-// Atualizar fator
-export const updateFactor = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const updatedFactor = await EmissionFactor.findByIdAndUpdate(id, req.body, { new: true });
-    
-    if (!updatedFactor) return errorResponse(res, 404, "Fator não encontrado para atualização");
-
-    return successResponse(res, updatedFactor);
-  } catch (error) {
-    return errorResponse(res, 500, "Erro ao atualizar fator", error);
-  }
-};
-
-// Remover fator
-export const deleteFactor = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deleted = await EmissionFactor.findByIdAndDelete(id);
-    
-    if (!deleted) return errorResponse(res, 404, "Fator não encontrado para exclusão");
-
-    return successResponse(res, { message: "Fator de emissão removido com sucesso" });
-  } catch (error) {
-    return errorResponse(res, 500, "Erro ao remover fator", error);
+    return errorResponse(res, { status: 500, message: "Erro ao buscar fator", errors: error });
   }
 };

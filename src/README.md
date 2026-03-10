@@ -62,7 +62,7 @@ O CO2ntaZero utiliza uma arquitetura MVC Desacoplada, garantindo que o motor de 
     - Interage com o MongoDB através dos `models` (Mongoose).
 
 3. **Banco de Dados (MongoDB)**
-    - Estruturado em multitenancy para isolar os dados de cada Empresa (PJ) ou Pessoa Física (CPF).
+    - Estruturado para isolar os dados por **Unidade (Company)**, garantindo que cada Proprietário (User) acesse apenas os dados das unidades que gerencia.
 
 ## Componentes Principais
 

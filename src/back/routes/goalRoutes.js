@@ -8,7 +8,6 @@ import {
   deleteGoal,
 } from "../controllers/goalController.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
-import { companyScopeMiddleware } from "../middlewares/companyScopeMiddleware.js";
 import { auditMiddleware } from "../middlewares/auditMiddleware.js";
 
 const router = express.Router();
@@ -17,15 +16,15 @@ const router = express.Router();
 router.get("/", authMiddleware, getGoals);
 
 // Rota para obter uma meta específica.
-router.get("/:id", authMiddleware, companyScopeMiddleware, getGoalById);
+router.get("/:id", authMiddleware, getGoalById);
 
 // Rota para criar uma nova meta.
 router.post("/", authMiddleware, auditMiddleware("CREATE_GOAL"), createGoal);
 
 // Rota para atualizar uma meta existente.
-router.put("/:id", authMiddleware, companyScopeMiddleware, auditMiddleware("UPDATE_GOAL"), updateGoal);
+router.put("/:id", authMiddleware, auditMiddleware("UPDATE_GOAL"), updateGoal);
 
 // Rota para remover uma meta.
-router.delete("/:id", authMiddleware, companyScopeMiddleware, auditMiddleware("DELETE_GOAL"), deleteGoal);
+router.delete("/:id", authMiddleware, auditMiddleware("DELETE_GOAL"), deleteGoal);
 
 export default router;
