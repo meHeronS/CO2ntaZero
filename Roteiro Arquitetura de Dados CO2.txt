@@ -20,6 +20,17 @@ MEMBROS DO GRUPO:
 PROFESSOR(A): Amália Soares Vieira de Vasconcelos
 
 --------------------------------------------------------------------------------
+ACESSO AO BANCO DE DADOS (DEV TEAM)
+--------------------------------------------------------------------------------
+
+Para que todos os integrantes possam conectar e visualizar o banco de dados compartilhado (MongoDB Atlas), utilizem as seguintes credenciais no MongoDB Compass ou na configuração do .env local:
+
+Usuário: AdminDB
+Senha:   AdminDB
+String de Conexão:
+mongodb+srv://AdminDB:AdminDB@studiescluster.hcpbk9e.mongodb.net/co2ntazero?retryWrites=true&w=majority
+
+--------------------------------------------------------------------------------
 CONTEXTO E MOTIVAÇÃO
 --------------------------------------------------------------------------------
 
