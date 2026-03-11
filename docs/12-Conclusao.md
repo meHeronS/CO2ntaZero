@@ -1,6 +1,6 @@
 # Conclusão
 
-O projeto CO2ntaZero atingiu seus objetivos ao fornecer uma plataforma funcional para a gestão ESG voltada para pequenas e médias empresas. A implementação da regra de anomalia de 15% mostrou-se eficaz nos testes para identificar padrões de consumo irregulares, permitindo uma gestão proativa de recursos. A arquitetura baseada em microsserviços e a utilização da stack MERN facilitaram a manutenção e a escalabilidade do sistema.
+O projeto CO2ntaZero atingiu seus objetivos ao fornecer uma plataforma funcional para o monitoramento de sustentabilidade e conscientização ambiental voltada para pequenas e médias empresas. A implementação da regra de anomalia de 15% mostrou-se eficaz nos testes para identificar padrões de consumo irregulares, permitindo uma gestão proativa de recursos. A validação dos requisitos de usabilidade confirmou que a interface é acessível para usuários com pouca afinidade tecnológica. A arquitetura baseada em microsserviços e a utilização da stack MERN facilitaram a manutenção e a escalabilidade do sistema.
 
 A aplicação se consolida por resolver simultaneamente três vertentes:
 1.  **Financeira:** Estanca perdas de capital provenientes de desperdícios (focando nas grandezas físicas).

@@ -101,21 +101,21 @@ Este documento detalha a lógica e o comportamento esperado dos scripts do front
     1.  **Token Expirado:** O frontend faz uma requisição normal para a API (ex: `GET /api/transactions`) usando um `token` de acesso que já expirou.
     2.  **Resposta do Backend:** O backend detecta que o token está expirado e retorna um erro `401 Unauthorized`.
     3.  **Ação do Frontend (O Interceptador):**
-        a.  O script do frontend intercepta essa resposta `401`.
-        b.  Ele pega o `refreshToken` que está salvo no `localStorage`.
-        c.  Faz uma requisição `POST` para o endpoint `/api/auth/refresh-token` enviando o `refreshToken`.
+        a. O script do frontend intercepta essa resposta `401`.
+        b. Ele pega o `refreshToken` que está salvo no `localStorage`.
+        c. Faz uma requisição `POST` para o endpoint `/api/auth/refresh` enviando o `refreshToken`.
     4.  **Resposta do Backend (Refresh):** Se o `refreshToken` for válido, o backend gera um **novo** `token` de acesso e o retorna.
     5.  **Ação Final do Frontend:**
-        a.  O script salva o novo `token` no `localStorage`, substituindo o antigo.
-        b.  Ele **refaz automaticamente a requisição original** (`GET /api/transactions`), desta vez com o novo token.
-        c.  A página carrega os dados normalmente, e o usuário nem percebe que a sessão foi renovada.
+        a. O script salva o novo `token` no `localStorage`, substituindo o antigo.
+        b. Ele **refaz automaticamente a requisição original** (`GET /api/transactions`), desta vez com o novo token.
+        c. A página carrega os dados normalmente, e o usuário nem percebe que a sessão foi renovada.
 
 *   **Validação:** Este é um fluxo mais complexo de testar manualmente, mas pode ser observado nas Ferramentas de Desenvolvedor (aba "Network"), onde se veria uma falha 401 seguida por uma chamada para `/refresh-token` e, então, o sucesso da requisição original.
 *   **Validação:** Após o logout, qualquer tentativa de usar o botão "Voltar" do navegador para acessar uma página interna deve ser bloqueada pelo `authGuard.js`.
 
 ---
 
-## Fluxo 6: Interoperabilidade com a Prova de Conceito (React)
+## Fluxo 7: Interoperabilidade com a Prova de Conceito (React)
 
 **Objetivo:** Validar que a sessão iniciada por uma aplicação externa (React) é reconhecida e mantida pelo sistema legado.
 

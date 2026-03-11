@@ -10,7 +10,7 @@ Com o tema do projeto definido, escolham dois processos no contexto de negócios
 
 ## Modelagem da situação atual (Modelagem AS IS)
 
-Atualmente, o processo de gestão ambiental nas empresas alvo (PMEs) é predominantemente manual. As faturas de energia e água chegam fisicamente ou por e-mail e são lançadas em planilhas Excel desconexas. O cálculo de emissões de carbono, quando realizado, é feito anualmente, o que impede ações corretivas imediatas. Não há um histórico centralizado de geração de resíduos, e a detecção de vazamentos ou desperdícios depende da análise visual humana das contas, muitas vezes ocorrendo com 30 dias de atraso.
+Atualmente, o processo de controle de contas e consumo nas empresas alvo (PMEs) é predominantemente manual. As faturas de energia e água chegam fisicamente ou por e-mail e são lançadas em planilhas Excel desconexas. O cálculo de emissões de carbono raramente é feito. Não há um histórico centralizado de geração de resíduos, e a detecção de vazamentos ou desperdícios depende da análise visual humana das contas, muitas vezes ocorrendo com 30 dias de atraso.
 
 **Gargalos identificados:**
 *   **Erro humano:** Digitação incorreta de valores nas planilhas.

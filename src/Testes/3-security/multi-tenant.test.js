@@ -3,7 +3,7 @@
 //
 // DESCRIÇÃO:
 //            Este é um dos testes mais críticos do sistema. Ele valida a
-//            arquitetura multi-tenant, garantindo que os dados de uma empresa
+//            arquitetura de isolamento lógico, garantindo que os dados de uma empresa
 //            sejam completamente isolados dos dados de outra.
 //
 // O QUE ELE VALIDA:
@@ -22,7 +22,7 @@ const SETUP_FILE = path.join(__dirname, '..', 'test-setup.json');
 // Adjust this number if needed, but 2 is enough to prove isolation
 const NUMBER_OF_COMPANIES = 2; 
 
-describe('3. Teste de Isolamento de Dados (Multi-Tenant)', () => {
+describe('3. Teste de Isolamento de Dados (Single Owner)', () => {
     let companies = [];
     let API_URL;
 
@@ -36,7 +36,7 @@ describe('3. Teste de Isolamento de Dados (Multi-Tenant)', () => {
             API_URL = 'http://localhost:5000/api';
         }
 
-        console.log(`\n--- Configurando ${NUMBER_OF_COMPANIES} empresas para o teste multi-tenant ---`);
+        console.log(`\n--- Configurando ${NUMBER_OF_COMPANIES} empresas para o teste de isolamento ---`);
 
         for (let i = 1; i <= NUMBER_OF_COMPANIES; i++) {
             const timestamp = Date.now();

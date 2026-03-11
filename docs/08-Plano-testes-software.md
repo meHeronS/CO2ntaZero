@@ -28,9 +28,9 @@ Por exemplo:
 | Critério de êxito | - A transação aparece na lista. <br> - O saldo/consumo total no Dashboard é atualizado. |
 | Responsável pela elaboração do caso de teste | Saulo Luiz |
 
-| **Caso de teste**  | **CT-003 – Isolamento de Dados (Multi-Tenant)**  |
+| **Caso de teste**  | **CT-003 – Isolamento de Dados (Single Owner)**  |
 |:---: |:---: |
-| Requisito associado | RF-006 - Segurança e Isolamento de Dados. |
+| Requisito associado | RF-006 - Isolamento lógico de dados. |
 | Objetivo do teste | Garantir que a Empresa A não veja dados da Empresa B. |
 | Passos | 1. Logar como Empresa A e criar um registro único. <br> 2. Deslogar. <br> 3. Logar como Empresa B. <br> 4. Buscar o registro criado no passo 1. |
 | Critério de êxito | - O registro da Empresa A NÃO deve aparecer para a Empresa B. |

@@ -1,4 +1,4 @@
-# CO2ntaZero: Monitoramento de Emissões e Inteligência Climática
+# CO2ntaZero: Calculadora de Emissões e Conscientização Ambiental
 
 `CURSO: Sistemas de Informação`
 
@@ -6,7 +6,7 @@
 
 `1º Semestre / 2026`
 
-O **CO2ntaZero** é uma plataforma acadêmica de Sustentabilidade Digital concebida para monitorar, calcular e mitigar as emissões de carbono de indivíduos e empresas. Embora utilize dados de consumo operacional (energia, água, combustíveis e outros) como fonte de alimentação, o objetivo central do sistema é a conversão dessas métricas em **Pegada de Carbono (Carbon Footprint)**, permitindo uma gestão baseada em dados para o alcance da neutralidade climática.
+O **CO2ntaZero** é uma ferramenta acadêmica de **Conscientização Ambiental** concebida para monitorar e calcular as emissões de carbono de indivíduos e pequenos negócios. O objetivo central não é a gestão corporativa complexa, mas sim a conversão de métricas de consumo (energia, água, combustíveis) em **Pegada de Carbono (Carbon Footprint)**, permitindo que pessoas comuns entendam seu impacto e adotem hábitos mais sustentáveis.
 
 ## Integrantes
 
@@ -22,11 +22,25 @@ O **CO2ntaZero** é uma plataforma acadêmica de Sustentabilidade Digital conceb
 
 ---
 
-## 1. Glossário e Conceitos Fundamentais
+## 1. Contexto e Motivação
+
+O projeto CO2ntaZero nasceu de uma necessidade prática: auxiliar o **Sr. Vander (65 anos)**, pai de um dos fundadores, a monitorar variações nos gastos mensais de sua residência e comércio (**Valtinho's Bar**).
+
+A dificuldade em perceber anomalias nas faturas de papel motivou a criação de um sistema que não apenas alertasse sobre desperdícios financeiros (regra de variação > 15%), mas que evoluísse para uma plataforma de Green Tech, convertendo esses dados em pegada de carbono e promovendo a sustentabilidade.
+
+### Princípio de Design: Usabilidade Simplificada
+A principal diretriz para a interface é a facilidade de uso. O sistema deve ser tão intuitivo e autoexplicativo que o Sr. Vander, sem afinidade com tecnologia, consiga utilizá-lo de forma fluida e sem necessidade de treinamento.
+
+### Parceiro de Validação (MVP)
+O **Valtinho's Bar** servirá como piloto para validar se a ferramenta ajuda efetivamente a economizar dinheiro e reduzir emissões em um cenário real de pequeno negócio.
+
+---
+
+## 2. Glossário e Conceitos Fundamentais
 
 Para facilitar o entendimento técnico e de negócio deste projeto, definimos os seguintes termos e siglas:
 
-*   **ESG (Environmental, Social and Governance)**: Governança Ambiental, Social e Corporativa. Refere-se às práticas empresariais que priorizam a sustentabilidade, responsabilidade social e transparência, saindo do foco puramente financeiro.
+*   **Sustentabilidade Prática**: Foco em ações tangíveis do dia a dia (reduzir luz, economizar água) em vez de políticas corporativas complexas.
 *   **GHG Protocol (Greenhouse Gas Protocol)**: Padrão globalmente aceito para quantificação e gestão de emissões de Gases de Efeito Estufa (GEE).
 *   **MCTI**: Ministério da Ciência, Tecnologia e Inovação. Referência oficial brasileira para os fatores médios de emissão de CO2 do Sistema Interligado Nacional (SIN).
 *   **MERN Stack**: Conjunto de tecnologias JavaScript utilizado para o desenvolvimento full-stack: **M**ongoDB (Banco de dados), **E**xpress (Framework backend), **R**eact (Biblioteca frontend) e **N**ode.js (Ambiente de execução).
@@ -38,7 +52,7 @@ Para facilitar o entendimento técnico e de negócio deste projeto, definimos os
 
 ---
 
-## 2. Justificativa Acadêmica e Diferencial
+## 3. Justificativa Acadêmica e Diferencial
 
 Este projeto é um **Modelo Conceitual de Tecnologia Verde (Greentech)** desenvolvido em grupo. Enquanto empresas de mercado (ex: *NetZero.green*) focam em soluções complexas para grandes corporações e indústrias pesadas, o **CO2ntaZero** nasce com a missão de **democratizar a sustentabilidade**.
 
@@ -46,7 +60,7 @@ Nosso foco é dar ferramentas para o **Pequeno Empresário (Dono de Restaurante,
 
 ---
 
-## 3. Arquitetura e Engenharia de Software
+## 4. Arquitetura e Engenharia de Software
 
 O sistema adota uma arquitetura **MVC Desacoplada** robusta, visando escalabilidade e manutenção. Embora funcional, reconhecemos academicamente que a arquitetura possui pontos de melhoria que poderiam ser refatorados em iterações futuras para maior desacoplamento e performance.
 
@@ -56,23 +70,30 @@ A camada de apresentação (Frontend) foi desenhada para suportar uma transiçã
 *   **Versão React JS**: Implementação moderna, iniciando pela tela de login e dashboard, demonstrando a capacidade da API de servir diferentes clientes.
 *   *Nota: A responsabilidade pela migração completa e manutenção do frontend será revista e decidida em conjunto pelo grupo.*
 
-### 3.2. Visão de Escalabilidade e PWA
+### 4.2. Visão de Escalabilidade e PWA
 A escalabilidade do projeto é pautada nas **Boas Práticas de Desenvolvimento** (Clean Code, SOLID no backend). O conceito de **Progressive Web App (PWA)** é apresentado como o "estado da arte" desejado para o projeto: uma aplicação web que se comporta como nativa (mobile), permitindo acesso offline, notificações de metas de emissão e instalação no dispositivo, ampliando o alcance para uso em campo.
 
+### 4.3. Modelo Single Owner e Segurança
+O sistema adota o modelo **Single Owner** (Proprietário Único), onde um CPF gerencia múltiplas unidades (CNPJs ou Residências).
+*   **Isolamento Lógico:** O campo `companyId` atua como chave de particionamento.
+*   **Proteção de Identidade:** O sistema impede o cadastro duplicado de CNPJ. Se um usuário tentar cadastrar um CNPJ já existente, o sistema bloqueia a ação e notifica o proprietário original via e-mail.
+
 ---
 
-## 4. Pilares Funcionais de Monitoramento
+## 5. Pilares Funcionais de Monitoramento
 
-### 4.1. Definição de Alertas Inteligentes
-Os alertas de consumo e emissão são configuráveis pelo próprio usuário nas configurações da conta. O sistema sugere e padroniza o alerta para variações acima de **15%**, partindo da premissa de que oscilações abaixo desse patamar são flutuações e sazonais normais de consumo (água/energia).
+### 5.1. Definição de Alertas Inteligentes (Regra dos 15%)
+O sistema monitora desvios de consumo. Detecta automaticamente variações superiores a **15%** (padrão configurável pelo usuário) em relação à média histórica, notificando o gestor sobre possíveis vazamentos ou ineficiências operacionais.
+Mesmo sem alertas críticos, o sistema gera **sugestões de economia** para incentivar a redução contínua.
 
-### 4.2. Inteligência Net Zero
+### 5.2. Inteligência Net Zero e Gamificação
 *   **Rastreamento de Resíduos**: Módulo para gestão de economia circular (óleo, recicláveis).
 *   **Cálculo de CO2**: Conversão automática baseada em tabelas oficiais (sem referências bibliográficas externas neste momento, utilizando dados padronizados de mercado/MCTI).
+*   **Gamificação**: Uso de selos e feedbacks visuais quando metas de redução são atingidas.
 
 ---
 
-## 5. Histórico de Versões e Contextualização Acadêmica
+## 6. Histórico de Versões e Contextualização Acadêmica
 
 Este projeto adota um versionamento semântico adaptado para o contexto acadêmico, onde cada "Major Release" ou "Minor Change" reflete um marco ou uma nova tecnologia integrada pelos alunos.
 
@@ -137,7 +158,7 @@ Abaixo, o histórico granular de cada etapa do desenvolvimento, desde a concepç
 
 ---
 
-## 6. Instalação e Execução
+## 7. Instalação e Execução
 
 ### Pré-requisitos
 *   Node.js (v18+)

@@ -1,11 +1,11 @@
 # Relatório Técnico - Projeto de Extensão
-**Título do Trabalho:** CO2ntaZero - Sistema Inteligente de Gestão de Pegada de Carbono e Resíduos  
+**Título do Trabalho:** CO2ntaZero - Calculadora de Emissões e Monitoramento de Consumo Sustentável
 
 **Membros do Grupo:**
 1. Caio Vieira de Freitas
 2. Gustavo Costa Pinho Tavares
 3. Heron Victor Vieira da Silva
-4. Joao Vinicius Rodrigues Santos
+4. João Vinicius Rodrigues Santos
 5. Saulo Luiz de Oliveira e Silva
 
 **Professor(a):** Amália Soares Vieira de Vasconcelos
@@ -17,44 +17,44 @@
 ---
 
 **Resumo.**  
-Este projeto apresenta o CO2ntaZero, uma solução de software voltada para a gestão de sustentabilidade empresarial (ESG), focada no cálculo automatizado de pegada de carbono, gestão de resíduos e detecção de anomalias de consumo. O objetivo é fornecer a pequenas e médias empresas uma ferramenta acessível para monitorar seu impacto ambiental. Como resultado relevante, o sistema é capaz de identificar desvios de consumo superiores a 15% da média histórica, gerando alertas automáticos que auxiliam na redução de desperdícios e custos operacionais.
+Este projeto apresenta o CO2ntaZero, uma solução de software projetada como uma calculadora de conscientização ambiental e monitoramento de recursos. Diferente de sistemas complexos de gestão corporativa, o foco aqui é fornecer a pessoas físicas e pequenos empresários uma ferramenta simples para calcular sua pegada de carbono e monitorar variações de consumo (água e luz). O sistema identifica desvios de consumo (anomalias) e sugere formas de compensação, como o plantio de árvores, unindo economia financeira à responsabilidade ambiental.
 
 ---
 
 ## 1. INTRODUÇÃO
 
-O CO2ntaZero nasceu de uma necessidade prática e pessoal: a dificuldade de monitorar variações nos gastos mensais de água e luz de uma residência comum. A ideia surgiu da intenção de auxiliar o Sr. Vander (pai de um dos fundadores), de 65 anos, a visualizar se estava ocorrendo uma variação grande nos gastos mensais de sua casa e de seu bar, algo difícil de perceber apenas com as faturas em papel. Dada a simplicidade inicial, o projeto evoluiu para uma abordagem *Green Tech*, percebendo que evitar o desperdício financeiro é também uma forma de promover a sustentabilidade.
+O CO2ntaZero não nasceu em um laboratório corporativo, mas de uma necessidade real do dia a dia. A ideia surgiu quando o Sr. Vander, proprietário de um bar, questionou se existia uma forma simples de monitorar os gastos de água e luz do estabelecimento. Ele percebia variações nos valores das faturas e suspeitava de problemas na rede (vazamentos ou fugas de energia), mas tinha dificuldade de validar isso apenas com os papéis mensais.
 
-A gestão ambiental tornou-se um pilar estratégico para empresas de todos os portes. No entanto, pequenas e médias organizações frequentemente carecem de ferramentas acessíveis para monitorar suas emissões de gases de efeito estufa (GEE) e gerenciar seus resíduos de forma eficiente. O CO2ntaZero insere-se no contexto de *Green Tech* (Tecnologia Verde), propondo a digitalização de processos de sustentabilidade que, muitas vezes, são realizados manualmente ou sequer existem.
+A partir dessa demanda, o projeto evoluiu para unir o útil (economia financeira) ao agradável (sustentabilidade). Percebeu-se que monitorar o desperdício de recursos é o primeiro passo para reduzir a pegada de carbono. Assim, o CO2ntaZero foi concebido como uma "Calculadora de Conscientização": uma ferramenta que monitora o consumo, alerta sobre anomalias e traduz esses gastos em impacto ambiental (CO2), sugerindo formas de compensação.
 
-O problema central abordado é a dificuldade de mensuração do impacto ambiental e a falta de visibilidade sobre consumos excessivos. A motivação para este trabalho reside na urgência climática global e na necessidade de conformidade com normas ESG. A solução permite o cadastro de **Matrizes e Filiais (Multi-CNPJ)**, centralizando a gestão de múltiplos unidades em um único painel.
+O problema central abordado é a falta de ferramentas acessíveis para que pessoas comuns e pequenos empresários monitorem suas emissões e consumos de forma proativa. A motivação é democratizar a "pegada verde", mostrando que a sustentabilidade pode gerar economia direta.
 
-O "cliente" (parceiro extensionista) deste projeto são pequenas indústrias e escritórios comerciais que buscam certificações ambientais ou redução de custos, mas não possuem orçamento para softwares complexos.
+O parceiro extensionista para validação da usabilidade e das informações do sistema é o **Valtinho's Bar**, que servirá como piloto para provar que a redução de emissões e o controle de gastos podem ser aplicados em estabelecimentos de bairro com a mesma eficácia de grandes empresas.
 
 ### 1.1. Objetivos geral e específicos
-**Objetivo Geral:** desenvolver uma aplicação web para cálculo, monitoramento e gestão da pegada de carbono e resíduos corporativos, utilizando uma esteira DevOps moderna (Docker, Azure, Vercel).
+**Objetivo Geral:** Desenvolver uma aplicação web (Calculadora de Emissões) para monitoramento de consumo e conscientização ambiental, utilizando uma esteira DevOps moderna.
 
 **Objetivos Específicos:**
 1.  Automatizar o cálculo de emissões de CO2 com base em fatores de emissão padronizados (MCTI/GHG Protocol).
-2.  Implementar um motor de anomalias com **percentual configurável pelo usuário** (respeitando o mínimo de 15%), permitindo adaptação à realidade de cada filial ou residência.
+2.  Implementar um motor de anomalias com **percentual configurável pelo usuário** (padrão de 15%), permitindo que a sensibilidade do alerta seja adaptada conforme a necessidade de cada empresa ou residência cadastrada.
 3.  Prover um Dashboard inteligente que exibe consumos, emissões geradas e **sugestões de compensação** (ex: "Plante X árvores") baseadas em dados.
-4.  Implementar validações básicas de CPF/CNPJ e vinculo de usuários, respeitando diretrizes da LGPD (Lei Geral de Proteção de Dados).
+4.  Implementar validações básicas de CPF/CNPJ e vínculo de unidades ao proprietário (Single Owner), respeitando diretrizes da LGPD (Lei Geral de Proteção de Dados).
 
 ### 1.2. Justificativa
-A criação do CO2ntaZero justifica-se pela lacuna de mercado para soluções ESG de baixo custo. Dados da ONU indicam que a eficiência no uso de recursos pode reduzir custos operacionais em até 20%. O trabalho contribui fornecendo uma ferramenta que não apenas calcula o impacto, mas age proativamente através de alertas de anomalia, permitindo intervenções rápidas contra desperdícios.
+A "pegada verde" é uma realidade necessária, mas muitas vezes ignorada por PMEs e residências devido ao custo e complexidade de implementação. Segundo o Relatório de Objetivos de Desenvolvimento Sustentável (ODS) da ONU (2023), a eficiência energética e o consumo responsável (ODS 12) são vitais para o combate às mudanças climáticas.
+
+O CO2ntaZero justifica-se como uma solução de entrada. Ao focar na **conscientização** e na **economia financeira** (redução de conta de luz/água), a ferramenta quebra a barreira de entrada da sustentabilidade. A justificativa econômica (alertar sobre um vazamento ou gasto excessivo) serve como alavanca para a conscientização ambiental, tornando o sistema útil tanto para o bolso quanto para o planeta.
 
 ### 1.3. Público-alvo
 O perfil de usuários da aplicação abrange:
 *   **Pessoas Físicas e Pequenos Empreendedores (Como o Sr. Vander):** Chefes de família e donos de pequenos negócios que precisam monitorar contas mensais de múltiplos locais (casa, comércio) para evitar surpresas.
-*   **Gestores de Sustentabilidade/Facilitities:** Profissionais com conhecimento técnico moderado, focados em relatórios e conformidade.
 *   **Proprietários de PMEs:** Focados em redução de custos, com pouco tempo disponível e necessidade de visualizações objetivas.
-*   **Operadores Administrativos:** Responsáveis pelo lançamento de dados (faturas, pesagem de resíduos), com variados níveis de fluência digital.
+*   **Grandes Empresas (Opcional):** Embora possuam processos complexos e obrigações legais específicas, nada impede que utilizem a ferramenta como uma calculadora rápida de conscientização para filiais menores ou campanhas internas.
 
 ### 1.4. Especificação do Projeto
-A solução foca na experiência do usuário para simplificar a coleta de dados ambientais.
-*   **Modelo de Negócio:** SaaS B2B (Software as a Service Business-to-Business).
-*   **Requisitos Funcionais Principais:** Cadastro de faturas (RF-01), Cálculo de emissões (RF-02), Detecção de Anomalias (RF-03), Gestão de Resíduos (RF-04).
-*   **Restrições:** O sistema deve rodar em navegadores web padrão. O acesso mobile é conceitual (via navegador), sem aplicativo nativo.
+A solução é projetada como um **SaaS (Software as a Service)**, acessível via navegador.
+*   **Plataforma:** Aplicação Web Responsiva. Conceitualmente, o projeto adota princípios de **PWA (Progressive Web App)**, garantindo que a interface funcione fluidamente em dispositivos móveis (celulares/tablets) através do navegador, embora o desenvolvimento de um aplicativo nativo não esteja no escopo atual devido ao tempo.
+*   **Foco em Usabilidade:** A interface deve ser extremamente intuitiva e autoexplicativa. O design é pensado para usuários com pouca afinidade tecnológica, como a persona do Sr. Vander, garantindo um fluxo de uso fluido e sem atritos para estimular o lançamento recorrente de dados.
 
 ### 1.5. Estratégia de Mercado: O Conceito de Oceano Azul
 Diferente da abordagem tradicional de competir em mercados saturados ("Oceanos Vermelhos"), onde produtos se tornam commodities e a briga é por preço, o **CO2ntaZero** adota a **Estratégia do Oceano Azul** (Blue Ocean Strategy).
@@ -65,12 +65,10 @@ Diferente da abordagem tradicional de competir em mercados saturados ("Oceanos V
 ---
 
 ## 2. PARTICIPANTES DO PROCESSO DE NEGÓCIO
-
+No modelo de "Proprietário Único" (Single Owner) do MVP, há apenas um perfil de uso principal:
 | PERFIL DE USO | RESPONSABILIDADE PRINCIPAL |
-| :--- | :--- | :--- |
-| **Proprietário / Gestor** | Responsável único pelo cadastro da empresa e gerenciamento de todos os dados (faturas, metas, resíduos). |
-| **Operador Administrativo** | (Contexto de uso) Pessoa que realiza os lançamentos diários utilizando a conta do proprietário ou filial. |
-| **Auditor** | (Contexto de uso) Pessoa que visualiza os relatórios gerados pelo sistema para validação externa. |
+| :--- | :--- |
+| **Proprietário / Dono Único** | Responsável por todas as ações no sistema: cadastrar a si mesmo (CPF) e suas unidades (CNPJ/Residência), lançar consumos, monitorar alertas e visualizar relatórios. Ele desempenha conceitualmente os papéis de operador e auditor. |
 
 ---
 
@@ -118,7 +116,7 @@ O sistema possui interfaces responsivas adaptadas para web e mobile.
 ### 4.2. Projeto do banco de dados
 
 **MODELO CONCEITUAL (DER):**
-O modelo contempla entidades como `Company`, `User`, `Consumption`, `Waste`, `Alert` e `Goal`. A entidade `Company` agrupa `Users` e seus respectivos dados. `Consumption` está ligado a fatores de emissão para cálculo automático.
+O modelo contempla entidades como `Company`, `User`, `Consumption`, `Waste`, `Alert` e `Goal`. Adota-se a abordagem **Single Owner**, onde a entidade `User` (CPF) centraliza a propriedade e gestão de múltiplas `Companies` (Unidades/CNPJs), eliminando a complexidade de permissões (RBAC) para o MVP. `Consumption` está ligado a fatores de emissão para cálculo automático.
 
 *(Espaço reservado para imagem do DER Conceitual)*
 
@@ -155,7 +153,7 @@ O sistema opera 100% em nuvem, eliminando a necessidade de servidores físicos l
 
 **Guia Rápido de Uso:**
 
-1.  **Tela de Login:** Insira suas credenciais corporativas. Caso seja o primeiro acesso, utilize a opção "Registrar Empresa".
+1.  **Tela de Login:** Insira suas credenciais de acesso. Caso seja o primeiro acesso, utilize a opção de registro.
 2.  **Dashboard:** Ao entrar, você verá o resumo do mês atual. As anomalias aparecerão em vermelho no canto direito.
 3.  **Lançar Consumo:** No menu "Consumo", clique em "Novo". Selecione "Energia Elétrica", digite "500" e unidade "kWh". O sistema calculará automaticamente o CO2.
 4.  **Gestão de Resíduos:** No menu "Resíduos", registre o descarte informando o tipo (ex: Papel) e o destino (ex: Reciclagem).
@@ -164,7 +162,7 @@ O sistema opera 100% em nuvem, eliminando a necessidade de servidores físicos l
 
 ## 6. CONCLUSÃO
 
-O projeto CO2ntaZero atingiu seus objetivos ao fornecer uma plataforma funcional para a gestão ESG. A implementação da regra de anomalia de 15% mostrou-se eficaz nos testes para identificar padrões de consumo irregulares. A arquitetura baseada em microsserviços (Service Layer) facilitou a manutenção e a escalabilidade.
+O projeto CO2ntaZero atingiu seus objetivos ao fornecer uma plataforma funcional para o monitoramento de sustentabilidade. A implementação da regra de anomalia de 15% mostrou-se eficaz nos testes para identificar padrões de consumo irregulares. A arquitetura baseada em camadas de serviço (Service Layer) facilitou a manutenção e a escalabilidade.
 Como limitação, o sistema atual depende da inserção manual de dados; trabalhos futuros poderiam explorar a leitura automática de faturas via OCR, integrações com companhias de energia e uso de IA para facilitar o uso. O uso desta solução promove a conscientização ambiental e a redução de custos operacionais nas empresas parceiras.
 
 ---

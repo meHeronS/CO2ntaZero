@@ -95,7 +95,7 @@ Dê ênfase especial às telas relacionadas aos processos BPMN já mapeados e do
 
 ### Tela principal do sistema
 
-A tela principal (Dashboard) apresenta uma visão consolidada dos indicadores ESG. O fluxo de navegação obedece ao seguinte Menu:
+A tela principal (Dashboard) apresenta uma visão consolidada dos indicadores de consumo e sustentabilidade. O fluxo de navegação obedece ao seguinte Menu:
 
 *   **Resumo Ambiental (Home):** Calculadora de Impacto Ambiental, medidor de "Árvores Restantes" e gráficos de evolução.
 *   **Utilitários (Despesas):** Inserção e visualização de volumes de água e luz gastos.

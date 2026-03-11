@@ -64,7 +64,7 @@ O objetivo é garantir que o fluxo de login, logout e proteção de rotas está 
 
 ---
 
-## 2. Teste de Isolamento de Dados (Multi-Tenant)
+## 2. Teste de Isolamento de Dados (Single Owner)
 
 Este é o teste mais crítico para o frontend. Valida que a interface de um usuário não exibe dados de outro.
 

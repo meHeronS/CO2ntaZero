@@ -2,7 +2,7 @@
 
 <span style="color:red">Pré-requisitos: <a href="05-Projeto-interface.md"> Projeto de interface</a></span>
 
-A arquitetura do CO2ntaZero é baseada na stack **MERN** (MongoDB, Express, React, Node.js), utilizando uma abordagem de microsserviços containerizados via Docker. A solução é orientada a eventos e projetada para **Multi-tenancy**, garantindo isolamento de dados entre diferentes empresas (Companies).
+A arquitetura do CO2ntaZero é baseada na stack **MERN** (MongoDB, Express, React, Node.js), utilizando uma abordagem de microsserviços containerizados via Docker. A solução adota o modelo **Single Owner** (Proprietário Único), onde um usuário (CPF) gerencia múltiplas unidades (Companies), garantindo isolamento lógico de dados.
 
 A comunicação entre o Frontend (React Web) e o Backend (Node.js API) ocorre via RESTful API, com autenticação segura via JWT (JSON Web Tokens). A persistência de dados é realizada no MongoDB Atlas (Cloud).
 
@@ -115,15 +115,13 @@ const CompanySchema = new mongoose.Schema({
 const ConsumptionSchema = new mongoose.Schema({
   companyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Company', required: true },
   type: { type: String, enum: ['energy', 'water', 'fuel'], required: true },
-  value: { type: Number, required: true }, // Quantidade consumida (kWh, m3, L)
+  quantity: { type: Number, required: true }, // Quantidade consumida (kWh, m3, L)
   date: { type: Date, required: true },
   carbonFootprint: { type: Number }, // Calculado: value * emissionFactor
   description: String,
   evidenceUrl: String, // URL do comprovante
-  createdAt: { type: Date, default: Date.now }
 });
 ```
-Esse script deverá ser incluído em um arquivo .sql na pasta [de scripts SQL](../src/db).
 
 
 ## Tecnologias
@@ -145,9 +143,9 @@ A arquitetura do sistema adota o padrão **Serverless First**, priorizando plata
 
 ### Detalhamento dos Componentes
 
-*   **Backend (Motor de Cálculos):** Responsável pelo lançamento flexível de faturas, rastreamento de resíduos (economia circular), calculadora automática da pegada de carbono, detecção de anomalias e segurança com criptografia.
+*   **Backend (Motor de Cálculos):** Responsável pelo lançamento flexível de faturas, rastreamento de resíduos, calculadora automática da pegada de carbono, detecção de anomalias e segurança com criptografia.
 *   **Frontend (Interface):** Gerencia formulários de lançamento fluidos, Dashboard de Sustentabilidade (com total de árvores para compensação) e sistema de Alertas.
-*   **Banco de Dados:** Estruturado com multi-tenancy lógico para isolar dados de Empresas (PJ) e Pessoas Físicas (CPF).
+*   **Banco de Dados:** Estruturado com isolamento lógico para separar dados de Empresas (PJ) e Pessoas Físicas (CPF). Inclui verificação de unicidade de CNPJ para evitar duplicidade de cadastro.
 
 
 ## Hospedagem

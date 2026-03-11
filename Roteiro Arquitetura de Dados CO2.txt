@@ -1,0 +1,189 @@
+================================================================================
+ROTEIRO DE ARQUITETURA DE DADOS - PROJETO CO2NTAZERO
+================================================================================
+
+Status: Rascunho Mestre Atualizado (Ref. SIRENE 2025 / GHG Protocol 2026)
+Objetivo: Centralizar a visão, regras de negócio e decisões técnicas do projeto.
+(Este arquivo serve como base de conhecimento e será removido da versão final do GitHub)
+
+--------------------------------------------------------------------------------
+EQUIPE E ORIENTAÇÃO
+--------------------------------------------------------------------------------
+
+MEMBROS DO GRUPO:
+1. Caio Vieira de Freitas
+2. Gustavo Costa Pinho Tavares
+3. Heron Victor Vieira da Silva
+4. João Vinicius Rodrigues Santos
+5. Saulo Luiz de Oliveira e Silva
+
+PROFESSOR(A): Amália Soares Vieira de Vasconcelos
+
+--------------------------------------------------------------------------------
+CONTEXTO E MOTIVAÇÃO
+--------------------------------------------------------------------------------
+
+O projeto CO2ntaZero nasceu de uma necessidade prática: auxiliar o Sr. Vander (65 anos),
+pai de um dos fundadores, a monitorar variações nos gastos mensais de sua residência e
+comércio (bar). A dificuldade em perceber anomalias nas faturas de papel motivou a
+criação de um sistema que não apenas alertasse sobre desperdícios financeiros
+(regra de variação > 15%), mas que evoluísse para uma plataforma de Green Tech,
+convertendo esses dados em pegada de carbono e promovendo a sustentabilidade.
+
+Parceiro de Validação (MVP): Valtinho's Bar (Betim/MG).
+
+Princípio de Design (Usabilidade Simplificada):
+  A principal diretriz para a interface é a facilidade de uso. O sistema deve ser tão
+  intuitivo e autoexplicativo que o Sr. Vander, sem afinidade com tecnologia, consiga
+  utilizá-lo de forma fluida e sem necessidade de treinamento.
+
+--------------------------------------------------------------------------------
+ARQUITETURA TÉCNICA
+--------------------------------------------------------------------------------
+
+A arquitetura de dados do CO2ntaZero foi projetada para suportar uma plataforma acadêmica
+de Green Tech orientada a dados. O sistema utiliza MERN Stack (MongoDB, Express, React, Node.js),
+com persistência no MongoDB Atlas (NoSQL) e infraestrutura Dockerizada.
+
+A modelagem de dados prioriza a rastreabilidade de emissões de carbono, segurança (LGPD)
+e escalabilidade horizontal.
+
+
+PARTE 1: ESTRUTURA BASE E SINGLE OWNER (ISOLAMENTO LÓGICO)
+
+O sistema adota o modelo "Single Owner" (Proprietário Único). Embora suporte múltiplos usuários
+no banco de dados (Isolamento Lógico), cada conta é isolada. Não há hierarquia complexa
+de permissões (RBAC) dentro de uma empresa neste MVP.
+
+1. Companies (Unidades de Gestão)
+   - Função: Centraliza o escopo de atuação. Seja uma residência ou uma empresa, a entidade
+     Company define a 'Unidade Geradora de Emissões'.
+   - Isolamento: O campo companyId atua como chave de particionamento lógico em todas as
+     coleções de dados, garantindo que os dados de um usuário não vazem para outro.
+   - Regra de Unicidade (Segurança): O sistema impede o cadastro duplicado de CNPJ.
+     Se um usuário tentar cadastrar um CNPJ já existente, o sistema BLOQUEIA a ação e
+     ENVIA UM E-MAIL para o proprietário original informando: "O usuário X tentou cadastrar sua empresa".
+
+2. Users (Usuários e Gestores)
+   - Função: Gerenciamento de identidades e acessos.
+   - Segurança: Senhas criptografadas com BCrypt. Validação estrita de CPF e E-mail únicos.
+   - Relação: Um usuário (CPF) gerencia uma ou mais unidades (Companies), permitindo a
+     visão consolidada de 'Minha Casa' e 'Meu Escritório' (ou 'Bar do Vander').
+
+3. SessionTokens (Segurança de Sessão)
+   - Função: Controle de autenticação stateless via JWT com Refresh Tokens.
+   - Compliance: Permite invalidar sessões em caso de suspeita de fraude ou logout,
+     atendendo requisitos de segurança da informação e evitando acessos simultâneos indevidos.
+
+
+PARTE 2: O MOTOR DE SUSTENTABILIDADE (CORE SUSTENTABILIDADE)
+
+Estas coleções formam o coração do CO2ntaZero, responsáveis por transformar dados
+operacionais em métricas ambientais.
+
+4. Consumptions (Consumo de Recursos)
+   - Substituição de Transações Financeiras: Foco nas grandezas físicas (kWh, m3, Litros).
+   - Métrica Base: Utilização do padrão GWP-AR5 (Global Warming Potential - IPCC) para
+     unificação das emissões em CO2 equivalente (CO2e).
+   - Propósito: Fonte primária para o cálculo da Pegada de Carbono (Carbon Footprint).
+
+5. EmissionFactors (Fatores de Emissão / GHG Protocol & SIRENE)
+   - Função: Dicionário de conversão oficial baseado na metodologia do GHG Protocol Brasil.
+   - Dados de Energia (SIN): Fator médio anual corroborado pelos dados de despacho do
+     MCTI/SIRENE (Ref. Média 2025: 0,3708 kgCO2/kWh).
+   - Dados de Combustíveis (EPE): Fatores de emissão para Gasolina (2,2390 kg/L),
+     Diesel (2,6309 kg/L) e GLP (2,9320 kg/kg).
+   - Gestão: Coleção "Read-Only" para o usuário final, atualizada via scripts administrativos.
+
+6. Wastes (Economia Circular)
+   - Função: Rastreamento da gestão de resíduos sólidos e líquidos (Óleo de cozinha).
+   - Registro: Monitora descarte e calcula o impacto evitado através de fatores de
+     compostagem ou reciclagem conforme tabelas da FGV.
+
+
+PARTE 3: INTELIGÊNCIA E AUDITORIA
+
+7. Alerts (Monitoramento de Anomalias)
+   - Regra de Negócio (RF-02): O sistema monitora desvios de consumo.
+   - Gatilho: Alerta automático para variações > 15% (comparado à média histórica de 3 meses).
+
+8. Goals (Metas e Gamificação)
+   - Função: Engajamento via compromissos ambientais (Ex: Reduzir 10% de energia).
+   - Recompensa Visual: Geração de selos e feedbacks de progresso na jornada sustentável.
+
+9. Logs (Auditoria e Compliance LGPD)
+   - Função: Registro histórico de 'O QUE foi feito', 'QUANDO' e 'DE-PARA' de valores.
+   - Registro: Essencial para transparência e possibilidade de reversão de erros de lançamento.
+
+--------------------------------------------------------------------------------
+INFRAESTRUTURA E DEPLOY (DOCUMENTAÇÃO DAS FERRAMENTAS)
+--------------------------------------------------------------------------------
+
+- Hospedagem API: Microsoft Azure App Service.
+  Doc: https://learn.microsoft.com/azure/app-service/
+
+- Hospedagem Front: Vercel.
+  Doc: https://vercel.com/docs/frameworks/react
+
+- Container: Docker (Ambientes padronizados).
+  Doc: https://docs.docker.com/get-started/
+
+- Banco de Dados: MongoDB Atlas (NoSQL).
+  Doc: https://www.mongodb.com/docs/atlas/
+
+- Backend: Node.js (Runtime) & Express.js (Framework).
+  Doc Node: https://nodejs.org/docs/
+  Doc Express: https://expressjs.com/
+
+- Frontend: React.js (Interface Responsiva).
+  Doc: https://react.dev/learn
+
+- Versionamento e Gestão: GitHub & GitHub Projects.
+  Doc Git: https://docs.github.com/pt
+
+- Segurança: BCrypt (Hash de senhas) & JWT (Tokens).
+  Doc JWT: https://jwt.io/introduction/
+
+--------------------------------------------------------------------------------
+REFERENCIAL DE BASES DE DADOS (CORROBORADO PELO GOVERNO)
+--------------------------------------------------------------------------------
+
+1. BRASIL. Ministério da Ciência, Tecnologia e Inovações (MCTI). SIRENE - Fatores
+   de Emissão de Eletricidade: Sistema Interligado Nacional (SIN). Brasília, 2025.
+   Link: https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/sirene/emissoes/fatores-de-emissao-de-eletricidade
+
+2. FGVces. Programa Brasileiro GHG Protocol: Ferramenta de Cálculo v2026.0.1.
+   São Paulo: FGV, 2026.
+   Link: https://eaesp.fgv.br/centros/centro-estudos-sustentabilidade/programas/programa-brasileiro-ghg-protocol
+
+3. EMPRESA DE PESQUISA ENERGÉTICA (EPE). Balanço Energético Nacional (BEN):
+   Fatores de Conversão. Rio de Janeiro: EPE, 2024.
+   Link: https://www.epe.gov.br/pt/publicacoes-dados-abertos/publicacoes/balanco-energetico-nacional-2024
+
+4. BRASIL. Ministério das Cidades. Sistema Nacional de Informações sobre Saneamento
+   (SNIS): Diagnósticos de Água e Resíduos. Brasília: SNS, 2024.
+   Link: http://www.snis.gov.br/paineis-de-informacoes-sobre-saneamento
+
+--------------------------------------------------------------------------------
+ROADMAP DE SPRINTS (1º Semestre 2026)
+--------------------------------------------------------------------------------
+
+O que NÃO faremos agora (Limitações do MVP):
+  - Leitura automática de fatura (OCR) e Integração via API (CEMIG/COPASA).
+  - App Nativo: Foco em Web Responsiva/PWA.
+
+Sprint 1 (Março/2026):
+  [X] Definição da Arquitetura e Documentação Técnica.
+  [ ] Configuração do Ambiente (GitHub, Docker, Azure, Mongo).
+
+Sprint 2 (Abril/2026):
+  [ ] Backend: Autenticação (JWT) e validação de duplicidade com e-mail de alerta.
+  [ ] Backend: Motor de Cálculo (GHG Protocol) e Alertas de 15%.
+
+Sprint 3 (Maio/2026):
+  [ ] Frontend: Dashboard e Lançamento de Consumo Simplificado.
+  [ ] Gamificação: Visualização de Metas e Impacto Ambiental.
+
+Sprint 4 (Junho/2026):
+  [ ] Validação de Usabilidade (Valtinho's Bar).
+  [ ] Deploy Final em Produção.

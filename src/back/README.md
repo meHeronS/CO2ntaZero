@@ -134,7 +134,7 @@ Após um ciclo completo de desenvolvimento, testes automatizados, refatoração 
 
 O backend demonstrou ser:
 - **Robusto**: Com uma suíte de testes cobrindo as principais funcionalidades.
-- **Seguro**: Implementando autenticação JWT, invalidação de sessão e isolamento de dados (multi-tenant).
+- **Seguro**: Implementando autenticação JWT, invalidação de sessão e isolamento de dados (Single Owner).
 - **Flexível**: Capaz de servir diferentes clientes, como o frontend legado (HTML/JS) e a prova de conceito em React, provando a eficácia da arquitetura de API desacoplada. 
 
 A funcionalidade de **Alertas Automáticos** para limites de emissão e consumo foi implementada e validada, completando o escopo principal do backend. A base sólida agora suporta todas as funcionalidades críticas definidas na especificação do projeto.

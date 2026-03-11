@@ -41,7 +41,7 @@ Antes de iniciar, certifique-se de que:
 
 ---
 
-## 2. Teste Crítico: Isolamento de Dados (Multi-Tenant)
+## 2. Teste Crítico: Isolamento de Dados (Single Owner)
 
 - [ ] **Cenário de Preparação (Empresa A):**
     1.  Faça login com a **Empresa Frontend**.

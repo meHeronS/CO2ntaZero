@@ -1,15 +1,18 @@
 # Introdução
 
-O CO2ntaZero nasceu de uma necessidade prática e pessoal: a dificuldade de monitorar variações nos gastos mensais de água e luz de uma residência comum. A ideia surgiu da intenção de auxiliar o Sr. Vander (pai do fundador), de 65 anos, a visualizar se estava ocorrendo uma variação grande nos gastos mensais de sua casa e de seu bar, algo difícil de perceber apenas com as faturas em papel.
+O CO2ntaZero nasceu de uma necessidade prática e pessoal: a dificuldade de monitorar variações nos gastos mensais de água e luz de uma residência comum. A ideia surgiu da intenção de auxiliar o Sr. Vander (pai do fundador), de 65 anos, a visualizar se estava ocorrendo uma variação grande nos gastos mensais de sua casa e de seu bar (**Valtinho's Bar**), algo difícil de perceber apenas com as faturas em papel.
 
-Dada a simplicidade inicial, o projeto evoluiu para uma abordagem *Green Tech*. Percebeu-se que evitar o desperdício financeiro é também uma forma de promover a sustentabilidade. Assim, o sistema escalou para monitorar todas as formas de emissão (combustível, resíduos, entregas, etc.) utilizando tabelas oficiais do governo, democratizando o acesso a ferramentas de gestão ambiental para pessoas físicas e empresas.
+Dada a simplicidade inicial, o projeto evoluiu para uma abordagem *Green Tech*. Percebeu-se que evitar o desperdício financeiro é também uma forma de promover a sustentabilidade. Assim, o sistema escalou para monitorar todas as formas de emissão (combustível, resíduos, entregas, etc.) utilizando tabelas oficiais do governo, democratizando o acesso a ferramentas de conscientização ambiental para pessoas físicas e empresas.
 
-O projeto está alinhado com a agenda global da ONU, atendendo diretamente aos **ODS 12 (Consumo e Produção Responsáveis)** e **ODS 13 (Ação Contra a Mudança Global do Clima)**.
+O projeto está alinhado com a agenda global da ONU, atendendo diretamente aos **ODS 12 (Consumo e Produção Responsáveis)** e **ODS 13 (Ação Contra a Mudança Global do Clima)**, focando na conscientização individual como motor de mudança.
+
+### Princípio de Design: Usabilidade Simplificada
+A principal diretriz para a interface é a facilidade de uso. O sistema deve ser tão intuitivo e autoexplicativo que o Sr. Vander, sem afinidade com tecnologia, consiga utilizá-lo de forma fluida e sem necessidade de treinamento.
 
 ## Cliente 
 O sistema atende a dois perfis principais:
 1.  **Pessoas Físicas e Pequenos Empreendedores (Como o Sr. Vander):** Chefes de família e donos de pequenos negócios que precisam monitorar contas mensais de múltiplos locais (casa, comércio) para evitar surpresas, identificar variações de consumo e desejam adotar hábitos mais sustentáveis.
-2.  **Pequenas e Médias Empresas (PMEs):** Negócios que buscam eficiência operacional e redução de custos através do controle de desperdícios, além de adequação a práticas ESG.
+2.  **Pequenas e Médias Empresas (PMEs):** Negócios que buscam eficiência operacional e redução de custos através do controle de desperdícios e monitoramento básico de impacto.
 
 ## Problema
 Muitas famílias e pequenos empresários só percebem um vazamento ou um equipamento defeituoso quando a fatura chega, muitas vezes com valores exorbitantes, 30 dias após o ocorrido. Não há ferramentas acessíveis que alertem sobre variações anormais de consumo em tempo hábil.
@@ -39,15 +42,15 @@ A sustentabilidade começa pela eficiência. Evitar o desperdício de água e en
 **Estratégia de Mercado (Oceano Azul):**
 Diferente da abordagem tradicional de competir em mercados saturados ("Oceanos Vermelhos"), onde produtos se tornam commodities e a briga é por preço, o **CO2ntaZero** adota a **Estratégia do Oceano Azul**. Focamos em **Micro e Pequenas Empresas (MPEs)** e profissionais liberais, um mercado vasto e inexplorado que carece de ferramentas simples e acessíveis. Ao simplificar a gestão de carbono para uma padaria ou escritório, tornamos a concorrência irrelevante, pois não há *players* atendendo essa demanda específica com baixo custo e UX amigável.
 
-**Conceito de ESG:**
-A sigla **ESG** (*Environmental, Social and Governance*) refere-se às melhores práticas empresariais. O CO2ntaZero foca no pilar **Environmental (Ambiental)**, fornecendo ferramentas para que indivíduos e empresas monitorem e reduzam sua pegada de carbono.
+**Foco Ambiental:**
+O CO2ntaZero foca exclusivamente no pilar **Ambiental**, fornecendo ferramentas para que indivíduos e empresas monitorem e reduzam sua pegada de carbono de forma prática.
 
 > **Links úteis**:
 > - [Como montar a justificativa](https://guiadamonografia.com.br/como-montar-justificativa-do-tcc/)
 
 ## Público-alvo
 
-1. **Gestores de Sustentabilidade:** Profissionais focados em relatórios e conformidade ambiental.
+1. **Gerentes Operacionais:** Profissionais que cuidam das contas do dia a dia e buscam redução de custos.
 2. **Proprietários de PMEs:** Focados em redução de custos e com pouco tempo para ferramentas complexas.
 3. **Operadores Administrativos:** Responsáveis pelo lançamento de dados (faturas, pesagem), com variados níveis de fluência digital.
 
