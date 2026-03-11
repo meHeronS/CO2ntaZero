@@ -187,3 +187,144 @@ Sprint 3 (Maio/2026):
 Sprint 4 (Junho/2026):
   [ ] Validação de Usabilidade (Valtinho's Bar).
   [ ] Deploy Final em Produção.
+
+--------------------------------------------------------------------------------
+ADENDO PARA ALINHAMENTO DA EQUIPE
+--------------------------------------------------------------------------------
+
+ALINHAMENTO DO GRUPO (5 INTEGRANTES) - SPRINT 02
+Status: Definição de Papéis e Ponto de Partida
+
+Pessoal, este documento é pra deixar todo mundo na mesma página.
+Como nem todos conseguiram acompanhar o início, aqui está um resumo do que já foi
+definido e estruturado. A ideia é usarmos isso como base, mas fiquem à vontade
+para sugerir mudanças. O projeto é nosso!
+
+NOSSO TIME (5 PESSOAS):
+1. Heron Victor
+2. Caio Vieira
+3. Gustavo Costa
+4. João Vinicius
+5. Saulo Luiz
+
+
+1. O QUE É O PROJETO? (RESUMÃO)
+---------------------------------------------------
+Estamos criando um sistema web para ajudar pequenos comércios (tipo o bar do meu pai, o "Sr. Vander")
+e pessoas comuns a entenderem suas contas e o impacto ambiental delas.
+
+- Problema: A conta chega cara no fim do mês e ninguém sabe o porquê. Além disso,
+  falar de "carbono" parece coisa de empresa grande.
+- Solução: O usuário lança a conta de luz ou gasto de combustível (tabela FGV), e a gente mostra:
+  1. Se ele gastou muito a mais que o normal (Alerta de prejuízo).
+  2. Quanto isso gerou de poluição (CO2) e quantas árvores compensariam isso.
+
+
+2. O QUE JÁ TEMOS PRONTO? (FEITO PELO HERON)
+---------------------------------------------------
+Para ganharmos tempo, já adiantei a "fundação" pesada do sistema:
+
+- Stack: Definida como MERN (Mongo, Express, React, Node).
+- Infra: Docker criado (falta configurar na máquina de vocês). Banco MongoDB Atlas criado e conectado.
+- Backend (API): Criei a estrutura de pastas, o Login (JWT) e a lógica base de cálculo.
+- Documentação: Adiantei Personas e Histórias da Sprint 1 para garantir a entrega.
+
+
+3. COMO O SISTEMA VAI FUNCIONAR (REGRAS COMBINADAS)
+---------------------------------------------------
+Para simplificar nosso trabalho no MVP (Mínimo Produto Viável):
+
+A. Cada um cuida do seu (Single Owner):
+   Um usuário (CPF) loga e vê as empresas ou casas dele. Não vamos fazer sistema
+   complexo de "gerente", "funcionário", etc. agora. Simplifica o código.
+
+B. Sem bagunça no cadastro:
+   Não deixamos cadastrar o mesmo CNPJ/CPF ou e-mail duas vezes.
+
+C. A Regra dos 15% (O Alerta):
+   Se o usuário gastar 15% a mais que a média dos últimos 3 meses, o sistema tem
+   que avisar ele. É o principal valor financeiro que entregamos.
+   *Nota: O usuário poderá alterar esse percentual padrão se desejar.*
+
+D. Tudo vira Carbono:
+   Qualquer coisa que ele lançar (kWh, Litros, etc), o backend converte
+   para CO2 e salvar.
+
+
+4. DIVISÃO DE TAREFAS (SUGESTÃO PARA SPRINT 2)
+---------------------------------------------------
+Como já puxei a arquitetura e backend, sugiro essa divisão para atacarmos a Sprint 2.
+Cada um escolhe o que prefere, mas precisamos cobrir essas frentes:
+
+HERON (Eu): BACKEND & REGRAS (Validar o que já fiz)
+   - Validar se a API que criei está calculando certo.
+   - Garantir que o banco Atlas está aceitando conexões de vocês.
+   - Dar suporte técnico pro grupo.
+
+A DEFINIR: FRONTEND & TELAS (Prioridade Alta)
+   - Precisamos criar o Frontend (React) do zero, pois só temos o Backend.
+   - Telas: Login, Cadastro e Dashboard Principal.
+   - Foco: Letras grandes e fácil de usar (pro Sr. Vander).
+   - Conectar com a API que eu fiz.
+
+A DEFINIR: INFRA, QA & DOCUMENTAÇÃO
+   - Infra: Tentar rodar o Docker e ajudar a configurar o ambiente.
+   - QA (Testes): Pegar a conta de luz real, calcular na mão e ver se o sistema bate.
+   - Docs: Revisar os textos que eu fiz correndo na Sprint 1 e manter o GitHub organizado.
+
+
+5. ENTENDENDO O FLUXO (PARA CODAR)
+---------------------------------------------------
+Passo 1: Usuário digita "500 kWh" na tela.
+Passo 2: Backend pega esse número e multiplica por um fator (que já peguei do governo).
+Passo 3: Backend salva: "500 kWh" E "21 kg de CO2".
+Passo 4: Frontend mostra: "Você gastou 500kWh e poluiu o equivalente a 1 carro andando 10km".
+
+
+6. POR QUE ISSO É IMPORTANTE? (O TAL DO ESG)
+---------------------------------------------------
+Alinhamento de discurso: Nosso projeto "flerta" com ESG, mas somos uma
+**Calculadora de Pegada de Carbono**.
+
+O QUE É ESG?
+Sigla para Environmental (Ambiental), Social e Governance (Governança). É um selo
+que empresas buscam para dizer que são sustentáveis.
+
+ONDE A GENTE ENTRA?
+Não somos uma certificadora ESG. Somos a **Ferramenta de Entrada**.
+Usamos dados oficiais (MCTI e Tabela FGV) para dar credibilidade.
+
+- [E] Ambiental: O sistema mede a poluição (CO2) com base científica.
+- [S] Social: Inclusão digital para pequenos comércios.
+- [G] Governança: Organização de contas e histórico auditável.
+
+
+7. ENTENDENDO AS SIGLAS (MCTI E FGV)
+---------------------------------------------------
+Como eu (Heron) já pesquisei as fontes de dados, aqui vai o significado para todos:
+
+**MCTI (Ministério da Ciência, Tecnologia e Inovação):**
+É o órgão do governo que diz o quanto a energia elétrica do Brasil "suja" o meio ambiente.
+*No sistema:* Usamos a média anual do MCTI para calcular o CO2 da conta de luz.
+
+**FGV (Fundação Getulio Vargas) / GHG Protocol:**
+É quem cria as regras de cálculo e as planilhas oficiais que as grandes empresas usam.
+*No sistema:* Nós usamos a lógica deles para converter gasolina/diesel em CO2.
+
+
+8. O QUE VEM POR AÍ? (POTENCIAIS EVOLUÇÕES)
+---------------------------------------------------
+Ideias para o futuro do projeto (para apresentarmos como visão de longo prazo):
+
+1. **Automação de Leitura (OCR):**
+   Hoje o usuário digita. O ideal futuro seria ele fazer upload do PDF da conta
+   de luz e o sistema ler os dados sozinho. -validar se faz sentido ainda
+
+2. **Integração IoT (Tomadas Inteligentes):**
+   *Como funciona:* Existem tomadas "Smart" (Tuya/Sonoff) que medem voltagem/amperagem
+   e enviam para uma nuvem. Nosso sistema poderia conectar na API delas para
+   puxar o consumo automático de um freezer, por exemplo.
+   *Status:* Viável, mas complexo para agora. - mas da para trazer como uma possibildiade de evolução do sistema
+
+3. **Marketplace de Compensação:**
+   Um botão onde o usuário pode pagar para plantar árvores reais e "zerar" a conta. - mas é um potencial de monetização do sistema
