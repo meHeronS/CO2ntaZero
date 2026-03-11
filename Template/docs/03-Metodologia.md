@@ -3,8 +3,7 @@
 
 <span style="color:red">Pré-requisitos: <a href="02-Especificacao.md"> Especificação do projeto</a></span>
 
-Descreva aqui a metodologia de trabalho do grupo para abordar o problema. Inclua definições sobre os ambientes de trabalho utilizados pela equipe para desenvolver o projeto. Isso abrange a relação dos ambientes utilizados, a estrutura para a gestão do código-fonte, além da definição do processo e das ferramentas por meio dos quais a equipe se organiza (gestão de equipes).
-
+A equipe adotará metodologias ágeis (Scrum) para o gerenciamento do projeto, com sprints periódicas. O versionamento de código será centralizado no GitHub.
 
 ## Controle de versão
 
@@ -35,6 +34,12 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 
 ## Planejamento do projeto
 
+### Roadmap de Fases (Macro)
+
+O desenvolvimento do CO2ntaZero foi dividido em fases estratégicas para garantir entregas tangíveis:
+1.  **Sprint 1 (Iniciação / Fundação):** Mapeamento do escopo, estruturação do Backend e containerização da camada de Dados.
+2.  **Sprint 2-5:** Desenvolvimento faseado das funcionalidades de fluxo de consumo, calculadora, anomalias e validação.
+
 ###  Divisão de papéis
 
 > Apresente a divisão de papéis entre os membros do grupo em cada Sprint. O desejável é que, em cada Sprint, o aluno assuma papéis diferentes na equipe. Siga o modelo do exemplo abaixo:
@@ -44,13 +49,6 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 - Protótipos: Heron Victor Vieira da Silva
 - Testes: Joao Vinicius Rodrigues Santos
 - Documentação: Gustavo Costa Pinho Tavares
-- Arquitetura: Caio Vieira de Freitas
-
-#### Sprint 2
-- _Scrum master_: Heron Victor Vieira da Silva
-- Desenvolvedor _front-end_: AlunoX
-- Desenvolvedor _back-end_: AlunoK
-- Testes: AlunaZ
 
 ###  Quadro de tarefas
 
@@ -62,24 +60,10 @@ Atualizado em: 17/03/2026
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| Gustavo Costa | Objetivos e Contexto | 03/02/2026     | 10/02/2026 | ✔️    | 10/02/2026      |
-| Heron Victor  | Histórias de Usuário (10+) | 01/01/2026     | 07/01/2026 | ✔️     | 07/01/2026      |
-| João Vinicius | Personas (6)  |    01/01/2026        | 12/02/2026 | ✔️    | 12/02/2026      |
-| Saulo Luiz    | Configuração Repositório | 01/02/2026     | 07/02/2026 | ✔️    | 05/02/2026      |
-| Caio Vieira   | Arquitetura de Dados | 05/02/2026 | 15/02/2026 | ✔️ | 15/02/2026 |
-| Todos         | Slides Apresentação | 10/03/2026 | 17/03/2026 | ✔️ | 17/03/2026 |
-
-#### Sprint 2
-
-Atualizado em: 21/04/2024
-
-| Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
-| :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| AlunaX        | Página inicial   | 01/02/2024     | 07/03/2024 | ✔️    | 05/02/2024      |
-| AlunaZ        | CSS unificado    | 03/02/2024     | 10/03/2024 | 📝    |                 |
-| AlunoY        | Página de login  | 01/02/2024     | 07/03/2024 | ⌛     |                 |
-| AlunoK        | Script de login  |  01/01/2024    | 12/03/2024 | ❌    |       |
-
+| Grupo (Todos) | Ideação, Definição do Problema e Contexto | 03/02/2026 | 20/02/2026 | ✔️ | 20/02/2026 |
+| Grupo (Todos) | Levantamento de Requisitos e Personas     | 21/02/2026 | 05/03/2026 | ✔️ | 05/03/2026 |
+| Grupo (Todos) | Configuração Inicial e Arquitetura        | 06/03/2026 | 15/03/2026 | ✔️ | 15/03/2026 |
+| Grupo (Todos) | Documentação e Apresentação Final         | 10/03/2026 | 17/03/2026 | ✔️ | 17/03/2026 |
 
 Legenda:
 - ✔️: terminado
@@ -92,12 +76,6 @@ Legenda:
 > - [11 passos essenciais para implantar Scrum no seu projeto](https://mindmaster.com.br/scrum-11-passos/)
 > - [Scrum em 9 minutos](https://www.youtube.com/watch?v=XfvQWnRgxG0)
 > - [Os papéis do Scrum e a verdade sobre cargos nessa técnica](https://www.atlassian.com/br/agile/scrum/roles)
-
-### Processo
-
-Coloque informações sobre detalhes da implementação do Scrum seguido pelo grupo. O grupo deverá fazer uso do recurso de gerenciamento de projeto oferecido pelo GitHub, que permite acompanhar o andamento do projeto, a execução das tarefas e o status de desenvolvimento da solução.
- 
-> **Links úteis**:
 > - [Planejamento e gestão ágil de projetos](https://pucminas.instructure.com/courses/87878/pages/unidade-2-tema-2-utilizacao-de-ferramentas-para-controle-de-versoes-de-software)
 > - [Sobre quadros de projeto](https://docs.github.com/pt/issues/organizing-your-work-with-project-boards/managing-project-boards/about-project-boards)
 > - [Project management, made simple](https://github.com/features/project-management/)

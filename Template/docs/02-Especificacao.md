@@ -2,102 +2,47 @@
 
 <span style="color:red">Pré-requisitos: <a href="01-Contexto.md"> Documentação de contexto</a></span>
 
-Esta seção apresenta a definição do problema e a proposta de solução sob a perspectiva do usuário, utilizando técnicas de modelagem que permitam compreender e detalhar as necessidades do negócio e as funcionalidades esperadas do sistema.  
-
-Nesta seção são apresentadas as personas, histórias de usuários, requisitos funcionais e não funcionais, bem como as restrições do projeto. Também são descritas as ferramentas e metodologias empregadas para elaborar essas especificações, garantindo que todos os participantes possuam uma compreensão unificada do escopo, dos objetivos e das prioridades do trabalho.
+Esta seção define o escopo inicial do CO2ntaZero, focando nas necessidades essenciais dos stakeholders identificados e nos requisitos fundamentais para o MVP (Produto Mínimo Viável).
 
 ## Modelo de negócio (*Business Model Canvas*)
 
-O *Business Model Canvas* (BMC) é uma ferramenta de planejamento estratégico que descreve, de forma visual e integrada, como uma organização cria, entrega e captura valor.  
+O planejamento estratégico inicial foi consolidado no *Business Model Canvas* abaixo, destacando a proposta de valor voltada para a simplicidade e a conscientização.
 
-No contexto deste projeto, o BMC auxilia no alinhamento da equipe em relação aos aspectos essenciais do negócio, servindo como base para decisões técnicas, de design e de priorização de funcionalidades.  
-
-A seguir, apresenta-se um exemplo que deve ser adaptado pelo grupo de acordo com as características do projeto.  
-
-![Quadro de modelo de negócios](images/bmc.png "Exemplo de BMC.")
-
-> - O texto a seguir é apenas para orientação e deve ser apagado pelo grupo após a leitura.
-
-O quadro é composto por nove blocos que representam as principais áreas de um modelo de negócio:
-1. **Parceiros-chave**: Fornecedores de energia (dados), Consultores ambientais, ONGs locais, Valtinho's Bar (Validação).
-2. **Atividades-chave**: Desenvolvimento de Software, Atualização de fatores de emissão (MCTI), Suporte.
-3. **Proposta de valor**: Monitoramento financeiro simples + Consciência ambiental. "Economize dinheiro salvando o planeta".
-4. **Relacionamento**: Automatizado (Self-service), Suporte via Chat, Feedback gamificado (Selos).
-5. **Segmentos de clientes**: Pequenos comércios (Bares, Salões) e Residências.
-6. **Recursos-chave**: Plataforma Web, Banco de Dados de Fatores de Emissão, Azure/Vercel.
-7. **Canais**: Web App (PWA), Redes Sociais, Indicação local.
-8. **Estrutura de custos**: Hospedagem Cloud, Domínio, Marketing Digital.
-9. **Fontes de receita**: Modelo Freemium (Básico grátis) e Premium (Relatórios avançados/Selo Verde).
-
+![Quadro de modelo de negócios](images/bmc.png "BMC CO2ntaZero")
 
 ## Personas
 
-Deve-se relacionar as personas identificadas no projeto. Enumere e detalhe as personas da sua solução. Lembre-se que você deve ser enumerar e descrever precisamente e personalizada todos os clientes ideais que sua solução almeja.
+1. **Ana (Pequena Empresária):** 32 anos. Busca reduzir custos fixos da padaria e engajar clientes com práticas sustentáveis.
+2. **Sr. Vander (Proprietário):** 65 anos. Precisa de uma ferramenta extremamente simples para monitorar contas e evitar desperdícios no bar e em casa.
 
-![Exemplo de persona](images/exemplo-persona.png)
-
-> **Links úteis**:
-> - [Rock content](https://rockcontent.com/blog/personas/)
-> - [Hotmart](https://blog.hotmart.com/pt-br/como-criar-persona-negocio/)
-> - [O que é persona?](https://resultadosdigitais.com.br/blog/persona-o-que-e/)
-> - [Persona x público-alvo](https://flammo.com.br/blog/persona-e-publico-alvo-qual-a-diferenca/)
-> - [Mapa de empatia](https://resultadosdigitais.com.br/blog/mapa-da-empatia/)
-> - [Mapa de stalkeholders](https://www.racecomunicacao.com.br/blog/como-fazer-o-mapeamento-de-stakeholders/)
-
+> **Nota:** O foco inicial é garantir usabilidade para perfis não-técnicos.
 
 ## Histórias de usuários
 
-Com base na análise das personas, foram identificadas as seguintes histórias de usuários:
+Priorizamos as histórias que garantem o ciclo básico de valor: **Lançamento -> Monitoramento -> Alerta**.
 
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
-|Usuário do sistema  | Registrar minhas tarefas           | Não esquecer de fazê-las               |
-|Administrador       | Alterar permissões                 | Permitir que possam administrar contas |
+|Sr. Vander          | Cadastrar minhas contas de luz     | Saber se houve aumento excessivo no mês|
+|Ana                 | Receber alertas de variação        | Identificar vazamentos ou desperdício rapidamente |
+|Usuário Comum       | Ver meu impacto em carbono         | Entender como meu consumo afeta o ambiente |
 
-Apresente aqui as histórias de usuários que são relevantes para o projeto da sua solução. As histórias de usuários consistem em uma ferramenta poderosa para a compreensão e elicitação dos requisitos funcionais e não funcionais da sua aplicação. Se possível, agrupe as histórias de usuários por contexto, para facilitar consultas recorrentes a esta parte do documento.
+## Requisitos Iniciais (Sprint 1)
 
-> **Links úteis**:
-> - [Histórias de usuários com exemplos e template](https://www.atlassian.com/br/agile/project-management/user-stories)
-> - [Como escrever boas histórias de usuário (user stories)](https://medium.com/vertice/como-escrever-boas-users-stories-hist%C3%B3rias-de-usu%C3%A1rios-b29c75043fac)
-> - [User stories: requisitos que humanos entendem](https://www.luiztools.com.br/post/user-stories-descricao-de-requisitos-que-humanos-entendem/)
-> - [Histórias de usuários: mais exemplos](https://www.reqview.com/doc/user-stories-example.html)
-> - [9 common user story mistakes](https://airfocus.com/blog/user-story-mistakes/)
-
-## Requisitos
-
-As tabelas a seguir apresentam os requisitos funcionais e não funcionais que detalham o escopo do projeto. Para determinar a prioridade dos requisitos, aplique uma técnica de priorização e detalhe como essa técnica foi aplicada.
+O escopo da primeira sprint foca na estruturação e nas funcionalidades "core".
 
 ### Requisitos funcionais
-
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-|RF-001| Permitir que o usuário cadastre tarefas | ALTA | 
-|RF-002| Emitir um relatório de tarefas no mês   | MÉDIA |
+|RF-001| Cadastro de consumo (Energia, Água) | ALTA | 
+|RF-002| Alerta de variação (>15%) | ALTA |
+|RF-003| Exibição de impacto em CO2 | ALTA |
 
 ### Requisitos não funcionais
-
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-|RNF-001| O sistema deve ser responsivo para rodar em dispositivos móveis | MÉDIA | 
-|RNF-002| Deve processar as requisições do usuário em no máximo 3 segundos |  BAIXA | 
-
-Com base nas histórias de usuários, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
-
-- [Requisitos funcionais
- (RF)](https://pt.wikipedia.org/wiki/Requisito_funcional):
- correspondem a uma funcionalidade que deve estar presente na
-  plataforma (ex: cadastro de usuário).
-- [Requisitos não funcionais
-  (RNF)](https://pt.wikipedia.org/wiki/Requisito_n%C3%A3o_funcional):
-  correspondem a uma característica técnica, seja de usabilidade,
-  desempenho, confiabilidade, segurança ou outro (ex: suporte a
-  dispositivos iOS e Android).
-
-Lembre-se de que cada requisito deve corresponder a uma e somente uma característica-alvo da sua solução. Além disso, certifique-se de que todos os aspectos capturados nas histórias de usuários foram cobertos.
-
-> **Links úteis**:
-> - [O que são requisitos funcionais e requisitos não funcionais?](https://codificar.com.br/requisitos-funcionais-nao-funcionais/)
-> - [Entenda o que são requisitos de software, a diferença entre requisito funcional e não funcional, e como identificar e documentar cada um deles](https://analisederequisitos.com.br/requisitos-funcionais-e-requisitos-nao-funcionais-o-que-sao/)
+|RNF-001| Responsividade (Mobile First) | ALTA | 
+|RNF-002| Interface Simplificada (Poucos cliques) | ALTA |
 
 ## Restrições
 
