@@ -24,7 +24,8 @@ Antes de iniciar, certifique-se de que:
     - **Resultado Esperado:** Uma mensagem de erro "Credenciais inválidas" deve ser exibida na tela, sem redirecionamento.
 
 - [ ] **Proteção de Rota (Acesso Direto):**
-    - **Ação:** Faça logout. Tente acessar a URL `http://localhost:3000/pages/ap
+    - **Ação:** Faça logout. Tente acessar a URL `http://localhost:3000/pages/consumptions.html` diretamente.
+    - **Resultado Esperado:** O sistema deve bloquear o acesso e redirecionar forçadamente para a tela de login.
 
 - [ ] **Logout:**
     - **Ação:** Após o login, clique no botão "Sair".
@@ -36,7 +37,7 @@ Antes de iniciar, certifique-se de que:
 
 - [ ] **Interoperabilidade com React:**
     - **Ação:** Acesse `http://localhost:3001`. Faça login com as credenciais da "Empresa React".
-    - **Resultado Esperado:** Redirecionamento para a página inicial do sistema legado (`startPage.html`) com a sessão já ativa.
+    - **Resultado Esperado:** Redirecionamento para a página inicial do sistema (`startPage.html`) com a sessão já ativa.
 
 ---
 
@@ -49,7 +50,7 @@ Antes de iniciar, certifique-se de que:
 
 - [ ] **Cenário de Validação (Empresa B):**
     1.  Faça login com a **Empresa Backend**.
-    2.  Navegue até a lista de consumos.o `Emissão Teste Isolamento` **NÃO** deve estar visível.
+    2.  Navegue até a lista de consumos. O registro `Emissão Teste Isolamento` **NÃO** deve estar visível.
 
 ---
 
@@ -84,7 +85,7 @@ Antes de iniciar, certifique-se de que:
     - **Resultado Esperado:** O sistema deve exibir uma mensagem de erro "Tipo de arquivo inválido" e rejeitar o upload.
 
 - [ ] **Excluir Anexo:**
-    - **Ação:** Em uma transação que possui um anexo, use a função para removê-lo.
+    - **Ação:** Em um registro de consumo que possui um anexo, use a função para removê-lo.
     - **Resultado Esperado:** A indicação do anexo na interface deve desaparecer.
 
 ---
@@ -105,7 +106,7 @@ Antes de iniciar, certifique-se de que:
 
 ---
 
-## 7. Módulo de Alertas (Validação da Nova Funcionalidade)
+## 6. Módulo de Alertas e Motor de Anomalias
 
 - [ ] **Cenário de Preparação:**
     1. Faça login.
@@ -123,7 +124,7 @@ Antes de iniciar, certifique-se de que:
 
 ---
 
-## 6. Módulo de Relatórios
+## 7. Módulo de Relatórios
 
 - [ ] **Exportar Relatório de Emissões:**
     - **Ação:** Com alguns consumos cadastrados, vá para a página de relatórios e clique em "Exportar Relatório de Emissões".

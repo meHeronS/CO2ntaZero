@@ -6,7 +6,7 @@ Este documento é um guia prático para o desenvolvedor responsável pelo HTML/C
 
 ## 1. Checklist para TODAS as Páginas que Exigem Login
 
-**Páginas afetadas:** `startPage.html`, `transactions.html`, `metas.html`, `reports.html`, `profile.html`, etc.
+**Páginas afetadas:** `startPage.html`, `consumptions.html`, `metas.html`, `alerts.html`, `profile.html`, etc.
 
 Estas páginas compartilham uma base comum de segurança e funcionalidades de layout.
 
@@ -46,27 +46,27 @@ Estas páginas compartilham uma base comum de segurança e funcionalidades de la
 
 ---
 
-## 2. Checklist para a Página de Transações (`transactions.html`)
+## 2. Checklist para a Página de Lançamento de Consumo (`consumptions.html`)
 
 ### ✅ Checklist de Elementos HTML
 
 1.  **Formulário de Criação/Edição:**
-    -   O formulário principal deve ter o `id="transaction-form"`.
-    -   O título do formulário (ex: "Adicionar Nova Transação") deve ter o `id="form-title"`.
+    -   O formulário principal deve ter o `id="consumption-form"`.
+    -   O título do formulário (ex: "Adicionar Novo Consumo") deve ter o `id="form-title"`.
     -   O botão de submissão deve ser do tipo `type="submit"`.
     -   O botão para cancelar a edição deve ser do tipo `type="button"`.
 
-2.  **Tabela de Transações:**
-    -   O corpo da tabela (`<tbody>`) onde as transações serão listadas deve ter o `id="transaction-table-body"`.
+2.  **Tabela de Consumos:**
+    -   O corpo da tabela (`<tbody>`) onde os consumos serão listados deve ter o `id="consumption-table-body"`.
 
 3.  **Botões de Ação na Tabela:**
-    -   Cada botão de **editar** em uma linha da tabela deve ter a classe `class="edit-btn"` e o atributo `data-id` com o ID da transação.
-    -   Cada botão de **excluir** deve ter a classe `class="delete-btn"` e o atributo `data-id` com o ID da transação.
+    -   Cada botão de **editar** em uma linha da tabela deve ter a classe `class="edit-btn"` e o atributo `data-id` com o ID do consumo.
+    -   Cada botão de **excluir** deve ter a classe `class="delete-btn"` e o atributo `data-id` com o ID do consumo.
     -   Exemplo dentro de uma linha `<tr>`:
         ```html
         <td>
-          <button class="action-btn edit-btn" data-id="ID_DA_TRANSACAO_AQUI"><i class="fas fa-edit"></i></button>
-          <button class="action-btn delete-btn" data-id="ID_DA_TRANSACAO_AQUI"><i class="fas fa-trash"></i></button>
+          <button class="action-btn edit-btn" data-id="ID_DO_CONSUMO_AQUI"><i class="fas fa-edit"></i></button>
+          <button class="action-btn delete-btn" data-id="ID_DO_CONSUMO_AQUI"><i class="fas fa-trash"></i></button>
         </td>
         ```
 
@@ -77,13 +77,13 @@ Estas páginas compartilham uma base comum de segurança e funcionalidades de la
 ```html
 <!-- 
     ==============================================================================
-    SCRIPT ESPECÍFICO DA PÁGINA DE TRANSAÇÕES
+    SCRIPT ESPECÍFICO DA PÁGINA DE CONSUMOS
     ==============================================================================
-    - O script 'transactions.js' gerencia todo o ciclo de vida das transações.
+    - O script 'consumptions.js' gerencia todo o ciclo de vida dos consumos.
     - Ele depende dos IDs e classes definidos no checklist acima.
     ==============================================================================
 -->
-<script type="module" src="../js/pages/transactions.js"></script>
+<script type="module" src="../js/pages/consumptions.js"></script>
 ```
 
 ---
@@ -100,7 +100,7 @@ Estas páginas compartilham uma base comum de segurança e funcionalidades de la
     -   O elemento `<div>` que irá conter a lista de cards de metas deve ter o `id="goals-container"`.
 
 3.  **Botões de Ação nos Cards:**
-    -   Assim como nas transações, os botões de **editar** e **excluir** dentro de cada card de meta precisam das classes `edit-btn` e `delete-btn` e do atributo `data-id`.
+    -   Assim como nos consumos, os botões de **editar** e **excluir** dentro de cada card de meta precisam das classes `edit-btn` e `delete-btn` e do atributo `data-id`.
 
 ### ✅ Checklist de Scripts
 

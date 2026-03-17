@@ -55,7 +55,7 @@ async function refreshToken() {
 
 /**
  * Realiza uma requisição autenticada para a API, com renovação automática de token.
- * @param {string} endpoint - O endpoint da API (ex: '/transactions').
+ * @param {string} endpoint - O endpoint da API (ex: '/consumptions' ou '/alerts').
  * @param {object} options - As opções da requisição `fetch` (method, body, etc.).
  * @returns {Promise<Response>} A resposta da requisição.
  * @throws {Error} Lança um erro se a requisição ou a renovação do token falharem.

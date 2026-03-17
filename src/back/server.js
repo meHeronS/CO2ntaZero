@@ -16,6 +16,10 @@ import express from "express";
 // possa fazer requisições para este backend (ex: localhost:5000).
 import cors from "cors";
 
+// Middleware de segurança que configura diversos cabeçalhos HTTP (HTTP headers)
+// para proteger a aplicação contra vulnerabilidades conhecidas na web.
+import helmet from "helmet";
+
 // Carrega as variáveis de ambiente definidas no arquivo .env para o objeto
 // `process.env`, permitindo o acesso a configurações sensíveis (como senhas e chaves secretas)
 // de forma segura, sem expô-las no código-fonte.
@@ -31,7 +35,7 @@ import mongoose from "mongoose";
 // --- Módulos Internos da Aplicação ---
 
 // Importa a função responsável por estabelecer a conexão com o banco de dados MongoDB.
-import { connectDB } from "./config/db.js";
+import { connectDB } from "../db/db.js";
 
 import { errorHandler } from "./middlewares/errorMiddleware.js";
 
@@ -66,6 +70,10 @@ const app = express();
 // Middleware para habilitar o CORS (Cross-Origin Resource Sharing),
 // permitindo que o frontend acesse a API a partir de uma origem diferente.
 app.use(cors());
+
+// Middleware de segurança Helmet. Adiciona proteção contra XSS, Clickjacking, 
+// e remove o cabeçalho 'X-Powered-By' que expõe a tecnologia do servidor.
+app.use(helmet());
 
 // Middleware nativo do Express que interpreta o corpo (body) das requisições
 // que chegam no formato JSON, tornando-o acessível em `req.body`.

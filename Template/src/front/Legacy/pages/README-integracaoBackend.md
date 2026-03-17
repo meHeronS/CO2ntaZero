@@ -106,7 +106,7 @@ Esta seção serve como um guia rápido para consumir os principais endpoints da
 ---
 
 ### a. Consumos (CRUD)
-**Contexto:** `consumos.html` e `js/pages/consumptions.js`.
+**Contexto:** `consumptions.html` e `js/pages/consumptions.js`.
 
 -   **Listar todos os consumos:** `GET /api/consumptions`
 -   **Registrar um novo consumo:** `POST /api/consumptions`
@@ -118,7 +118,7 @@ Esta seção serve como um guia rápido para consumir os principais endpoints da
 ---
 
 ### b. Anexos de Consumos
-**Contexto:** `consumos.html` (em um modal de detalhes do registro).
+**Contexto:** `consumptions.html` (em um modal de detalhes do registro).
 
 -   **Fazer Upload de um anexo (PDF ou Imagem):** `POST /api/consumptions/{id}/upload`
     -   **Body**: Requer um objeto `FormData` contendo o arquivo.

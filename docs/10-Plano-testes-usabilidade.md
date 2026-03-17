@@ -34,7 +34,7 @@ Objetivando respeitar as diretrizes da Lei Geral de Proteção de Dados, as info
 
 | Nº do cenário | Descrição do cenário |
 |---------------|----------------------|
-| 1             | Você é o Proprietário (Persona Vander) e precisa cadastrar a fatura de energia elétrica do mês. Localize a funcionalidade de "Transações", cadastre um consumo de 500 kWh e verifique se o valor foi salvo. |
+| 1             | Você é o Proprietário (Persona Vander) e precisa cadastrar a fatura de energia elétrica do mês. Localize a funcionalidade de "Consumos", cadastre um consumo de 500 kWh e verifique se o valor foi salvo. |
 | 2             | Você é um Proprietário de empresa e deseja verificar se atingiu alguma meta de consumo. Acesse o Dashboard e identifique se há alertas de anomalia ou metas atingidas. |
 
 

@@ -9,7 +9,7 @@ A comunicação é baseada em uma arquitetura cliente-servidor desacoplada:
 -   **Frontend (Cliente):** Responsável pela interface do usuário. Não possui lógica de negócio ou acesso direto ao banco de dados.
 -   **Backend (Servidor):** Expõe uma API RESTful que o frontend consome para buscar, criar, atualizar e deletar dados.
 
-Toda a comunicação acontece através de requisições HTTP (usando a `Fetch API` do JavaScript) para os endpoints do backend (ex: `http://localhost:5000/api/transactions`).
+Toda a comunicação acontece através de requisições HTTP (usando a `Fetch API` do JavaScript) para os endpoints do backend (ex: `http://localhost:5000/api/consumptions`).
 
 ## 2. Fluxo de Autenticação e Gerenciamento de Sessão
 
@@ -32,20 +32,20 @@ A segurança e o acesso aos dados são controlados por JSON Web Tokens (JWT).
 ### b. Acesso a Dados Protegidos
 
 Uma vez logado, toda requisição para buscar ou modificar dados em rotas protegidas precisa ser autenticada.
-**Contexto:** `transacoes.html` e `js/pages/transactions.js`.
+**Contexto:** `consumptions.html` e `js/pages/consumptions.js`.
 
-1.  **Frontend (`transactions.js`):** Pega o token salvo: `const token = localStorage.getItem('token');`
-2.  **Frontend (`transactions.js`):** Monta a requisição `fetch`, adicionando o token ao cabeçalho `Authorization`. **Este é o passo mais importante.**
+1.  **Frontend (`consumptions.js`):** Pega o token salvo: `const token = localStorage.getItem('token');`
+2.  **Frontend (`consumptions.js`):** Monta a requisição `fetch`, adicionando o token ao cabeçalho `Authorization`. **Este é o passo mais importante.**
     ```javascript
-    // Exemplo de busca de transações em js/pages/transactions.js
-    const response = await fetch('/api/transactions', {
+    // Exemplo de busca de consumos em js/pages/consumptions.js
+    const response = await fetch('/api/consumptions', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}` // Token é enviado aqui!
         }
     });
-    const transactions = await response.json();
+    const consumptions = await response.json();
     ```
 3.  **Backend:** O middleware `authMiddleware.js` no servidor intercepta a requisição, valida o token e extrai o `companyId` do usuário. A busca no banco de dados é então filtrada por este `companyId`, garantindo o isolamento dos dados.
 
@@ -85,7 +85,7 @@ Uma vez logado, toda requisição para buscar ou modificar dados em rotas proteg
 
 *   **Scripts Principais:** Um interceptador de requisições (em uma implementação mais avançada com `axios`) ou uma função wrapper para `fetch`.
 *   **Como Funciona:**
-    1.  **Token Expirado:** O frontend faz uma requisição normal para a API (ex: `GET /api/transactions`) usando um `token` de acesso que já expirou.
+    1.  **Token Expirado:** O frontend faz uma requisição normal para a API (ex: `GET /api/consumptions`) usando um `token` de acesso que já expirou.
     2.  **Resposta do Backend:** O backend detecta que o token está expirado e retorna um erro `401 Unauthorized`.
     3.  **Ação do Frontend (O Interceptador):**
         a.  O script do frontend intercepta essa resposta `401`.
@@ -94,7 +94,7 @@ Uma vez logado, toda requisição para buscar ou modificar dados em rotas proteg
     4.  **Resposta do Backend (Refresh):** Se o `refreshToken` for válido, o backend gera um **novo** `token` de acesso e o retorna.
     5.  **Ação Final do Frontend:**
         a.  O script salva o novo `token` no `localStorage`, substituindo o antigo.
-        b.  Ele **refaz automaticamente a requisição original** (`GET /api/transactions`), desta vez com o novo token.
+        b.  Ele **refaz automaticamente a requisição original** (`GET /api/consumptions`), desta vez com o novo token.
         c.  A página carrega os dados normalmente, e o usuário nem percebe que a sessão foi renovada.
 
 *   **Validação:** Este é um fluxo mais complexo de testar manualmente, mas pode ser observado nas Ferramentas de Desenvolvedor (aba "Network"), onde se veria uma falha 401 seguida por uma chamada para `/refresh-token` e, então, o sucesso da requisição original.
@@ -105,34 +105,34 @@ Esta seção serve como um guia rápido para consumir os principais endpoints da
 
 ---
 
-### a. Transações (CRUD)
-**Contexto:** `transacoes.html` e `js/pages/transactions.js`.
+### a. Consumos (CRUD)
+**Contexto:** `consumptions.html` e `js/pages/consumptions.js`.
 
--   **Listar todas as transações:** `GET /api/transactions`
--   **Criar uma nova transação:** `POST /api/transactions`
-    -   **Body**: `{ "description": "Venda de Consultoria", "amount": 1500, "type": "revenue", "date": "2025-11-13T12:00:00.000Z" }`
--   **Atualizar uma transação:** `PUT /api/transactions/{id}`
-    -   **Body**: `{ "status": "completed" }`
--   **Excluir uma transação:** `DELETE /api/transactions/{id}`
+-   **Listar todos os consumos:** `GET /api/consumptions`
+-   **Criar um novo consumo:** `POST /api/consumptions`
+    -   **Body**: `{ "description": "Conta de Luz", "amount": 500, "unit": "kWh", "type": "energy", "date": "2026-03-13T12:00:00.000Z" }`
+-   **Atualizar um consumo:** `PUT /api/consumptions/{id}`
+    -   **Body**: `{ "amount": 550 }`
+-   **Excluir um consumo:** `DELETE /api/consumptions/{id}`
 
 ---
 
-### b. Anexos de Transações
-**Contexto:** `transacoes.html` (em um modal de detalhes da transação).
+### b. Anexos de Consumos
+**Contexto:** `consumptions.html` (em um modal de detalhes do consumo).
 
--   **Fazer Upload de um anexo (PDF ou Imagem):** `POST /api/transactions/{id}/upload`
+-   **Fazer Upload de um anexo (PDF ou Imagem):** `POST /api/consumptions/{id}/upload`
     -   **Body**: Requer um objeto `FormData` contendo o arquivo.
     -   **Exemplo de implementação no Frontend:**
         ```javascript
         // Em um script que manipula o formulário de upload
         const fileInput = document.querySelector('#meu-input-de-arquivo');
-        const transactionId = 'ID_DA_TRANSACAO';
+        const consumptionId = 'ID_DO_CONSUMO';
         const token = localStorage.getItem('token');
 
         const formData = new FormData();
         formData.append('attachment', fileInput.files); // 'attachment' é o nome do campo esperado pelo backend
 
-        fetch(`/api/transactions/${transactionId}/upload`, {
+        fetch(`/api/consumptions/${consumptionId}/upload`, {
           method: 'POST',
           headers: { 
             // NÃO defina 'Content-Type', o navegador fará isso automaticamente para FormData
@@ -147,41 +147,32 @@ Esta seção serve como um guia rápido para consumir os principais endpoints da
         })
         .catch(error => console.error('Erro no upload:', error));
         ```
--   **Excluir um anexo:** `DELETE /api/transactions/{id}/upload`
+-   **Excluir um anexo:** `DELETE /api/consumptions/{id}/upload`
 
 ---
 
 ### c. Metas (CRUD)
-**Contexto:** `metas.html` e `js/pages/goals.js`.
+**Contexto:** `metas.html` e `js/pages/metas.js`.
 
 -   **Listar todas as metas:** `GET /api/goals`
 -   **Criar uma nova meta:** `POST /api/goals`
-    -   **Body**: `{ "title": "Economizar para Férias", "targetAmount": 5000, "type": "saving" }`
+    -   **Body**: `{ "title": "Reduzir 10% de Energia", "targetAmount": 450, "type": "reduction" }`
 -   **Atualizar uma meta:** `PUT /api/goals/{id}`
 -   **Excluir uma meta:** `DELETE /api/goals/{id}`
 
 ---
 
-### d. Clientes (CRUD)
-**Contexto:** `clients.html` (página a ser criada) e `js/pages/clients.js`.
-
--   **Listar todos os clientes:** `GET /api/clients`
--   **Criar um novo cliente:** `POST /api/clients`
-    -   **Body**: `{ "name": "Cliente Exemplo", "email": "cliente@exemplo.com", "type": "client" }`
-
----
-
-### e. Geração de Relatórios
+### d. Geração de Relatórios
 **Contexto:** `relatorios.html` e `js/pages/reports.js`.
 
--   **Exportar Relatório de Transações em PDF:** `GET /api/reports/export/transactions-pdf`
+-   **Exportar Relatório de Emissões em PDF:** `GET /api/reports/export/consumptions-pdf`
     -   **Explicação:** Este endpoint retorna um arquivo PDF diretamente. O frontend precisa tratar a resposta como um `blob` para iniciar o download.
     -   **Exemplo de implementação no Frontend:**
         ```javascript
         // Em um script na página de relatórios
         const token = localStorage.getItem('token');
 
-        fetch('/api/reports/export/transactions-pdf', {
+        fetch('/api/reports/export/consumptions-pdf', {
             method: 'GET',
             headers: { 'Authorization': `Bearer ${token}` }
         })
@@ -190,7 +181,7 @@ Esta seção serve como um guia rápido para consumir os principais endpoints da
             const url = window.URL.createObjectURL(blob); // Cria uma URL temporária para o arquivo
             const a = document.createElement('a'); // Cria um link temporário
             a.href = url;
-            a.download = 'relatorio-transacoes.pdf'; // Define o nome do arquivo
+            a.download = 'relatorio-emissoes.pdf'; // Define o nome do arquivo
             document.body.appendChild(a);
             a.click(); // Simula o clique para iniciar o download
             a.remove(); // Remove o link da página
@@ -201,7 +192,7 @@ Esta seção serve como um guia rápido para consumir os principais endpoints da
 
 ---
 
-### f. Recuperação de Senha
+### e. Recuperação de Senha
 **Contexto:** `forgot-password.html` e `reset-password.html`.
 
 Este é um fluxo de duas etapas.
@@ -242,10 +233,10 @@ Este é um fluxo de duas etapas.
 
 ---
 
-### h. Exibição de Alertas
+### f. Exibição de Alertas
 **Contexto:** Em um script global (`layout.js` ou `main.js`) que é carregado em todas as páginas após o login.
 
-O backend agora gera alertas automaticamente quando metas de despesa são atingidas. O frontend precisa buscar e exibir esses alertas para o usuário.
+O backend agora gera alertas automaticamente quando metas de emissão ou limites de consumo são atingidos. O frontend precisa buscar e exibir esses alertas para o usuário.
 
 -   **Listar todos os alertas não lidos:** `GET /api/alerts?read=false`
 -   **Marcar um alerta como lido:** `PATCH /api/alerts/:id/read`

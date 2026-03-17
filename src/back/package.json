@@ -5,7 +5,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "concurrently \"npm:start:backend\" \"npm:start:react\" \"npm:summary\"",
+    "start": "node server.js",
+    "dev:demo": "concurrently \"npm:start:backend\" \"npm:start:react\" \"npm:summary\"",
     "start:legacy": "concurrently \"npm:start:backend\" \"npm:start:legacy-ui\"",
     "start:backend": "node server.js",
     "start:react": "wait-on http://localhost:5000/api/health && npm start --prefix ../front/react",

@@ -20,12 +20,12 @@ Por exemplo:
 
 <br>
 
-| **Caso de teste**  | **CT-002 – Cadastro de Consumo (Transação)**  |
+| **Caso de teste**  | **CT-002 – Cadastro de Consumo**  |
 |:---: |:---: |
 | Requisito associado | RF-001 - Cadastro de faturas de consumo. <br> RF-002 - Cálculo automático de CO2. |
 | Objetivo do teste | Validar se o sistema registra o consumo e atualiza os indicadores. |
-| Passos | 1. Acessar menu "Transações". <br> 2. Criar nova despesa/consumo. <br> 3. Preencher valor e descrição. <br> 4. Salvar. |
-| Critério de êxito | - A transação aparece na lista. <br> - O saldo/consumo total no Dashboard é atualizado. |
+| Passos | 1. Acessar menu "Consumos". <br> 2. Criar novo registro de consumo. <br> 3. Preencher valor e descrição. <br> 4. Salvar. |
+| Critério de êxito | - O consumo aparece na lista. <br> - O saldo/consumo total de emissões no Dashboard é atualizado. |
 | Responsável pela elaboração do caso de teste | Saulo Luiz |
 
 | **Caso de teste**  | **CT-003 – Isolamento de Dados (Single Owner)**  |

@@ -98,7 +98,7 @@ Dê ênfase especial às telas relacionadas aos processos BPMN já mapeados e do
 A tela principal (Dashboard) apresenta uma visão consolidada dos indicadores de consumo e sustentabilidade. O fluxo de navegação obedece ao seguinte Menu:
 
 *   **Resumo Ambiental (Home):** Calculadora de Impacto Ambiental, medidor de "Árvores Restantes" e gráficos de evolução.
-*   **Utilitários (Despesas):** Inserção e visualização de volumes de água e luz gastos.
+*   **Utilitários (Consumos):** Inserção e visualização de volumes de água e luz gastos.
 *   **Rastreio de Resíduos:** Marcações de descarte de lixo para computar reduções.
 *   **Centro de Metas:** Definições de sustentabilidade e alertas positivos.
 *   **Avisos do Motor:** Notificações críticas de anomalias detectadas.
@@ -107,17 +107,23 @@ A tela principal (Dashboard) apresenta uma visão consolidada dos indicadores de
 
 ### Telas dos processos BPMN
 
-#### Processo 1 - Cadastro, Login e Gestão
+#### Processo 1 - Gestão Multi-Unidade (Seleção de Contexto)
 
-Este processo abrange as telas de **Login**, **Cadastro de Usuário/Empresa** e **Lançamento de Consumo**. A interface de login é limpa e segura. O cadastro de consumo apresenta formulários claros com campos para inserção de leitura (kWh, m³).
+Este processo abrange as telas de **Login**, **Cadastro de Usuário/Unidade (Empresa ou Residência)** e a **Seleção de Contexto** (alternância entre Matriz/Filial ou Casa/Bar). A interface garante que o usuário consiga gerenciar múltiplos locais de forma isolada, respeitando a regra de Single Owner.
 
-> Inserir imagens das telas de Login, Cadastro e Lançamento.
+> Inserir imagens das telas de Login, Cadastro e o Menu de Troca de Unidade.
 
-#### Processo 2 - Monitoramento de Metas
+#### Processo 2 - Dashboard de Monitoramento e Lançamento
 
-Telas dedicadas à configuração de metas de redução (ex: "Reduzir 10% em 2026") e visualização de alertas de anomalia.
+Telas dedicadas à visualização consolidada dos indicadores de consumo (água e luz) e sustentabilidade (carbono equivalente). Inclui também a interface simplificada para o **Lançamento de Consumo** mensal e de gestão de resíduos.
 
-> Inserir imagens das telas correspondentes às atividades do processo 2.
+> Inserir imagens do Dashboard principal e dos formulários de lançamento de consumo e resíduos.
+
+#### Processo 3 - Configuração de Alertas e Metas
+
+Telas dedicadas à parametrização do motor de anomalias (ex: configurar alerta para variação > 15%) e visualização das notificações recebidas pelo sistema, alertando sobre possíveis vazamentos, gastos excessivos ou alcance de metas.
+
+> Inserir imagens da tela de configurações de metas/alertas e o painel de notificações.
 
 ### Demais telas do sistema
 

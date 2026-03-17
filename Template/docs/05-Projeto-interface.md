@@ -90,17 +90,23 @@ Descrição da tela principal do sistema.
 
 ### Telas dos processos BPMN
 
-#### Processo 1
+#### Processo 1 - Gestão Multi-Unidade
 
-Descrição das telas relativas às atividades do processo 1.
+Descrição das telas relativas ao cadastro de usuários, unidades e a troca de contexto no sistema (Single Owner).
 
-> Inserir imagens das telas correspondentes às atividades do processo 1.
+> Inserir imagens das telas de Login, Cadastro e Seleção de Contexto.
 
-#### Processo 2
+#### Processo 2 - Dashboard de Monitoramento
 
-Descrição das telas relativas às atividades do processo 2.
+Descrição das telas relativas à visualização de indicadores de sustentabilidade, consumo mensal e formulários de lançamento de dados.
 
-> Inserir imagens das telas correspondentes às atividades do processo 2.
+> Inserir imagens do Dashboard e do formulário de lançamento.
+
+#### Processo 3 - Configuração de Alertas e Metas
+
+Descrição das telas relativas à configuração de limites de consumo (ex: alerta de 15%) e visualização de notificações de anomalias e cumprimento de metas.
+
+> Inserir imagens da tela de configurações e caixa de notificações.
 
 ### Demais telas do sistema
 
