@@ -35,6 +35,16 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 
 ## Planejamento do projeto
 
+### Roadmap de Sprints
+
+O projeto segue a metodologia ágil, dividido em 5 Sprints, cobrindo desde a concepção até a validação com o parceiro extensionista.
+
+1.  **Sprint 1 (Concepção e Arquitetura):** Definição do problema, documentação de contexto, arquitetura de dados e configuração inicial do ambiente (Docker/Banco de Dados).
+2.  **Sprint 2 (MVP Backend e Processos):** Desenvolvimento da API (Autenticação e Motor de Cálculo), Modelagem de Processos (BPMN) e início da interface (Login).
+3.  **Sprint 3 (Frontend e Integração):** Desenvolvimento das telas principais (Dashboard, Lançamentos), integração com API e gamificação (Árvores).
+4.  **Sprint 4 (Inteligência e Testes):** Implementação da regra de alertas (15%), relatórios de resíduos e execução do Plano de Testes de Software.
+5.  **Sprint 5 (Validação e Entrega):** Testes de Usabilidade com o parceiro (Valtinho's Bar), correção de bugs finais e preparação da apresentação final.
+
 ###  Divisão de papéis
 
 > Apresente a divisão de papéis entre os membros do grupo em cada Sprint. O desejável é que, em cada Sprint, o aluno assuma papéis diferentes na equipe. Siga o modelo do exemplo abaixo:
@@ -48,9 +58,10 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 
 #### Sprint 2
 - _Scrum master_: Heron Victor Vieira da Silva
-- Desenvolvedor _front-end_: AlunoX
-- Desenvolvedor _back-end_: AlunoK
-- Testes: AlunaZ
+- Desenvolvedor _back-end_: Heron Victor Vieira da Silva
+- Desenvolvedor _front-end_: A definir
+- Analista de Processos (BPMN): A definir
+- Testes: A definir
 
 ###  Quadro de tarefas
 
@@ -62,23 +73,26 @@ Atualizado em: 17/03/2026
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| Gustavo Costa | Objetivos e Contexto | 03/02/2026     | 10/02/2026 | ✔️    | 10/02/2026      |
-| Heron Victor  | Histórias de Usuário (10+) | 01/01/2026     | 07/01/2026 | ✔️     | 07/01/2026      |
-| João Vinicius | Personas (6)  |    01/01/2026        | 12/02/2026 | ✔️    | 12/02/2026      |
-| Saulo Luiz    | Configuração Repositório | 01/02/2026     | 07/02/2026 | ✔️    | 05/02/2026      |
-| Caio Vieira   | Arquitetura de Dados | 05/02/2026 | 15/02/2026 | ✔️ | 15/02/2026 |
-| Todos         | Slides Apresentação | 10/03/2026 | 17/03/2026 | ✔️ | 17/03/2026 |
+| Gustavo Costa | Objetivos e Contexto      | 03/02/2026 | 10/02/2026 | ✔️ | 10/02/2026 |
+| Heron Victor  | Histórias de Usuário (10+)| 01/01/2026 | 07/01/2026 | ✔️ | 07/01/2026 |
+| João Vinicius | Personas (6)              | 01/01/2026 | 12/02/2026 | ✔️ | 12/02/2026 |
+| Saulo Luiz    | Configuração Repositório  | 01/02/2026 | 07/02/2026 | ✔️ | 05/02/2026 |
+| Caio Vieira   | Arquitetura de Dados      | 05/02/2026 | 15/02/2026 | ✔️ | 15/02/2026 |
+| Todos         | Slides Apresentação       | 10/03/2026 | 17/03/2026 | ✔️ | 17/03/2026 |
 
 #### Sprint 2
 
-Atualizado em: 21/04/2024
+Atualizado em: 25/03/2026
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| AlunaX        | Página inicial   | 01/02/2024     | 07/03/2024 | ✔️    | 05/02/2024      |
-| AlunaZ        | CSS unificado    | 03/02/2024     | 10/03/2024 | 📝    |                 |
-| AlunoY        | Página de login  | 01/02/2024     | 07/03/2024 | ⌛     |                 |
-| AlunoK        | Script de login  |  01/01/2024    | 12/03/2024 | ❌    |       |
+| Heron Victor  | Backend: Autenticação (JWT)     | 20/03/2026 | 25/03/2026 | ❌ |            |
+| Heron Victor  | Backend: Motor de Cálculo (GHG) | 20/03/2026 | 30/03/2026 | ❌ |            |
+| Heron Victor  | Backend: Validação Duplicidade  | 20/03/2026 | 30/03/2026 | ❌ |            |
+| A definir     | Frontend: Tela de Login         | 25/03/2026 | 10/04/2026 | ❌ |            |
+| A definir     | Frontend: Dashboard Principal   | 25/03/2026 | 10/04/2026 | ❌ |            |
+| A definir     | Modelagem Processos (BPMN)      | 25/03/2026 | 10/04/2026 | ❌ |            |
+| A definir     | Extensão: Comprovação Visita (Fotos) | 25/03/2026 | 10/04/2026 | ❌ |            |
 
 
 Legenda:
@@ -112,9 +126,12 @@ Exemplo: os artefatos do projeto são desenvolvidos a partir de diversas platafo
 
 | Ambiente                            | Plataforma                         | Link de acesso                         |
 |-------------------------------------|------------------------------------|----------------------------------------|
-| Repositório de código fonte         | GitHub                             | http://....                            |
-| Documentos do projeto               | GitHub                             | http://....                            |
-| Projeto de interface                | Figma                              | http://....                            |
-| Gerenciamento do projeto            | GitHub Projects                    | http://....                            |
-| Hospedagem                          | Vercel                             | http://....                            |
+| Repositório de código fonte         | GitHub                             | https://github.com/ICEI-PUC-Minas-PBE-SI-TI/2026-1-p5-tias-co2ntazero |
+| Documentos do projeto               | GitHub                             | https://github.com/ICEI-PUC-Minas-PBE-SI-TI/2026-1-p5-tias-co2ntazero |
+| Projeto de interface                | Figma                              | https://www.figma.com/                 |
+| Gerenciamento do projeto            | GitHub Projects                    | https://github.com/orgs/ICEI-PUC-Minas-PBE-SI-TI/projects |
+| Hospedagem Frontend                 | Vercel                             | https://co2ntazero.vercel.app          |
+| Hospedagem Backend                  | Azure App Service                  | https://portal.azure.com/              |
+| Banco de Dados                      | MongoDB Atlas                      | https://www.mongodb.com/cloud/atlas    |
+| Ambiente de Desenvolvimento         | Docker / VS Code                   | N/A                                    |
  

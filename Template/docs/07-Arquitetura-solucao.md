@@ -2,11 +2,19 @@
 
 <span style="color:red">Pré-requisitos: <a href="05-Projeto-interface.md"> Projeto de interface</a></span>
 
-Defina como o software é estruturado em termos dos componentes que fazem parte da solução e do ambiente de hospedagem da aplicação.  
+A arquitetura do CO2ntaZero é baseada na stack **MERN** (MongoDB, Express, React, Node.js), utilizando uma abordagem de microsserviços containerizados via Docker. A solução adota o modelo **Single Owner** (Proprietário Único), onde um usuário (CPF) gerencia múltiplas unidades, garantindo isolamento lógico de dados.
 
-Apresente um diagrama que ilustre a visão estrutural do sistema, mostrando como os componentes (front-end, back-end, banco de dados, serviços externos etc.) se organizam e se comunicam, bem como onde estão hospedados.  
+A comunicação entre o Frontend (React Web) e o Backend (Node.js API) ocorre via RESTful API, com autenticação segura via JWT. A persistência de dados é realizada no MongoDB Atlas (Cloud).
 
 ![Arquitetura da Solução](images/arquitetura.png)
+
+## Fluxo de Dados (Motor de Sustentabilidade)
+
+1.  **Entrada:** O usuário lança a fatura (ex: 500 kWh).
+2.  **Processamento:** A API invoca o `ConsumptionService`.
+3.  **Cálculo:** O sistema busca o fator de emissão (ex: 0.042 kgCO2e/kWh - Fonte MCTI) e calcula a pegada.
+4.  **Anomalia:** O sistema compara com a média histórica (Regra de 15%) e gera alerta se necessário.
+5.  **Persistência:** Salva no MongoDB o dado original E o dado calculado (CO2e).
 
 ## Diagrama de classes
 

@@ -1,22 +1,24 @@
 # Introdução
 
-O CO2ntaZero nasceu de uma necessidade prática e pessoal: a dificuldade de monitorar variações nos gastos mensais de água e luz de uma residência comum. A ideia surgiu da intenção de auxiliar o Sr. Vander (pai do fundador), de 65 anos, a visualizar se estava ocorrendo uma variação grande nos gastos mensais de sua casa e de seu bar (**Valtinho's Bar**), algo difícil de perceber apenas com as faturas em papel.
+A sustentabilidade deixou de ser apenas um conceito ambiental para se tornar uma necessidade econômica e social. No entanto, para pequenos empreendedores e cidadãos comuns, a barreira de entrada para o "mundo verde" ainda é alta, envolta em cálculos complexos e burocracia. O projeto **CO2ntaZero** nasce para quebrar essa barreira, traduzindo dados de consumo cotidiano em impacto ambiental tangível.
 
-Dada a simplicidade inicial, o projeto evoluiu para uma abordagem *Green Tech*. Percebeu-se que evitar o desperdício financeiro é também uma forma de promover a sustentabilidade. Assim, o sistema escalou para monitorar todas as formas de emissão (combustível, resíduos, entregas, etc.) utilizando tabelas oficiais do governo, democratizando o acesso a ferramentas de conscientização ambiental para pessoas físicas e empresas.
+## Cliente
 
-O projeto está alinhado com a agenda global da ONU, atendendo diretamente aos **ODS 12 (Consumo e Produção Responsáveis)** e **ODS 13 (Ação Contra a Mudança Global do Clima)**, focando na conscientização individual como motor de mudança.
+O projeto conta com a validação prática do **Valtinho's Bar** (Parceiro Extensionista), estabelecimento comercial tradicional localizado em **Betim/MG**.
 
-### Princípio de Design: Usabilidade Simplificada
-A principal diretriz para a interface é a facilidade de uso. O sistema deve ser tão intuitivo e autoexplicativo que o Sr. Vander, sem afinidade com tecnologia, consiga utilizá-lo de forma fluida e sem necessidade de treinamento.
-
-## Cliente 
-O sistema atende a dois perfis principais:
-1.  **Pessoas Físicas e Pequenos Empreendedores (Como o Sr. Vander):** Chefes de família e donos de pequenos negócios que precisam monitorar contas mensais de múltiplos locais (casa, comércio) para evitar surpresas, identificar variações de consumo e desejam adotar hábitos mais sustentáveis.
-2.  **Pequenas e Médias Empresas (PMEs):** Negócios que buscam eficiência operacional e redução de custos através do controle de desperdícios e monitoramento básico de impacto.
+*   **Perfil:** Pequeno comércio familiar (Bar e Restaurante).
+*   **Representante:** Sr. Vander (65 anos), proprietário.
+*   **Desafio:** O estabelecimento possui freezers antigos e alto consumo de energia. O proprietário tem dificuldade em entender as faturas técnicas da companhia elétrica e só percebe aumentos excessivos quando a conta já chegou, inviabilizando ações corretivas rápidas.
+*   **Demanda:** Ferramenta simples para monitorar gastos e evitar surpresas financeiras, com interesse secundário em obter um "selo verde" para marketing.
 
 ## Problema
-Muitas famílias e pequenos empresários só percebem um vazamento ou um equipamento defeituoso quando a fatura chega, muitas vezes com valores exorbitantes, 30 dias após o ocorrido. Não há ferramentas acessíveis que alertem sobre variações anormais de consumo em tempo hábil.
-Além do prejuízo financeiro, esse desperdício representa um impacto ambiental invisível. A falta de correlação clara entre "gastar 100 kWh a mais" e "emitir X kg de CO2" dificulta a conscientização e a mudança de comportamento.
+
+Pequenos comércios e residências enfrentam dificuldade em monitorar seus gastos com utilitários (energia, água) de forma proativa. Faturas de papel chegam apenas no final do mês, impedindo ações imediatas contra desperdícios. Além disso, há uma desconexão total entre o "valor em reais" pago e o "impacto em carbono" gerado.
+
+**Dores identificadas:**
+1.  Surpresa com contas altas no final do mês.
+2.  Dificuldade de leitura técnica de faturas.
+3.  Falta de ferramentas acessíveis para cálculo de pegada de carbono (Carbon Footprint).
 
 > **Links úteis**:
 > - [Objetivos, problema de pesquisa e justificativa](https://medium.com/@versioparole/objetivos-problema-de-pesquisa-e-justificativa-c98c8233b9c3)
@@ -25,34 +27,35 @@ Além do prejuízo financeiro, esse desperdício representa um impacto ambiental
 
 ## Objetivos
 
-O objetivo geral é desenvolver uma plataforma que monitore o consumo de recursos, alerte sobre anomalias e converta esses dados em impacto ambiental e ações de compensação.
+### Objetivo Geral
+Desenvolver uma aplicação web responsiva que permita o monitoramento de consumo de recursos e o cálculo automático da pegada de carbono para pequenos negócios e residências.
 
-**Objetivos Específicos:**
-1.  **Monitoramento e Alerta:** Implementar um algoritmo que valide variações mensais. Se a variação ultrapassar um limite configurável (sendo o mínimo 15%), o sistema alerta o usuário sobre possíveis problemas (vazamentos, ineficiência).
-2.  **Cálculo de Emissões:** Utilizar tabelas oficiais para converter inputs (km rodados, litros de combustível, m³ de água) em pegada de carbono.
-3.  **Conscientização e Compensação:** Exibir o impacto ambiental de cada lançamento e sugerir ações de compensação (ex: "Plante X árvores para neutralizar este consumo").
+### Objetivos Específicos
+1.  **Monitorar:** Permitir o lançamento simples de faturas (kWh, m³) e alertar automaticamente variações superiores a 15% da média histórica.
+2.  **Calcular:** Converter os dados de consumo em CO2 equivalente (kgCO2e) utilizando fatores de emissão oficiais (MCTI/GHG Protocol).
+3.  **Engajar:** Oferecer um dashboard intuitivo que mostre "árvores necessárias para compensar" o consumo, gamificando a economia.
 
 > **Links úteis**:
 > - [Objetivo geral e objetivo específico: como fazer e quais verbos utilizar](https://blog.mettzer.com/diferenca-entre-objetivo-geral-e-objetivo-especifico/)
 
 ## Justificativa
 
-A sustentabilidade começa pela eficiência. Evitar o desperdício de água e energia é a forma mais imediata de reduzir a pegada ecológica. O CO2ntaZero justifica-se ao unir a motivação econômica (redução de conta) com a motivação ambiental (conscientização). Ao permitir que o usuário configure seus alertas (respeitando um limiar mínimo de relevância de 15%), a ferramenta se adapta a diferentes realidades, tornando a gestão de recursos proativa em vez de reativa.
-
-**Estratégia de Mercado (Oceano Azul):**
-Diferente da abordagem tradicional de competir em mercados saturados ("Oceanos Vermelhos"), onde produtos se tornam commodities e a briga é por preço, o **CO2ntaZero** adota a **Estratégia do Oceano Azul**. Focamos em **Micro e Pequenas Empresas (MPEs)** e profissionais liberais, um mercado vasto e inexplorado que carece de ferramentas simples e acessíveis. Ao simplificar a gestão de carbono para uma padaria ou escritório, tornamos a concorrência irrelevante, pois não há *players* atendendo essa demanda específica com baixo custo e UX amigável.
-
-**Foco Ambiental:**
-O CO2ntaZero foca exclusivamente no pilar **Ambiental**, fornecendo ferramentas para que indivíduos e empresas monitorem e reduzam sua pegada de carbono de forma prática.
+O projeto se justifica pela necessidade de **democratizar a tecnologia verde (Green Tech)**. Enquanto grandes corporações possuem departamentos de sustentabilidade, o pequeno empresário carece de ferramentas.
+Academicamente, o projeto aplica conceitos de Arquitetura de Software (MVC), Segurança (Single Owner/LGPD) e Engenharia de Dados, alinhando-se aos **ODS 12 (Consumo Responsável)** e **ODS 13 (Ação Climática)** da ONU.
 
 > **Links úteis**:
 > - [Como montar a justificativa](https://guiadamonografia.com.br/como-montar-justificativa-do-tcc/)
 
 ## Público-alvo
 
-1. **Gerentes Operacionais:** Profissionais que cuidam das contas do dia a dia e buscam redução de custos.
-2. **Proprietários de PMEs:** Focados em redução de custos e com pouco tempo para ferramentas complexas.
-3. **Operadores Administrativos:** Responsáveis pelo lançamento de dados (faturas, pesagem), com variados níveis de fluência digital.
+O projeto possui dois perfis principais de público:
+
+1.  **O Pequeno Empreendedor (Ex: Donos de Bares/Restaurantes):**
+    *   Faixa etária: 40-70 anos.
+    *   Perfil: Pouca afinidade com tecnologia complexa, focado em redução de custos operacionais.
+2.  **O Cidadão Consciente:**
+    *   Faixa etária: 20-40 anos.
+    *   Perfil: Preocupado com mudanças climáticas, busca ferramentas para monitorar sua pegada ecológica doméstica.
 
 > **Links úteis**:
 > - [Público-alvo](https://blog.hotmart.com/pt-br/publico-alvo/)

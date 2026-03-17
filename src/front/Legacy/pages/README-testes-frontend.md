@@ -24,8 +24,7 @@ Antes de iniciar, certifique-se de que:
     - **Resultado Esperado:** Uma mensagem de erro "Credenciais inválidas" deve ser exibida na tela, sem redirecionamento.
 
 - [ ] **Proteção de Rota (Acesso Direto):**
-    - **Ação:** Faça logout. Tente acessar a URL `http://localhost:3000/pages/transactions.html` diretamente no navegador.
-    - **Resultado Esperado:** Redirecionamento imediato para a página de login.
+    - **Ação:** Faça logout. Tente acessar a URL `http://localhost:3000/pages/ap
 
 - [ ] **Logout:**
     - **Ação:** Após o login, clique no botão "Sair".
@@ -50,8 +49,7 @@ Antes de iniciar, certifique-se de que:
 
 - [ ] **Cenário de Validação (Empresa B):**
     1.  Faça login com a **Empresa Backend**.
-    2.  Navegue até a lista de transações.
-    3.  **Resultado Esperado:** O registro `Emissão Teste Isolamento` **NÃO** deve estar visível.
+    2.  Navegue até a lista de consumos.o `Emissão Teste Isolamento` **NÃO** deve estar visível.
 
 ---
 
@@ -131,10 +129,4 @@ Antes de iniciar, certifique-se de que:
     - **Ação:** Com alguns consumos cadastrados, vá para a página de relatórios e clique em "Exportar Relatório de Emissões".
     - **Resultado Esperado:** Um arquivo PDF chamado `relatorio-emissoes.pdf` (ou similar) deve ser baixado pelo navegador.
 
-- [ ] **Exportar Relatório de Clientes:**
-    - **Ação:** Com alguns clientes cadastrados, clique em "Exportar Lista de Clientes".
-    - **Resultado Esperado:** Um arquivo PDF com a lista de clientes deve ser baixado.
-
 - [ ] **Exportar Comprovante de Registro:**
-    - **Ação:** Em um registro específico, encontre e clique na opção "Gerar Comprovante".
-    - **Resultado Esperado:** Um arquivo PDF do comprovante correspondente àquele registro deve ser baixado.

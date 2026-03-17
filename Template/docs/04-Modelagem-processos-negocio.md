@@ -10,39 +10,40 @@ Com o tema do projeto definido, escolham dois processos no contexto de negócios
 
 ## Modelagem da situação atual (Modelagem AS IS)
 
-Apresente uma descrição textual de como os sistemas atuais resolvem o problema que seu projeto se propõe a resolver. Caso sua proposta seja inovadora e não existam processos claramente definidos, apresente como as tarefas que seu sistema pretende implementar são executadas atualmente, mesmo que não se utilize tecnologia computacional.
+Atualmente, o processo de controle de contas e consumo nas empresas alvo (PMEs) é predominantemente manual. As faturas de energia e água chegam fisicamente ou por e-mail e são lançadas em planilhas Excel desconexas ou cadernos. 
+O cálculo de emissões de carbono **não é realizado** devido à complexidade técnica (fatores de conversão desconhecidos pelo leigo). Não há um histórico centralizado, e a detecção de vazamentos ou desperdícios depende da análise visual humana das contas, muitas vezes ocorrendo com 30 dias de atraso.
 
-Cole aqui os modelos dos processos atuais (modelo AS-IS), elaborados com o apoio da ferramenta baseada em BPMN utilizada na disciplina. Cada processo identificado deve ter seu modelo AS-IS específico. 
+**Gargalos identificados:**
+*   **Invisibilidade Ambiental:** O usuário paga a conta mas não sabe seu impacto em carbono.
+*   **Delay de informação:** O consumo excessivo só é percebido na chegada da próxima fatura.
+*   **Perda de dados:** Anotações em papel sem backup ou histórico para comparação.
 
 ## Descrição geral da proposta (Modelagem TO BE)
 
-Tendo identificado os gargalos dos modelos AS-IS, apresentem uma descrição da proposta de solução, buscando maior eficiência com a introdução da tecnologia. Abordem também os limites dessa solução e seu alinhamento com as estratégias e objetivos do contexto de negócio escolhido.
+O processo proposto envolve o uso da plataforma **CO2ntaZero**. O usuário seleciona a Unidade (Filial/Matriz), insere os dados de consumo (kWh, m³) e o sistema valida instantaneamente. 
 
-Cole aqui os modelos da solução proposta (modelo TO-BE), elaborados com o apoio da ferramenta baseada em BPMN utilizada na disciplina. Cada processo identificado deve ter seu modelo TO-BE específico. Descrevam as oportunidades de melhoria de cada processo da solução proposta.
+**Diferenciais da Calculadora:**
+1.  **Motor de Cálculo:** Converte os inputs em CO2e automaticamente usando fatores do MCTI/GHG Protocol.
+2.  **Motor de Anomalias:** Verifica o histórico e, se detectar variação superior a 15%, dispara um alerta proativo.
+3.  **Visualização:** O dado financeiro vira dado ambiental ("Árvores para compensar").
 
-Apresente aqui uma descrição da sua proposta, abordando seus limites e suas ligações com as estratégias e objetivos do negócio. Apresente também as oportunidades de melhoria.
+Isso elimina o erro humano de cálculo, centraliza a informação e permite ação rápida contra desperdícios.
 
 ## Modelagem dos processos
 
-[PROCESSO 1 AS IS - Nome do processo](./processes/processo-1-as-is.md "Detalhamento do processo 1 AS IS.")
+[PROCESSO 1 AS IS - Gestão Manual de Faturas](./processes/processo-1-as-is.md "Detalhamento do processo 1 AS IS.")
 
-[PROCESSO 1 TO BE - Nome do processo](./processes/processo-1-to-be.md "Detalhamento do processo 1 TO BE.")
+[PROCESSO 1 TO BE - Calculadora de Pegada de Carbono](./processes/processo-1-to-be.md "Detalhamento do processo 1 TO BE.")
 
-[PROCESSO 2 AS IS - Nome do processo](./processes/processo-2-as-is.md "Detalhamento do processo 2 AS IS.")
+[PROCESSO 2 AS IS - Detecção de Vazamentos (Reativo)](./processes/processo-2-as-is.md "Detalhamento do processo 2 AS IS.")
 
-[PROCESSO 2 TO BE - Nome do processo](./processes/processo-2-to-be.md "Detalhamento do processo 2 TO BE.")
+[PROCESSO 2 TO BE - Monitoramento Inteligente de Metas](./processes/processo-2-to-be.md "Detalhamento do processo 2 TO BE.")
 
 ## Indicadores de desempenho
 
-Apresente aqui os principais indicadores de desempenho e algumas metas para o processo. Atenção: as informações necessárias para gerar os indicadores devem estar contempladas no diagrama de classe. Coloque no mínimo 5 indicadores.
-
-Use o seguinte modelo:
-
 | **Indicador** | **Objetivos** | **Descrição** | **Fonte de dados** | **Fórmula de cálculo** |
 | ---           | ---           | ---           | ---             | ---             |
-| Percentual de reclamações | Avaliar quantitativamente as reclamações | Percentual de reclamações em relação ao total de atendimentos | Tabela Reclamações | número total de reclamações / número total de atendimentos |
-| Taxa de requisições atendidas | Melhorar a prestação de serviços medindo a porcentagem de requisições atendidas| Mede a % de requisições atendidas na semana | Tabela Solicitações | (número de requisições atendidas / número total de requisições) * 100 |
-| Taxa de entrega de material | Manter controle sobre os materiais que estão sendo entregues | Mede % de material entregue dentro do mês | Tabela Pedidos | (número de pedidos entregues / número total de pedidos) * 100 |
-
-
-Obs.: todas as informações necessárias para gerar os indicadores devem estar no diagrama de classe a ser apresentado posteriormente.
+| Pegada de Carbono Mensal | Monitorar impacto ambiental | Total de emissões de CO2 equivalente por mês | Tabela Consumptions | Σ (Consumo * Fator de Emissão) |
+| Taxa de Anomalias | Identificar eficiência operacional | Percentual de registros que geraram alertas de desvio (>15%) | Tabela Alerts | (Total de Alertas / Total de Registros) * 100 |
+| Árvores para Compensação | Engajamento (Gamificação) | Quantidade de árvores necessárias para neutralizar o consumo | Motor de Cálculo | Total CO2e / Fator Absorção Árvore |
+| Redução de Consumo | Avaliar eficácia das metas | Comparativo de consumo entre períodos | Tabela Consumptions | ((Consumo Mês Anterior - Consumo Atual) / Consumo Mês Anterior) * 100 |

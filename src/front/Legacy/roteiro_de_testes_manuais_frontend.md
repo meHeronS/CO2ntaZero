@@ -8,16 +8,7 @@ Este documento fornece um guia passo a passo para validar manualmente as funcion
 
 Para garantir um ambiente estável e previsível para os testes manuais, utilize as empresas de teste fixas.
 
-> **Importante:** Os testes automatizados (`npm test`) agora não apagam mais as empresas de teste manuais. No entanto, se você precisar recriar ou garantir que elas existam, certifique-se de que o backend esteja rodando (`npm start`) e, em outro terminal, na pasta `src/back`, execute o comando:
-> ```bash
-> npm run create-test-users
-> ```
-
-A execução deste comando gera/atualiza o arquivo `dados-empresas-teste.md` dentro desta mesma pasta (`Testes/Docs/`). **Consulte este arquivo para obter os dados completos de cada empresa**, incluindo:
-- ID da Empresa (`companyId`)
-- ID do Usuário (`userId`)
-- Access Token
-- E outras informações de cadastro.
+> **Importante:** Como os scripts de população automática foram removidos, certifique-se de registrar manualmente essas empresas na tela de cadastro caso o banco de dados seja limpo.
 
 - **Empresa Frontend:**
   - **E-mail:** `empresa-frontend@test.com`
@@ -36,7 +27,7 @@ A execução deste comando gera/atualiza o arquivo `dados-empresas-teste.md` den
 O objetivo é garantir que o fluxo de login, logout e proteção de rotas está funcionando.
 
 - [ ] **Execução do Ambiente Completo:**
-    - **Ação:** No terminal, a partir da pasta `backend`, execute `npm run start:full-demo` para iniciar todos os servidores.
+    - **Ação:** No terminal, a partir da pasta `src/back`, execute `npm start` para iniciar todos os servidores.
 
 - [ ] **Login com Sucesso:**
     - **Ação:** Acesse a página de login, insira as credenciais da **Empresa A** e clique em "Entrar".
@@ -70,53 +61,53 @@ Este é o teste mais crítico para o frontend. Valida que a interface de um usu�
 
 - [ ] **Cenário de Preparação (Empresa A):**
     1.  Faça login com a **Empresa Frontend**.
-    2.  Navegue até "Transações" e crie uma transação de receita única e facilmente identificável, por exemplo: `Venda Consultoria Teste Manual`.
+    2.  Navegue até "Consumos" e crie um registro de consumo único e facilmente identificável, por exemplo: `Consumo Energia Teste Manual`.
     3.  Navegue até "Metas" e crie uma meta única, por exemplo: `Meta Teste Manual`.
     4.  Faça logout.
 
 - [ ] **Cenário de Validação (Empresa B):**
     1.  Faça login com a **Empresa Backend**.
-    2.  Navegue até a página de "Transações".
-    3.  **Resultado Esperado:** A lista de transações deve estar **vazia** ou conter apenas transações da **Empresa Backend**. A transação `Venda Consultoria Teste Manual` **NÃO** deve aparecer.
+    2.  Navegue até a página de "Consumos".
+    3.  **Resultado Esperado:** A lista de consumos deve estar **vazia** ou conter apenas consumos da **Empresa Backend**. O registro `Consumo Energia Teste Manual` **NÃO** deve aparecer.
     4.  Navegue até a página de "Metas".
     5.  **Resultado Esperado:** A lista de metas deve estar **vazia** ou conter apenas metas da **Empresa Backend**. A meta `Meta Teste Manual` **NÃO** deve aparecer.
 
 ---
 
-## 3. Módulo de Transações
+## 3. Módulo de Consumos e Emissões
 
-Valida o ciclo completo de gerenciamento de transações.
+Valida o ciclo completo de gerenciamento de consumos e conversão em pegada de carbono.
 
-- [ ] **Criar Transação:**
-    - **Ação:** Crie uma receita de `R$ 1.000,00` e uma despesa de `R$ 250,00`.
-    - **Resultado Esperado:** Os cards no dashboard devem ser atualizados para "Receitas: R$ 1.000,00", "Despesas: R$ 250,00" e "Saldo: R$ 750,00". Ambas as transações devem aparecer na lista.
+- [ ] **Registrar Consumo:**
+    - **Ação:** Crie um registro de consumo de energia de `500 kWh` e um de combustível de `100 Litros`.
+    - **Resultado Esperado:** Os cards no dashboard devem ser atualizados para mostrar o aumento da "Pegada de Carbono". Ambos os registros devem aparecer na lista.
 
-- [ ] **Validação de Formulário (Criar Transação):**
-    - **Ação:** Tente criar uma transação deixando o campo "Valor" ou "Descrição" em branco.
+- [ ] **Validação de Formulário (Registrar Consumo):**
+    - **Ação:** Tente criar um registro deixando o campo "Quantidade" ou "Tipo" em branco.
     - **Resultado Esperado:** O formulário deve exibir uma mensagem de erro (ex: "Este campo é obrigatório") e não deve permitir o envio da transação.
 
-- [ ] **Editar Transação:**
-    - **Ação:** Edite a despesa de `R$ 250,00` para `R$ 300,00`.
-    - **Resultado Esperado:** O valor na lista deve ser atualizado. O card "Despesas" no dashboard deve mudar para `R$ 300,00` e o "Saldo" para `R$ 700,00`.
+- [ ] **Editar Consumo:**
+    - **Ação:** Edite o registro de `500 kWh` para `600 kWh`.
+    - **Resultado Esperado:** O valor na lista deve ser atualizado. O card de Emissões no dashboard deve refletir o novo cálculo de CO2e.
 
-- [ ] **Excluir Transação:**
-    - **Ação:** Exclua a transação de receita de `R$ 1.000,00`.
-    - **Resultado Esperado:** A transação deve desaparecer da lista. Os cards do dashboard devem ser recalculados para "Receitas: R$ 0,00" e "Saldo: -R$ 300,00".
+- [ ] **Excluir Consumo:**
+    - **Ação:** Exclua o registro de `100 Litros`.
+    - **Resultado Esperado:** O consumo deve desaparecer da lista. Os cards do dashboard devem ser recalculados refletindo a exclusão.
 
-- [ ] **Filtrar Transações:**
-    - **Ação:** Use os filtros de tipo ("Receita", "Despesa") e período.
-    - **Resultado Esperado:** A lista de transações deve ser atualizada dinamicamente para mostrar apenas os resultados que correspondem aos filtros selecionados.
+- [ ] **Filtrar Consumos:**
+    - **Ação:** Use os filtros de tipo de recurso ("Energia", "Água", "Combustível") e período.
+    - **Resultado Esperado:** A lista de consumos deve ser atualizada dinamicamente para mostrar apenas os resultados que correspondem aos filtros selecionados.
 
 ---
 
 ## 4. Módulo de Metas (CRUD)
 
 - [ ] **Criar Meta:**
-    - **Ação:** Crie uma nova meta com título "Economizar para férias".
+    - **Ação:** Crie uma nova meta com título "Reduzir consumo de energia".
     - **Resultado Esperado:** A meta deve aparecer na lista de metas.
 
 - [ ] **Editar Meta:**
-    - **Ação:** Edite o título da meta para "Economizar para férias de verão".
+    - **Ação:** Edite o título da meta para "Reduzir consumo de energia no verão".
     - **Resultado Esperado:** O título na lista deve ser atualizado.
 
 - [ ] **Excluir Meta:**
@@ -127,12 +118,12 @@ Valida o ciclo completo de gerenciamento de transações.
 
 ## 5. Módulo de Uploads
 
-- [ ] **Anexar Arquivo a uma Transação:**
-    - **Ação:** Em uma transação existente, clique no ícone de anexo, selecione um arquivo (PDF ou imagem) e confirme.
+- [ ] **Anexar Arquivo a um Consumo:**
+    - **Ação:** Em um registro de consumo existente, clique no ícone de anexo, selecione um arquivo (PDF da fatura ou imagem) e confirme.
     - **Resultado Esperado:** A interface deve indicar que o anexo foi enviado com sucesso. Um ícone ou link para visualizar o anexo deve aparecer ao lado da transação.
 
 - [ ] **Remover Anexo:**
-    - **Ação:** Em uma transação que já possui um anexo, clique na opção para remover o anexo.
+    - **Ação:** Em um registro que já possui um anexo, clique na opção para remover o anexo.
     - **Resultado Esperado:** O anexo deve ser removido e a interface atualizada para refletir que não há mais um anexo associado.
 
 ---
@@ -140,9 +131,7 @@ Valida o ciclo completo de gerenciamento de transações.
 ## 6. Módulo de Relatórios
 
 - [ ] **Gerar e Exportar Relatórios via Menu:**
-    - **Ação:** Com algumas transações cadastradas, vá para a página de relatórios.
-    - **Resultado Esperado (Visualização):** Os gráficos e a tabela de resumo devem exibir totais que correspondam aos dados das transações cadastradas.
-    - **Ação:** Clique no menu "Exportar Relatório" e selecione a opção "Relatório de Transações".
-    - **Resultado Esperado (Exportação de Transações):** Um arquivo PDF (`relatorio-transacoes.pdf`) deve ser baixado, contendo a lista de transações.
-    - **Ação:** No mesmo menu, selecione a opção "Lista de Clientes".
-    - **Resultado Esperado (Exportação de Clientes):** Um arquivo PDF (`relatorio-clientes.pdf`) deve ser baixado, contendo a lista de clientes cadastrados.
+    - **Ação:** Com alguns consumos cadastrados, vá para a página de relatórios.
+    - **Resultado Esperado (Visualização):** Os gráficos e a tabela de resumo devem exibir as emissões totais que correspondam aos dados cadastrados.
+    - **Ação:** Clique no menu "Exportar Relatório" e selecione a opção "Relatório de Emissões".
+    - **Resultado Esperado (Exportação de Emissões):** Um arquivo PDF (`relatorio-emissoes.pdf`) deve ser baixado, contendo a lista consolidada.

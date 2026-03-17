@@ -2,7 +2,7 @@
 
 A sustentabilidade deixou de ser apenas um conceito ambiental para se tornar uma necessidade econômica e social. No entanto, para pequenos empreendedores e cidadãos comuns, a barreira de entrada para o "mundo verde" ainda é alta, envolta em cálculos complexos e burocracia. O projeto **CO2ntaZero** nasce para quebrar essa barreira, traduzindo dados de consumo cotidiano em impacto ambiental tangível.
 
-## Cliente w
+## Cliente
 
 O projeto conta com a validação prática do **Valtinho's Bar** (Parceiro Extensionista), estabelecimento comercial tradicional localizado em **Betim/MG**.
 

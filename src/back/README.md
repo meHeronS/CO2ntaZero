@@ -50,7 +50,7 @@ Alguns arquivos são a espinha dorsal do projeto e não permitem comentários in
 É o coração da aplicação. Suas responsabilidades são:
 1.  Importar todas as dependências e módulos necessários.
 2.  Configurar os middlewares globais (como `cors` para permitir acesso do frontend e `express.json` para interpretar requisições).
-3.  Registrar todas as rotas da API, associando cada endpoint (ex: `/api/transactions`) ao seu respectivo arquivo de rotas.
+3.  Registrar todas as rotas da API, associando cada endpoint (ex: `/api/consumptions`) ao seu respectivo arquivo de rotas.
 4.  Iniciar a conexão com o banco de dados MongoDB.
 5.  "Subir" o servidor, fazendo-o ouvir por requisições na porta configurada.
 
@@ -63,7 +63,6 @@ Este arquivo é o manifesto do projeto Node.js. Ele define:
 -   **`dependencies`**: Pacotes necessários para a aplicação rodar em produção (Express, Mongoose, etc.).
 -   **`devDependencies`**: Pacotes usados apenas durante o desenvolvimento e teste (Nodemon, Jest, etc.).
 -   **`scripts`**: Comandos de atalho para executar tarefas comuns:
-    -   `"db:populate"`: Popula o banco de dados com um conjunto rico de dados de teste (empresas, usuários, transações) para desenvolvimento e validação manual.
     -   `"start"`: Inicia o ambiente de demonstração completo (backend, frontend legado e React). Este é o comando principal para executar o sistema.
     -   `"start:backend"`: Inicia **apenas** o servidor do backend. (Nota: Utilize este comando como **Startup Command** no Azure App Service).
     -   `"start:frontend"`: Inicia um servidor estático simples para o frontend legado na porta 3000.    
@@ -203,7 +202,7 @@ Como um projeto acadêmico com prazo definido, certas simplificações foram fei
 ### 7.5. Sistema de Alertas e Tarefas em Background
 
 #### **Processamento Assíncrono**
--   **Implementação Atual (Funcional):** A geração de alertas é síncrona. O `transactionController` chama e espera (`await`) a conclusão do `alertTriggerService`. Para tarefas mais pesadas (como enviar um e-mail ou uma notificação push), isso aumentaria o tempo de resposta da API.
+-   **Implementação Atual (Funcional):** A geração de alertas é síncrona. O `consumptionController` chama e espera (`await`) a conclusão do `alertTriggerService`. Para tarefas mais pesadas (como enviar um e-mail ou uma notificação push), isso aumentaria o tempo de resposta da API.
 -   **Implementação Robusta (Nível de Produção):** Utilizar **filas de mensagens** (como RabbitMQ ou AWS SQS).
-    -   **Como Funciona:** Em vez de executar a tarefa imediatamente, o `transactionController` apenas publicaria uma mensagem na fila (ex: `"meta_verificar", { transactionId: "..." }`). Um processo "worker" separado e independente ouviria essa fila, processaria a tarefa (verificar a meta, enviar e-mail, etc.) e marcaria como concluída.
+    -   **Como Funciona:** Em vez de executar a tarefa imediatamente, o `consumptionController` apenas publicaria uma mensagem na fila (ex: `"meta_verificar", { consumptionId: "..." }`). Um processo "worker" separado e independente ouviria essa fila, processaria a tarefa (verificar a meta, enviar e-mail, etc.) e marcaria como concluída.
     -   **Vantagens:** Torna a API muito mais rápida e resiliente. Se o serviço de envio de e-mails estiver fora do ar, por exemplo, a API não falha; a mensagem simplesmente permanece na fila para ser reprocessada mais tarde. Além disso, tarefas agendadas (`cron jobs`) poderiam ser usadas para manutenção, como limpar tokens de sessão expirados ou gerar relatórios noturnos.

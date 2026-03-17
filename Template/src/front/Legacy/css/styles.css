@@ -1,0 +1,22 @@
+
+/* Global Styles for CO2ntaZero Frontend */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-metric {
+    border-left: 5px solid #28a745;
+}
+
+.card-alert {
+    border-left: 5px solid #dc3545;
+}
+
+.card-goal {
+    border-left: 5px solid #007bff;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    letter-spacing: 1px;
+}

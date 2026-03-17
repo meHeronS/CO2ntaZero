@@ -16,25 +16,14 @@ A seguir, apresenta-se um exemplo que deve ser adaptado pelo grupo de acordo com
 
 ![Quadro de modelo de negócios](images/bmc.png "Exemplo de BMC.")
 
-> - O texto a seguir é apenas para orientação e deve ser apagado pelo grupo após a leitura.
-
-O quadro é composto por nove blocos que representam as principais áreas de um modelo de negócio:
-1. **Parceiros-chave**: Fornecedores de energia (dados), Consultores ambientais, ONGs locais, Valtinho's Bar (Validação).
-2. **Atividades-chave**: Desenvolvimento de Software, Atualização de fatores de emissão (MCTI), Suporte.
-3. **Proposta de valor**: Monitoramento financeiro simples + Consciência ambiental. "Economize dinheiro salvando o planeta".
-4. **Relacionamento**: Automatizado (Self-service), Suporte via Chat, Feedback gamificado (Selos).
-5. **Segmentos de clientes**: Pequenos comércios (Bares, Salões) e Residências.
-6. **Recursos-chave**: Plataforma Web, Banco de Dados de Fatores de Emissão, Azure/Vercel.
-7. **Canais**: Web App (PWA), Redes Sociais, Indicação local.
-8. **Estrutura de custos**: Hospedagem Cloud, Domínio, Marketing Digital.
-9. **Fontes de receita**: Modelo Freemium (Básico grátis) e Premium (Relatórios avançados/Selo Verde).
-
-
 ## Personas
 
-Deve-se relacionar as personas identificadas no projeto. Enumere e detalhe as personas da sua solução. Lembre-se que você deve ser enumerar e descrever precisamente e personalizada todos os clientes ideais que sua solução almeja.
-
-![Exemplo de persona](images/exemplo-persona.png)
+1. **Ana (Pequena Empresária):** 32 anos, dona de uma padaria. Precisa reduzir custos fixos. Quer monitorar o consumo de gás e energia dos fornos e saber se seus funcionários estão desperdiçando recursos.
+2. **Carlos (Gerente Operacional):** 45 anos. Precisa organizar as contas da empresa e quer dados para mostrar que a empresa está economizando recursos e sendo mais "verde".
+3. **Vander (O Pai e Empreendedor):** 65 anos. Controla as contas de casa e do seu bar (**Valtinho's Bar**). Precisa de facilidade para gerenciar ambos os contextos. O sistema deve permitir que ele cadastre sua residência e o bar (múltiplos CNPJs/CPFs) e alterne entre eles conforme necessário, mantendo a simplicidade e o alerta de variações.
+4. **Juliana (Estudante Universitária):** 21 anos. Preocupada com as mudanças climáticas, divide apartamento com amigas. Quer monitorar a pegada de carbono da república para engajar suas colegas em práticas mais sustentáveis.
+5. **Roberto (Dono de Frota/Logística):** 50 anos. Possui 3 caminhões de entrega. Quer medir o impacto do diesel consumido e estabelecer metas de redução para atrair clientes corporativos que exigem relatórios ambientais.
+6. **Fernanda (Consultora de Sustentabilidade):** 35 anos. Trabalha ajudando pequenos negócios a implementarem ações ESG. Precisa de uma ferramenta simples para recomendar e usar no diagnóstico de seus clientes.
 
 > **Links úteis**:
 > - [Rock content](https://rockcontent.com/blog/personas/)
@@ -51,8 +40,16 @@ Com base na análise das personas, foram identificadas as seguintes histórias d
 
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
-|Usuário do sistema  | Registrar minhas tarefas           | Não esquecer de fazê-las               |
-|Administrador       | Alterar permissões                 | Permitir que possam administrar contas |
+|Ana (Empresária)    | Lançar o consumo de combustível das entregas | Calcular a pegada de carbono da logística da minha padaria. |
+|Carlos (Gerente)    | Configurar a sensibilidade do alerta de variação | Ajustar o monitoramento para a realidade sazonal da minha empresa (respeitando o mínimo de 15%). |
+|Usuário Geral       | Ver dicas de como reduzir meu consumo | Aprender a ser mais sustentável e economizar dinheiro. |
+|Vander (Pai)        | Ser alertado se houver uma variação grande (acima de 15%) no consumo | Verificar se há vazamentos ou problemas na rede elétrica imediatamente. |
+|Vander (Pai)        | Ver quantas árvores eu precisaria plantar para compensar meu consumo | Ter uma noção real do meu impacto ambiental e como posso ajudar o planeta. |
+|Vander (Pai)        | Alternar entre o perfil de casa e do bar | Gerenciar as contas de ambos os locais em um único lugar. |
+|Juliana (Estudante) | Lançar a conta de energia da república mensalmente | Descobrir quanto CO2 estamos emitindo coletivamente na casa. |
+|Roberto (Logística) | Cadastrar múltiplos veículos e lançar consumo de diesel | Monitorar a emissão da minha frota para apresentar a clientes empresariais. |
+|Fernanda (Consultora)| Visualizar um histórico claro e exportável de emissões | Utilizar os dados para elaborar um relatório ESG de entrada para meus clientes. |
+|Carlos (Gerente)    | Visualizar um dashboard com a evolução das emissões em gráficos | Apresentar os resultados de redução de custos nas reuniões de diretoria. |
 
 Apresente aqui as histórias de usuários que são relevantes para o projeto da sua solução. As histórias de usuários consistem em uma ferramenta poderosa para a compreensão e elicitação dos requisitos funcionais e não funcionais da sua aplicação. Se possível, agrupe as histórias de usuários por contexto, para facilitar consultas recorrentes a esta parte do documento.
 
@@ -71,15 +68,33 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-|RF-001| Permitir que o usuário cadastre tarefas | ALTA | 
-|RF-002| Emitir um relatório de tarefas no mês   | MÉDIA |
+|RF-001| O sistema deve permitir o lançamento de diversos tipos de consumo (Água, Luz, Combustível, Resíduos) baseados em tabelas oficiais. | ALTA | 
+|RF-002| O sistema deve calcular a pegada de carbono e exibir a equivalência em árvores necessárias para compensação. | ALTA |
+|RF-003| O sistema deve validar variações mensais e emitir alertas se o consumo variar acima de um percentual configurável pelo usuário (respeitando o mínimo de 15%). | ALTA |
+|RF-004| O sistema deve apresentar dicas de conscientização e redução de desperdício baseadas no tipo de consumo lançado. | MÉDIA |
+|RF-005| O sistema deve permitir o controle de acesso e autenticação de usuários. | ALTA |
+|RF-006| O sistema deve garantir o isolamento lógico de dados entre diferentes contas (Single Owner). | ALTA |
+|RF-007| O sistema deve permitir que um único usuário (CPF) gerencie múltiplos CNPJs (Matriz/Filiais ou Negócios distintos). | ALTA |
+|RF-008| O sistema deve bloquear o cadastro de CNPJ ou E-mail Corporativo já existentes para evitar fraudes e duplicidade. | ALTA |
 
 ### Requisitos não funcionais
 
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-|RNF-001| O sistema deve ser responsivo para rodar em dispositivos móveis | MÉDIA | 
-|RNF-002| Deve processar as requisições do usuário em no máximo 3 segundos |  BAIXA | 
+|RNF-001| O sistema deve ser uma aplicação web responsiva (acessível via navegador), sendo a versão mobile apenas conceitual. | ALTA | 
+|RNF-002| O sistema deve garantir a segurança dos dados (LGPD) com criptografia. | ALTA |
+|RNF-003| A interface deve ser intuitiva e autoexplicativa, projetada para usuários com pouca afinidade tecnológica (como a persona Vander). | ALTA |
+|RNF-004| O sistema deve ser desenvolvido utilizando a stack MERN (MongoDB, Express, React, Node.js). | ALTA |
+|RNF-005| A aplicação deve ser conteinerizada utilizando Docker, facilitando a padronização do ambiente e escalabilidade. | MÉDIA |
+
+### Parâmetros de Sustentabilidade (Fatores de Emissão)
+
+O backend utiliza fatores de conversão alinhados com o Inventário Nacional de Emissões (MCTI) e GHG Protocol para atender ao RF-002:
+
+*   **Energia Elétrica (SIN):** Média móvel do grid nacional (~0,042 kgCO2e/kWh).
+*   **Água Potável:** Fator de tratamento e distribuição (~0,35 kgCO2e/m³).
+*   **Gasolina Comum:** Combustão móvel (~2,27 kgCO2e/Litro).
+*   **GLP (Gás de Cozinha):** Combustão estacionária (~2,98 kgCO2e/kg).
 
 Com base nas histórias de usuários, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
 
@@ -107,9 +122,10 @@ O projeto está restrito aos itens apresentados na tabela a seguir.
 
 |ID| Restrição                                             |
 |--|-------------------------------------------------------|
-|001| O sistema não fará leitura automática de faturas (OCR) no MVP. |
-|002| Requer conexão com a internet para funcionar. |
-|003| O desenvolvimento deve utilizar a stack MERN (Mongo, Express, React, Node). |
+|001| O sistema será desenvolvido exclusivamente como aplicação web. O suporte a dispositivos móveis será via navegador (responsividade), sem desenvolvimento de aplicativo nativo. |
+|002| O sistema deve respeitar as diretrizes da LGPD, garantindo a privacidade dos dados dos usuários. |
+|003| O backend deve ser desenvolvido em Node.js e o banco de dados deve ser MongoDB (NoSQL). |
+|004| O sistema deve permitir o cadastro de um e-mail de contato para a empresa, que pode ser o mesmo do proprietário, para fins de notificação e recuperação. |
 
 ## Diagrama de casos de uso
 

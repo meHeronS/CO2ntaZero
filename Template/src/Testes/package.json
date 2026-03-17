@@ -1,0 +1,26 @@
+{
+  "name": "co2ntazero-tests",
+  "version": "1.0.0",
+  "description": "Scripts de teste e validação isolados",
+  "type": "module",
+  "scripts": {
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --runInBand --verbose",
+    "test:connection": "node 0-db/test-connection.js",
+    "db:create": "node 0-db/create-test-db.js",
+    "db:check": "node 0-db/check-db-status.js",
+    "db:clean": "node 0-db/clean-db.js",
+    "db:populate": "node 0-db/populate-db.js"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.1.0",
+    "axios": "^1.7.2",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.0",
+    "mongoose": "^8.19.3"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "jest": "^30.2.0",
+    "supertest": "^6.3.3"
+  }
+}
