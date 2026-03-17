@@ -2,12 +2,11 @@
 
 <span style="color:red">Pré-requisitos: <a href="01-Contexto.md"> Documentação de contexto</a></span>
 
-Esta seção apresenta a definição do problema e a proposta de solução sob a perspectiva do usuário, utilizando técnicas de modelagem que permitam compreender e detalhar as necessidades do negócio e as funcionalidades esperadas do sistema.  
-
-Nesta seção são apresentadas as personas, histórias de usuários, requisitos funcionais e não funcionais, bem como as restrições do projeto. Também são descritas as ferramentas e metodologias empregadas para elaborar essas especificações, garantindo que todos os participantes possuam uma compreensão unificada do escopo, dos objetivos e das prioridades do trabalho.
+Esta seção define o escopo inicial do CO2ntaZero, focando nas necessidades essenciais dos stakeholders identificados e nos requisitos fundamentais para o MVP (Produto Mínimo Viável).
 
 ## Modelo de negócio (*Business Model Canvas*)
 
+<<<<<<< HEAD
 O *Business Model Canvas* (BMC) é uma ferramenta de planejamento estratégico que descreve, de forma visual e integrada, como uma organização cria, entrega e captura valor.  
 
 No contexto deste projeto, o BMC auxilia no alinhamento da equipe em relação aos aspectos essenciais do negócio, servindo como base para decisões técnicas, de design e de priorização de funcionalidades.  
@@ -32,14 +31,26 @@ A seguir, apresenta-se um exemplo que deve ser adaptado pelo grupo de acordo com
 > - [Persona x público-alvo](https://flammo.com.br/blog/persona-e-publico-alvo-qual-a-diferenca/)
 > - [Mapa de empatia](https://resultadosdigitais.com.br/blog/mapa-da-empatia/)
 > - [Mapa de stalkeholders](https://www.racecomunicacao.com.br/blog/como-fazer-o-mapeamento-de-stakeholders/)
+=======
+O planejamento estratégico inicial foi consolidado no *Business Model Canvas* abaixo, destacando a proposta de valor voltada para a simplicidade e a conscientização.
 
+![Quadro de modelo de negócios](images/bmc.png "BMC CO2ntaZero")
+
+## Personas
+
+1. **Ana (Pequena Empresária):** 32 anos. Busca reduzir custos fixos da padaria e engajar clientes com práticas sustentáveis.
+2. **Sr. Vander (Proprietário):** 65 anos. Precisa de uma ferramenta extremamente simples para monitorar contas e evitar desperdícios no bar e em casa.
+>>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
+
+> **Nota:** O foco inicial é garantir usabilidade para perfis não-técnicos.
 
 ## Histórias de usuários
 
-Com base na análise das personas, foram identificadas as seguintes histórias de usuários:
+Priorizamos as histórias que garantem o ciclo básico de valor: **Lançamento -> Monitoramento -> Alerta**.
 
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
+<<<<<<< HEAD
 |Ana (Empresária)    | Lançar o consumo de combustível das entregas | Calcular a pegada de carbono da logística da minha padaria. |
 |Carlos (Gerente)    | Configurar a sensibilidade do alerta de variação | Ajustar o monitoramento para a realidade sazonal da minha empresa (respeitando o mínimo de 15%). |
 |Usuário Geral       | Ver dicas de como reduzir meu consumo | Aprender a ser mais sustentável e economizar dinheiro. |
@@ -50,24 +61,20 @@ Com base na análise das personas, foram identificadas as seguintes histórias d
 |Roberto (Logística) | Cadastrar múltiplos veículos e lançar consumo de diesel | Monitorar a emissão da minha frota para apresentar a clientes empresariais. |
 |Fernanda (Consultora)| Visualizar um histórico claro e exportável de emissões | Utilizar os dados para elaborar um relatório ESG de entrada para meus clientes. |
 |Carlos (Gerente)    | Visualizar um dashboard com a evolução das emissões em gráficos | Apresentar os resultados de redução de custos nas reuniões de diretoria. |
+=======
+|Sr. Vander          | Cadastrar minhas contas de luz     | Saber se houve aumento excessivo no mês|
+|Ana                 | Receber alertas de variação        | Identificar vazamentos ou desperdício rapidamente |
+|Usuário Comum       | Ver meu impacto em carbono         | Entender como meu consumo afeta o ambiente |
+>>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
 
-Apresente aqui as histórias de usuários que são relevantes para o projeto da sua solução. As histórias de usuários consistem em uma ferramenta poderosa para a compreensão e elicitação dos requisitos funcionais e não funcionais da sua aplicação. Se possível, agrupe as histórias de usuários por contexto, para facilitar consultas recorrentes a esta parte do documento.
+## Requisitos Iniciais (Sprint 1)
 
-> **Links úteis**:
-> - [Histórias de usuários com exemplos e template](https://www.atlassian.com/br/agile/project-management/user-stories)
-> - [Como escrever boas histórias de usuário (user stories)](https://medium.com/vertice/como-escrever-boas-users-stories-hist%C3%B3rias-de-usu%C3%A1rios-b29c75043fac)
-> - [User stories: requisitos que humanos entendem](https://www.luiztools.com.br/post/user-stories-descricao-de-requisitos-que-humanos-entendem/)
-> - [Histórias de usuários: mais exemplos](https://www.reqview.com/doc/user-stories-example.html)
-> - [9 common user story mistakes](https://airfocus.com/blog/user-story-mistakes/)
-
-## Requisitos
-
-As tabelas a seguir apresentam os requisitos funcionais e não funcionais que detalham o escopo do projeto. Para determinar a prioridade dos requisitos, aplique uma técnica de priorização e detalhe como essa técnica foi aplicada.
+O escopo da primeira sprint foca na estruturação e nas funcionalidades "core".
 
 ### Requisitos funcionais
-
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
+<<<<<<< HEAD
 |RF-001| O sistema deve permitir o lançamento de diversos tipos de consumo (Água, Luz, Combustível, Resíduos) baseados em tabelas oficiais. | ALTA | 
 |RF-002| O sistema deve calcular a pegada de carbono e exibir a equivalência em árvores necessárias para compensação. | ALTA |
 |RF-003| O sistema deve validar variações mensais e emitir alertas se o consumo variar acima de um percentual configurável pelo usuário (respeitando o mínimo de 15%). | ALTA |
@@ -76,11 +83,16 @@ As tabelas a seguir apresentam os requisitos funcionais e não funcionais que de
 |RF-006| O sistema deve garantir o isolamento lógico de dados entre diferentes contas (Single Owner). | ALTA |
 |RF-007| O sistema deve permitir que um único usuário (CPF) gerencie múltiplos CNPJs (Matriz/Filiais ou Negócios distintos). | ALTA |
 |RF-008| O sistema deve bloquear o cadastro de CNPJ ou E-mail Corporativo já existentes para evitar fraudes e duplicidade. | ALTA |
+=======
+|RF-001| Cadastro de consumo (Energia, Água) | ALTA | 
+|RF-002| Alerta de variação (>15%) | ALTA |
+|RF-003| Exibição de impacto em CO2 | ALTA |
+>>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
 
 ### Requisitos não funcionais
-
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
+<<<<<<< HEAD
 |RNF-001| O sistema deve ser uma aplicação web responsiva (acessível via navegador), sendo a versão mobile apenas conceitual. | ALTA | 
 |RNF-002| O sistema deve garantir a segurança dos dados (LGPD) com criptografia. | ALTA |
 |RNF-003| A interface deve ser intuitiva e autoexplicativa, projetada para usuários com pouca afinidade tecnológica (como a persona Vander). | ALTA |
@@ -113,6 +125,10 @@ Lembre-se de que cada requisito deve corresponder a uma e somente uma caracterí
 > **Links úteis**:
 > - [O que são requisitos funcionais e requisitos não funcionais?](https://codificar.com.br/requisitos-funcionais-nao-funcionais/)
 > - [Entenda o que são requisitos de software, a diferença entre requisito funcional e não funcional, e como identificar e documentar cada um deles](https://analisederequisitos.com.br/requisitos-funcionais-e-requisitos-nao-funcionais-o-que-sao/)
+=======
+|RNF-001| Responsividade (Mobile First) | ALTA | 
+|RNF-002| Interface Simplificada (Poucos cliques) | ALTA |
+>>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
 
 ## Restrições
 

@@ -20,6 +20,17 @@ MEMBROS DO GRUPO:
 PROFESSOR(A): Amália Soares Vieira de Vasconcelos
 
 --------------------------------------------------------------------------------
+ACESSO AO BANCO DE DADOS (DEV TEAM)
+--------------------------------------------------------------------------------
+
+Para que todos os integrantes possam conectar e visualizar o banco de dados compartilhado (MongoDB Atlas), utilizem as seguintes credenciais no MongoDB Compass ou na configuração do .env local:
+
+Usuário: AdminDB
+Senha:   AdminDB
+String de Conexão:
+mongodb+srv://AdminDB:AdminDB@studiescluster.hcpbk9e.mongodb.net/co2ntazero?retryWrites=true&w=majority
+
+--------------------------------------------------------------------------------
 CONTEXTO E MOTIVAÇÃO
 --------------------------------------------------------------------------------
 
@@ -47,7 +58,6 @@ com persistência no MongoDB Atlas (NoSQL) e infraestrutura Dockerizada.
 
 A modelagem de dados prioriza a rastreabilidade de emissões de carbono, segurança (LGPD)
 e escalabilidade horizontal.
-
 
 PARTE 1: ESTRUTURA BASE E SINGLE OWNER (ISOLAMENTO LÓGICO)
 
@@ -192,13 +202,12 @@ Sprint 4 (Junho/2026):
 ADENDO PARA ALINHAMENTO DA EQUIPE
 --------------------------------------------------------------------------------
 
-ALINHAMENTO DO GRUPO (5 INTEGRANTES) - SPRINT 02
+ALINHAMENTO DO GRUPO (5 INTEGRANTES)
 Status: Definição de Papéis e Ponto de Partida
 
-Pessoal, este documento é pra deixar todo mundo na mesma página.
 Como nem todos conseguiram acompanhar o início, aqui está um resumo do que já foi
 definido e estruturado. A ideia é usarmos isso como base, mas fiquem à vontade
-para sugerir mudanças. O projeto é nosso!
+para sugerir mudanças.
 
 NOSSO TIME (5 PESSOAS):
 1. Heron Victor
@@ -210,12 +219,11 @@ NOSSO TIME (5 PESSOAS):
 
 1. O QUE É O PROJETO? (RESUMÃO)
 ---------------------------------------------------
-Estamos criando um sistema web para ajudar pequenos comércios (tipo o bar do meu pai, o "Sr. Vander")
-e pessoas comuns a entenderem suas contas e o impacto ambiental delas.
+Estamos criando um sistema web para ajudar pequenos comércios (tipo o bar do meu pai, o "Sr. Vander") e pessoas comuns a entenderem suas contas e o impacto ambiental delas.
 
 - Problema: A conta chega cara no fim do mês e ninguém sabe o porquê. Além disso,
   falar de "carbono" parece coisa de empresa grande.
-- Solução: O usuário lança a conta de luz ou gasto de combustível (tabela FGV), e a gente mostra:
+- Solução: O usuário lança a conta de agua/luz ou gasto de combustível (tabela FGV), e a gente mostra:
   1. Se ele gastou muito a mais que o normal (Alerta de prejuízo).
   2. Quanto isso gerou de poluição (CO2) e quantas árvores compensariam isso.
 

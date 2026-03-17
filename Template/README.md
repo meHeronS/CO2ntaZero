@@ -1,12 +1,6 @@
-# CO2ntaZero: Monitoramento de Emissões e Sustentabilidade
+# CO2ntaZero: Calculadora de Emissões e Conscientização Ambiental
 
-`CURSO: Sistemas de Informação`
-
-`DISCIPLINA: Trabalho Interdisciplinar Aplicações para Sustentabilidade`
-
-`1º Semestre / 2026`
-
-O **CO2ntaZero** é uma solução de Green Tech voltada para pequenos negócios e residências. O objetivo é simplificar o monitoramento de consumo (energia, água, resíduos), convertendo métricas financeiras e físicas em **Pegada de Carbono**, alertando sobre desperdícios e incentivando a economia através da conscientização.
+O **CO2ntaZero** é um projeto acadêmico de aplicação web voltado para o monitoramento de consumo (água e energia) e cálculo de emissões de carbono. O objetivo é criar uma ferramenta simples que ajude pequenos negócios e residências a entenderem seu impacto ambiental a partir de suas contas mensais.
 
 ## Integrantes
 
@@ -20,16 +14,17 @@ O **CO2ntaZero** é uma solução de Green Tech voltada para pequenos negócios 
 
 * Amália Soares Vieira de Vasconcelos
 
-## Instruções de utilização
+---
 
-Para executar a versão de desenvolvimento (Backend + Frontend):
+## Contexto e Motivação
 
-1. Clone o repositório.
-2. Configure o arquivo `.env` no backend.
-3. Execute `npm install` e `npm start` na pasta raiz do código fonte.
-4. O sistema estará acessível localmente.
+Identificamos que pequenos empreendedores e chefes de família têm dificuldade em relacionar o consumo de suas contas (luz, água) com o impacto ambiental gerado. Além disso, ferramentas de gestão sustentável costumam ser complexas e voltadas para grandes empresas.
 
-# Documentação
+A proposta do CO2ntaZero é oferecer uma plataforma inicial simples, onde o usuário lança seus gastos e o sistema converte esses dados em métricas de carbono e alertas de variação, facilitando a conscientização e o controle financeiro.
+
+---
+
+# Documentação do Projeto
 
 <ol>
 <li><a href="docs/01-Contexto.md"> Documentação de contexto</a></li>
@@ -47,9 +42,9 @@ Para executar a versão de desenvolvimento (Backend + Frontend):
 <li><a href="docs/13-Referencias.md"> Referências</a></li>
 </ol>
 
-# Código
+# Repositório e Código Fonte
 
-* <a href="src/README.md">Código</a>
+* <a href="../src/README.md">Código Fonte (Source)</a>
 
 # Apresentação
 

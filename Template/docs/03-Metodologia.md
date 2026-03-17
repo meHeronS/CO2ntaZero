@@ -3,8 +3,7 @@
 
 <span style="color:red">Pré-requisitos: <a href="02-Especificacao.md"> Especificação do projeto</a></span>
 
-Descreva aqui a metodologia de trabalho do grupo para abordar o problema. Inclua definições sobre os ambientes de trabalho utilizados pela equipe para desenvolver o projeto. Isso abrange a relação dos ambientes utilizados, a estrutura para a gestão do código-fonte, além da definição do processo e das ferramentas por meio dos quais a equipe se organiza (gestão de equipes).
-
+A equipe adotará metodologias ágeis (Scrum) para o gerenciamento do projeto, com sprints periódicas. O versionamento de código será centralizado no GitHub.
 
 ## Controle de versão
 
@@ -35,6 +34,7 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 
 ## Planejamento do projeto
 
+<<<<<<< HEAD
 ### Roadmap de Sprints
 
 O projeto segue a metodologia ágil, dividido em 5 Sprints, cobrindo desde a concepção até a validação com o parceiro extensionista.
@@ -44,6 +44,13 @@ O projeto segue a metodologia ágil, dividido em 5 Sprints, cobrindo desde a con
 3.  **Sprint 3 (Frontend e Integração):** Desenvolvimento das telas principais (Dashboard, Lançamentos), integração com API e gamificação (Árvores).
 4.  **Sprint 4 (Inteligência e Testes):** Implementação da regra de alertas (15%), relatórios de resíduos e execução do Plano de Testes de Software.
 5.  **Sprint 5 (Validação e Entrega):** Testes de Usabilidade com o parceiro (Valtinho's Bar), correção de bugs finais e preparação da apresentação final.
+=======
+### Roadmap de Fases (Macro)
+
+O desenvolvimento do CO2ntaZero foi dividido em fases estratégicas para garantir entregas tangíveis:
+1.  **Sprint 1 (Iniciação / Fundação):** Mapeamento do escopo, estruturação do Backend e containerização da camada de Dados.
+2.  **Sprint 2-5:** Desenvolvimento faseado das funcionalidades de fluxo de consumo, calculadora, anomalias e validação.
+>>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
 
 ###  Divisão de papéis
 
@@ -54,6 +61,7 @@ O projeto segue a metodologia ágil, dividido em 5 Sprints, cobrindo desde a con
 - Protótipos: Heron Victor Vieira da Silva
 - Testes: Joao Vinicius Rodrigues Santos
 - Documentação: Gustavo Costa Pinho Tavares
+<<<<<<< HEAD
 - Arquitetura: Caio Vieira de Freitas
 
 #### Sprint 2
@@ -62,6 +70,8 @@ O projeto segue a metodologia ágil, dividido em 5 Sprints, cobrindo desde a con
 - Desenvolvedor _front-end_: A definir
 - Analista de Processos (BPMN): A definir
 - Testes: A definir
+=======
+>>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
 
 ###  Quadro de tarefas
 
@@ -73,6 +83,7 @@ Atualizado em: 17/03/2026
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
+<<<<<<< HEAD
 | Gustavo Costa | Objetivos e Contexto      | 03/02/2026 | 10/02/2026 | ✔️ | 10/02/2026 |
 | Heron Victor  | Histórias de Usuário (10+)| 01/01/2026 | 07/01/2026 | ✔️ | 07/01/2026 |
 | João Vinicius | Personas (6)              | 01/01/2026 | 12/02/2026 | ✔️ | 12/02/2026 |
@@ -94,6 +105,12 @@ Atualizado em: 25/03/2026
 | A definir     | Modelagem Processos (BPMN)      | 25/03/2026 | 10/04/2026 | ❌ |            |
 | A definir     | Extensão: Comprovação Visita (Fotos) | 25/03/2026 | 10/04/2026 | ❌ |            |
 
+=======
+| Grupo (Todos) | Ideação, Definição do Problema e Contexto | 03/02/2026 | 20/02/2026 | ✔️ | 20/02/2026 |
+| Grupo (Todos) | Levantamento de Requisitos e Personas     | 21/02/2026 | 05/03/2026 | ✔️ | 05/03/2026 |
+| Grupo (Todos) | Configuração Inicial e Arquitetura        | 06/03/2026 | 15/03/2026 | ✔️ | 15/03/2026 |
+| Grupo (Todos) | Documentação e Apresentação Final         | 10/03/2026 | 17/03/2026 | ✔️ | 17/03/2026 |
+>>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
 
 Legenda:
 - ✔️: terminado
@@ -106,12 +123,6 @@ Legenda:
 > - [11 passos essenciais para implantar Scrum no seu projeto](https://mindmaster.com.br/scrum-11-passos/)
 > - [Scrum em 9 minutos](https://www.youtube.com/watch?v=XfvQWnRgxG0)
 > - [Os papéis do Scrum e a verdade sobre cargos nessa técnica](https://www.atlassian.com/br/agile/scrum/roles)
-
-### Processo
-
-Coloque informações sobre detalhes da implementação do Scrum seguido pelo grupo. O grupo deverá fazer uso do recurso de gerenciamento de projeto oferecido pelo GitHub, que permite acompanhar o andamento do projeto, a execução das tarefas e o status de desenvolvimento da solução.
- 
-> **Links úteis**:
 > - [Planejamento e gestão ágil de projetos](https://pucminas.instructure.com/courses/87878/pages/unidade-2-tema-2-utilizacao-de-ferramentas-para-controle-de-versoes-de-software)
 > - [Sobre quadros de projeto](https://docs.github.com/pt/issues/organizing-your-work-with-project-boards/managing-project-boards/about-project-boards)
 > - [Project management, made simple](https://github.com/features/project-management/)
