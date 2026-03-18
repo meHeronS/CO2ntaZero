@@ -2,7 +2,7 @@
 ROTEIRO DE ARQUITETURA DE DADOS - PROJETO CO2NTAZERO
 ================================================================================
 
-Status: Rascunho Mestre Atualizado (Ref. SIRENE 2025 / GHG Protocol 2026)
+Status: Documento Mestre Atualizado - ENTREGA FINAL SPRINT 5
 Objetivo: Centralizar a visão, regras de negócio e decisões técnicas do projeto.
 (Este arquivo serve como base de conhecimento e será removido da versão final do GitHub)
 
@@ -192,11 +192,15 @@ Sprint 2 (Abril/2026):
 
 Sprint 3 (Maio/2026):
   [ ] Frontend: Dashboard e Lançamento de Consumo Simplificado.
-  [ ] Gamificação: Visualização de Metas e Impacto Ambiental.
+  [ ] Gamificação: Árvores, Metas e Impacto Ambiental (Frontend e Integração).
 
 Sprint 4 (Junho/2026):
-  [ ] Validação de Usabilidade (Valtinho's Bar).
-  [ ] Deploy Final em Produção.
+  [ ] Backend: Relatórios e Regra de Alertas (15%).
+  [ ] Execução do Plano de Testes de Software e Usabilidade.
+
+Sprint 5 (Junho/2026):
+  [ ] Entrega Final (Nuvem e Integração Total).
+  [ ] Correção de Bugs Finais e Gravação do Pitch de Vendas.
 
 --------------------------------------------------------------------------------
 ADENDO PARA ALINHAMENTO DA EQUIPE
@@ -325,14 +329,13 @@ Como eu (Heron) já pesquisei as fontes de dados, aqui vai o significado para to
 Ideias para o futuro do projeto (para apresentarmos como visão de longo prazo):
 
 1. **Automação de Leitura (OCR):**
-   Hoje o usuário digita. O ideal futuro seria ele fazer upload do PDF da conta
-   de luz e o sistema ler os dados sozinho. -validar se faz sentido ainda
+   O ideal no futuro seria o usuário fazer upload do PDF da conta
+   de luz e o sistema ler os dados sozinho (trabalhos futuros fora do escopo acadêmico).
 
 2. **Integração IoT (Tomadas Inteligentes):**
    *Como funciona:* Existem tomadas "Smart" (Tuya/Sonoff) que medem voltagem/amperagem
-   e enviam para uma nuvem. Nosso sistema poderia conectar na API delas para
-   puxar o consumo automático de um freezer, por exemplo.
-   *Status:* Viável, mas complexo para agora. - mas da para trazer como uma possibildiade de evolução do sistema
+   Nosso sistema poderia conectar na API delas para puxar o consumo automático de um freezer.
+   *Status:* Trazido como visão de potencial evolução (trabalho futuro).
 
 3. **Marketplace de Compensação:**
    Um botão onde o usuário pode pagar para plantar árvores reais e "zerar" a conta. - mas é um potencial de monetização do sistema

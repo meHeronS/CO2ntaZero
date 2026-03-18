@@ -1,4 +1,3 @@
-
 # CO2ntaZero - Frontend React (PWA)
 
 Este projeto foi atualizado para focar no monitoramento de **Sustentabilidade e Anomalias de Consumo**, funcionando como um **Progressive Web App (PWA)**.
@@ -11,15 +10,15 @@ Este projeto foi atualizado para focar no monitoramento de **Sustentabilidade e 
 > - **Notificações:** Capaz de enviar alertas de consumo e anomalias.
 
 ## Estrutura Atual
-- **App.js**: Dashboard principal exibindo m�tricas de Pegada de Carbono, Energia e �gua.
+- **App.js**: Dashboard principal exibindo métricas de Pegada de Carbono, Energia e Água.
 - **Componentes**: 
-  - Cart�es de M�tricas (Carbono, Energia, �gua)
+  - Cartões de Métricas (Carbono, Energia, Água)
   - Lista de Alertas de Anomalia
-  - Hist�rico de Consumo
+  - Histórico de Consumo
 
-## Instala��o e Execu��o
+## Instalação e Execução
 
-1. Instale as depend�ncias:
+1. Instale as dependências:
    ```bash
    npm install
    ```
@@ -29,10 +28,10 @@ Este projeto foi atualizado para focar no monitoramento de **Sustentabilidade e 
    npm start
    ```
 
-A aplica��o rodar� em `http://localhost:3000`.
+A aplicação rodará em `http://localhost:3000`.
 
-## Integra��o com Backend
-O frontend est� configurado para consumir a API em `http://localhost:5000/api`. As rotas principais s�o:
+## Integração com Backend
+O frontend está configurado para consumir a API em `http://localhost:5000/api`. As rotas principais são:
 - `/api/consumptions` -> `src/services/api.js`
 - `/api/alerts`
 - `/api/goals`
@@ -43,4 +42,3 @@ Para rodar em container:
 docker build -t co2ntazero-react .
 docker run -p 3000:3000 co2ntazero-react
 ```
-

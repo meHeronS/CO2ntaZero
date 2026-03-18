@@ -60,60 +60,69 @@ Nosso foco é dar ferramentas para o **Pequeno Empresário (Dono de Restaurante,
 
 ---
 
-## 4. Arquitetura e Engenharia de Software
+## 4. Arquitetura Técnica
 
-O sistema adota uma arquitetura **MVC Desacoplada** robusta, visando escalabilidade e manutenção. Embora funcional, reconhecemos academicamente que a arquitetura possui pontos de melhoria que poderiam ser refatorados em iterações futuras para maior desacoplamento e performance.
+A arquitetura de dados do CO2ntaZero foi projetada para suportar uma plataforma acadêmica de Green Tech orientada a dados. O sistema utiliza a MERN Stack (MongoDB, Express, React, Node.js), com persistência no MongoDB Atlas (NoSQL) e infraestrutura Dockerizada e hospedada na nuvem. A modelagem de dados prioriza a rastreabilidade de emissões de carbono, segurança (LGPD) e escalabilidade horizontal.
 
-### 3.1. Estrutura do Frontend (Interoperabilidade)
-A camada de apresentação (Frontend) foi desenhada para suportar uma transição tecnológica:
-*   **Versão Legado**: Interface base (HTML/JS) que serviu para prototipação rápida.
-*   **Versão React JS**: Implementação moderna, iniciando pela tela de login e dashboard, demonstrando a capacidade da API de servir diferentes clientes.
-*   *Nota: A responsabilidade pela migração completa e manutenção do frontend será revista e decidida em conjunto pelo grupo.*
+### Parte 1: Estrutura Base e Single Owner (Isolamento Lógico)
+O sistema adota o modelo "Single Owner" (Proprietário Único). Embora suporte múltiplos usuários no banco de dados, cada conta é isolada.
+1. **Companies (Unidades de Gestão):** Centraliza o escopo de atuação (`companyId` como chave de particionamento).
+2. **Users (Usuários e Gestores):** Gerenciamento de identidades e acessos (senhas Bcrypt). Um CPF gerencia múltiplas unidades.
+3. **SessionTokens:** Controle stateless via JWT com Refresh Tokens.
 
-### 4.2. Visão de Escalabilidade e PWA
-A escalabilidade do projeto é pautada nas **Boas Práticas de Desenvolvimento** (Clean Code, SOLID no backend). O conceito de **Progressive Web App (PWA)** é apresentado como o "estado da arte" desejado para o projeto: uma aplicação web que se comporta como nativa (mobile), permitindo acesso offline, notificações de metas de emissão e instalação no dispositivo, ampliando o alcance para uso em campo.
+### Parte 2: O Motor de Sustentabilidade (Core Sustentabilidade)
+4. **Consumptions:** Foco em grandezas físicas (kWh, m³, Litros).
+5. **EmissionFactors:** Fatores de emissão oficiais (GHG Protocol & SIRENE - ~0,3708 kgCO2/kWh).
+6. **Wastes:** Economia Circular. Rastreia resíduos sólidos e líquidos (Tabelas FGV).
 
-### 4.3. Modelo Single Owner e Segurança
-O sistema adota o modelo **Single Owner** (Proprietário Único), onde um CPF gerencia múltiplas unidades (CNPJs ou Residências).
-*   **Isolamento Lógico:** O campo `companyId` atua como chave de particionamento.
-*   **Proteção de Identidade:** O sistema impede o cadastro duplicado de CNPJ. Se um usuário tentar cadastrar um CNPJ já existente, o sistema bloqueia a ação e notifica o proprietário original via e-mail.
+### Parte 3: Inteligência e Auditoria
+7. **Alerts:** Motor de desvios de consumo (variação > 15%).
+8. **Goals:** Gamificação via compromissos ambientais.
+9. **Logs:** Auditoria e Compliance LGPD.
 
 ---
 
 ## 5. Pilares Funcionais de Monitoramento
 
 ### 5.1. Definição de Alertas Inteligentes (Regra dos 15%)
-O sistema monitora desvios de consumo. Detecta automaticamente variações superiores a **15%** (padrão configurável pelo usuário) em relação à média histórica, notificando o gestor sobre possíveis vazamentos ou ineficiências operacionais.
-Mesmo sem alertas críticos, o sistema gera **sugestões de economia** para incentivar a redução contínua.
+O sistema monitora desvios de consumo. Detecta automaticamente variações superiores a **15%** (ou limite configurado) em relação à média histórica, notificando o gestor sobre possíveis vazamentos ou ineficiências operacionais.
 
 ### 5.2. Inteligência Net Zero e Gamificação
 *   **Rastreamento de Resíduos**: Módulo para gestão de economia circular (óleo, recicláveis).
-*   **Cálculo de CO2**: Conversão automática baseada em tabelas oficiais (sem referências bibliográficas externas neste momento, utilizando dados padronizados de mercado/MCTI).
+*   **Cálculo de CO2**: Conversão automática baseada em tabelas oficiais do Governo (MCTI) e FGV.
 *   **Gamificação**: Uso de selos e feedbacks visuais quando metas de redução são atingidas.
 
 ---
 
-## 6. Histórico de Versões e Contextualização Acadêmica
+## 6. Infraestrutura e Deploy
 
-Este projeto adota um versionamento semântico adaptado para o contexto acadêmico, onde cada "Major Release" ou "Minor Change" reflete um marco ou uma nova tecnologia integrada pelos alunos.
+- **Hospedagem API:** Microsoft Azure App Service. [Acessar Documentação](https://learn.microsoft.com/azure/app-service/)
+- **Hospedagem Front:** Vercel. [Acessar Documentação](https://vercel.com/docs/frameworks/react)
+- **Container:** Docker (Ambientes padronizados). [Acessar Documentação](https://docs.docker.com/get-started/)
+- **Banco de Dados:** MongoDB Atlas (NoSQL). [Acessar Documentação](https://www.mongodb.com/docs/atlas/)
+- **Backend:** Node.js (Runtime) - [Doc Node](https://nodejs.org/docs/) & Express.js (Framework) - [Doc Express](https://expressjs.com/)
+- **Frontend:** React.js (Interface Responsiva). [Acessar Documentação](https://react.dev/learn)
+- **Versionamento e Gestão:** GitHub & GitHub Projects. [Acessar Documentação](https://docs.github.com/pt)
+- **Segurança:** BCrypt (Hash de senhas) & JWT (Tokens). [Acessar Documentação JWT](https://jwt.io/introduction/)
 
-> **Nota Importante:** Como projeto acadêmico em desenvolvimento contínuo, nenhuma funcionalidade deve ser considerada "final" ou "em produção". O código está em constante refatoração para aplicar os conceitos aprendidos em sala de aula (DevOps, Arquitetura de Software).
+---
+
+## 7. Histórico de Versões e Contextualização Acadêmica
+
+Este projeto atingiu sua versão de **Entrega Final (Sprint 5)**. Todas as rotas base, regras de negócios e integrações com o Frontend e Nuvem foram consolidadas.
 
 ### 🔍 Detalhamento Exaustivo do Ciclo de Vida do Projeto (Changelog)
 
-Abaixo, o histórico granular de cada etapa do desenvolvimento, desde a concepção teórica até a implementação técnica atual.
-
-#### **v0.5.x - Planejamento de Infraestrutura (Futuro/Roadmap)**
-*Etapa de preparação para o deploy em produção. Atualmente em fase de estudo.*
+#### **v1.0.0 - Entrega Final (Sprint 5) - Nuvem e Segurança**
+*Integração total do sistema (Front-Back-DB) funcionando sem erros e hospedado na nuvem.*
 *   **0.5.2 - Containerização (Docker):**
-    *   Definição teórica do `Dockerfile` para Node.js (Alpine Linux).
-    *   Planejamento do `docker-compose.yml` para orquestração local (API + MongoDB).
+    *   Configuração do `Dockerfile` para orquestração local (API + MongoDB).
 *   **0.5.1 - Pipeline de CI/CD (Azure):**
-    *   Estudo da plataforma Microsoft Azure para hospedagem do backend.
-    *   Planejamento das variáveis de ambiente (`OPENAI_API_KEY`, `MONGO_URI`).
+    *   Hospedagem API configurada na nuvem (Azure/Vercel).
+    *   Segurança avançada consolidada (Bcrypt, validações).
 
 #### **v0.4.x - Refinamento e Documentação Técnica (Sprint Atual)**
-*Fase de profissionalização dos artefatos do projeto.*
+*Fase de profissionalização dos artefatos (Sprints 3 e 4).*
 *   **0.4.6 - Simplificação de Arquitetura (Single Owner):**
     *   Remoção do sistema complexo de RBAC (Roles/Permissions).
     *   Adoção do modelo de **Proprietário Único**, onde 1 CPF gerencia N Empresas/Residências.
@@ -134,7 +143,7 @@ Abaixo, o histórico granular de cada etapa do desenvolvimento, desde a concepç
     *   Redefinição do foco de "App Nativo" para "Web Responsiva" (MVP Acadêmico).
 
 #### **v0.3.x - Desenvolvimento Core Backend (Implementation)**
-*Fase de codificação das regras de negócio e APIs.*
+*Fase de codificação das regras de negócio e APIs (Sprints 1 e 2).*
 *   **0.3.6 - Módulo de Resíduos (Waste Management):**
     *   Criação da rota `/api/active/waste` para registro de descarte (Óleo, Recicláveis).
     *   Implementação de lógica de conversão: 1 Litro de Óleo = X kgCO2e evitados.
@@ -158,7 +167,7 @@ Abaixo, o histórico granular de cada etapa do desenvolvimento, desde a concepç
 
 ---
 
-## 7. Instalação e Execução
+## 8. Instalação e Execução
 
 ### Pré-requisitos
 *   Node.js (v18+)
@@ -203,8 +212,16 @@ Abaixo, o histórico granular de cada etapa do desenvolvimento, desde a concepç
 <li><a href="docs/11-Registro-testes-usabilidade.md"> Registro de testes de usabilidade</a></li>
 <li><a href="docs/12-Conclusao.md"> Conclusão</a></li>
 <li><a href="docs/13-Referencias.md"> Referências</a></li>
-<li><a href="docs/api/README.md"> Documentação da API (Endpoints)</a></li>
 </ol>
+
+---
+
+# Referencial de Bases de Dados Corroboradas
+
+1. **BRASIL. Ministério da Ciência, Tecnologia e Inovações (MCTI).** SIRENE - Fatores de Emissão de Eletricidade: Sistema Interligado Nacional (SIN). Brasília, 2025. [Acessar Fonte](https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/sirene/emissoes/fatores-de-emissao-de-eletricidade)
+2. **FGVces. Programa Brasileiro GHG Protocol:** Ferramenta de Cálculo v2026.0.1. São Paulo: FGV, 2026. [Acessar Fonte](https://eaesp.fgv.br/centros/centro-estudos-sustentabilidade/programas/programa-brasileiro-ghg-protocol)
+3. **EMPRESA DE PESQUISA ENERGÉTICA (EPE).** Balanço Energético Nacional (BEN): Fatores de Conversão. Rio de Janeiro: EPE, 2024. [Acessar Fonte](https://www.epe.gov.br/pt/publicacoes-dados-abertos/publicacoes/balanco-energetico-nacional-2024)
+4. **BRASIL. Ministério das Cidades.** Sistema Nacional de Informações sobre Saneamento (SNIS): Diagnósticos de Água e Resíduos. Brasília: SNS, 2024. [Acessar Fonte](http://www.snis.gov.br/paineis-de-informacoes-sobre-saneamento)
 
 # Código
 

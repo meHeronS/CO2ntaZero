@@ -11,8 +11,8 @@
 **Professor(a):** Amália Soares Vieira de Vasconcelos
 
 **Instituição:** Instituto de Informática e Ciências Exatas – Pontifícia Universidade Católica de Minas Gerais (PUC MINAS)  
-**Local:** Belo Horizonte – MG – Brasil  
-**E-mails:** [email1], [email2], [email3], [email4], [email5]
+**Local:** Betim – MG – Brasil  
+**E-mails:** Grupo CO2ntaZero
 
 ---
 
@@ -77,7 +77,7 @@ No modelo de "Proprietário Único" (Single Owner) do MVP, há apenas um perfil 
 ### 3.1. Modelagem da situação atual (Modelagem AS IS)
 Atualmente, o processo de gestão ambiental nas empresas alvo é manual. Faturas de energia chegam fisicamente ou por e-mail, são lançadas em planilhas Excel desconexas. O cálculo de emissões é feito anualmente (quando feito), impedindo ações corretivas imediatas. Não há histórico centralizado de geração de resíduos.
 
-*(Espaço reservado para colar o diagrama BPMN AS-IS aqui)*
+*Nota: O diagrama BPMN AS-IS encontra-se devidamente documentado no repositório oficial.*
 
 ### 3.2. Análise dos processos
 Os gargalos identificados incluem:
@@ -88,7 +88,7 @@ Os gargalos identificados incluem:
 ### 3.3. Desenho dos processos (TO BE)
 O processo proposto envolve o lançamento contínuo de dados na plataforma CO2ntaZero. O usuário seleciona a **Unidade (Filial/Matriz)**, insere os dados e o sistema valida instantaneamente. O motor de anomalias verifica o histórico conforme a regra configurada (ex: 15%, 20%) e dispara alertas proativos.
 
-*(Espaço reservado para colar o diagrama BPMN TO-BE aqui)*
+*Nota: O diagrama BPMN TO-BE, detalhando as automações introducidas, encontra-se documentado no repositório oficial.*
 
 **Melhorias:** Automação do cálculo, gestão centralizada de múltiplos CNPJs e inteligência de dados para redução de impacto.
 
@@ -101,12 +101,12 @@ O sistema possui interfaces responsivas adaptadas para web e mobile.
 
 #### 4.1.1. Processo: Gestão Multi-Unidade
 *   **Atividade:** Seleção de Contexto.
-*   **Descrição:** O usuário pode alternar entre visualizar os dados consolidados da Matriz ou filtrar por uma Filial específica via CPF/CNPJ. O sistema valida se o documento é numericamente válido e garante que não haja duplicidade de vínculo.
+*   **Descrição:** O usuário pode alternar o contexto de visualização entre suas diferentes unidades (ex: Residência e Comércio). O sistema valida se o documento é numericamente válido e garante que não haja duplicidade de vínculo.
 
 #### 4.1.2. Processo: Dashboard de Monitoramento
 *   **Atividade:** Visualização de indicadores e Insights.
 *   **Descrição:** Tela principal exibindo métricas de Carbono, Energia e Água. Inclui uma seção de **"Sugestões de Redução"** (Ex: "Seu consumo de energia subiu 10%. Considere trocar lâmpadas do setor X").
-*   *(Espaço reservado para imagem do protótipo da Dashboard)*
+*   *O protótipo desta interface foi iterado através do Figma até a implementação final na versão web.*
 
 #### 4.1.3. Processo: Configuração de Alertas
 *   **Atividade:** Parametrização.
@@ -118,7 +118,7 @@ O sistema possui interfaces responsivas adaptadas para web e mobile.
 **MODELO CONCEITUAL (DER):**
 O modelo contempla entidades como `Company`, `User`, `Consumption`, `Waste`, `Alert` e `Goal`. Adota-se a abordagem **Single Owner**, onde a entidade `User` (CPF) centraliza a propriedade e gestão de múltiplas `Companies` (Unidades/CNPJs), eliminando a complexidade de permissões (RBAC) para o MVP. `Consumption` está ligado a fatores de emissão para cálculo automático.
 
-*(Espaço reservado para imagem do DER Conceitual)*
+*Nota: A modelagem visual e o Dicionário de Dados estão alocados na documentação arquitetural no GitHub.*
 
 **MODELO RELACIONAL (Lógico) E PILHA DE TECNOLOGIA:**
 A arquitetura do sistema adota o padrão **Serverless First**, priorizando plataformas que extraem a complexidade de infraestrutura. Abaixo detalhamos as ferramentas e decisões de engenharia:

@@ -1,0 +1,7 @@
+# Ignorar dependências locais (o Docker deve instalar as próprias)
+node_modules/
+npm-debug.log*
+
+# Ignorar segredos e arquivos do git
+.env
+.git

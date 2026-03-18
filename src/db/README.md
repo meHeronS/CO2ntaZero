@@ -60,7 +60,6 @@ Collection: USERS
   "name": "Gestor João",
   "email": "gestor@bar.com",
   "passwordHash": "[BCRYPT_HASH]",
-  "role": "ADMIN",
   "active": true,
   "companies": [ObjectId("..."), ObjectId("...")] // Array de Refs -> Companies
 }

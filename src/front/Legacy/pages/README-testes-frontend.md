@@ -8,8 +8,8 @@ Este documento serve como um guia completo para a validação manual de todas as
 
 Antes de iniciar, certifique-se de que:
 
-1.  **O ambiente completo está rodando:** Na pasta `src/codes/backend`, execute `npm start` para iniciar todos os servidores.
-2.  **Os usuários de teste existem:** Caso necessário, recrie os usuários de teste manuais executando `npm run create-test-users` em um novo terminal (na pasta do backend). Consulte o arquivo `dados-empresas-teste.md` para as credenciais.
+1.  **O ambiente completo está rodando:** Na pasta `src/back`, execute `npm start` para iniciar todos os servidores.
+2.  **Os usuários de teste existem:** Certifique-se de possuir credenciais válidas. Como os scripts de população foram removidos, pode ser necessário criar os usuários manualmente na tela de registro.
 
 ---
 
@@ -24,8 +24,8 @@ Antes de iniciar, certifique-se de que:
     - **Resultado Esperado:** Uma mensagem de erro "Credenciais inválidas" deve ser exibida na tela, sem redirecionamento.
 
 - [ ] **Proteção de Rota (Acesso Direto):**
-    - **Ação:** Faça logout. Tente acessar a URL `http://localhost:3000/pages/consumptions.html` diretamente.
-    - **Resultado Esperado:** O sistema deve bloquear o acesso e redirecionar forçadamente para a tela de login.
+    - **Ação:** Faça logout. Tente acessar a URL `http://localhost:3000/pages/consumptions.html` diretamente no navegador.
+    - **Resultado Esperado:** Redirecionamento imediato para a página de login.
 
 - [ ] **Logout:**
     - **Ação:** Após o login, clique no botão "Sair".
@@ -50,7 +50,8 @@ Antes de iniciar, certifique-se de que:
 
 - [ ] **Cenário de Validação (Empresa B):**
     1.  Faça login com a **Empresa Backend**.
-    2.  Navegue até a lista de consumos. O registro `Emissão Teste Isolamento` **NÃO** deve estar visível.
+    2.  Navegue até a lista de consumos.
+    3.  **Resultado Esperado:** O registro `Emissão Teste Isolamento` **NÃO** deve estar visível.
 
 ---
 
@@ -131,3 +132,5 @@ Antes de iniciar, certifique-se de que:
     - **Resultado Esperado:** Um arquivo PDF chamado `relatorio-emissoes.pdf` (ou similar) deve ser baixado pelo navegador.
 
 - [ ] **Exportar Comprovante de Registro:**
+    - **Ação:** Em um registro específico, encontre e clique na opção "Gerar Comprovante".
+    - **Resultado Esperado:** Um arquivo PDF do comprovante correspondente àquele registro deve ser baixado.

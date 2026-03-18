@@ -8,15 +8,13 @@ A comunicação entre o Frontend (React Web) e o Backend (Node.js API) ocorre vi
 
 ![Arquitetura da Solução](images/arquitetura.png)
 
-## Fluxo de Dados
+## Fluxo de Dados (Motor de Sustentabilidade)
 
-O fluxo de informações no sistema segue uma abordagem linear e segura:
-
-1.  **Entrada de Dados:** O usuário lança o consumo (faturas, leituras) via **Frontend Web**.
-2.  **Processamento:** A **API (Backend)** recebe os dados, valida o token de sessão (JWT), e invoca o **Service Layer**.
-3.  **Inteligência:** O Service calcula a emissão de CO2 com base nos fatores do MCTI e verifica anomalias (Regra de 15%).
-4.  **Persistência:** O resultado processado é salvo no **MongoDB Atlas**.
-5.  **Visualização:** O Gestor acessa o **Painel Admin** e visualiza os gráficos e alertas atualizados em tempo real.
+1.  **Entrada:** O usuário lança a fatura (ex: 500 kWh).
+2.  **Processamento:** A API invoca o `ConsumptionService`.
+3.  **Cálculo:** O sistema busca o fator de emissão (ex: 0.042 kgCO2e/kWh - Fonte MCTI) e calcula a pegada.
+4.  **Anomalia:** O sistema compara com a média histórica (Regra de 15%) e gera alerta se necessário.
+5.  **Persistência:** Salva no MongoDB o dado original E o dado calculado (CO2e).
 
 ## Diagrama de classes
 
@@ -34,13 +32,9 @@ O desenvolvimento da solução proposta requer a existência de bases de dados q
 
 ### Modelo conceitual 
 
-O modelo de dados do CO2ntaZero foi projetado para suportar a rastreabilidade de emissões e auditoria. As principais entidades são:
+O Diagrama Entidade-Relacionamento (DER), em notação Peter Chen, representa de forma conceitual como as entidades (objetos ou conceitos do minimundo) se relacionam entre si. O DER deve incluir entidades, atributos, relacionamentos, cardinalidade, conforme as regras do minimundo. Deve ser elaborado um único DER que suporte todos os processos mapeados, de modo a garantir uma base de dados integrada. O modelo também deve representar, quando aplicável, o controle de acesso dos usuários (partes interessadas nos processos) de acordo com os papéis definidos nos modelos de processo de negócio.
 
-1. **Company:** A unidade gestora (Matriz ou Filial).
-2. **User:** O proprietário da conta (CPF), que pode gerenciar múltiplas Companies.
-3. **Consumption:** Registros de consumo (Energia, Água) que geram pegada de carbono.
-4. **EmissionFactor:** Fatores de conversão (ex: kgCO2/kWh) baseados no GHG Protocol.
-5. **Alert:** Notificações de anomalias de consumo.
+Elabore o modelo utilizando uma ferramenta de modelagem apropriada.
 
 ![Exemplo de um modelo conceitual](images/modelo_conceitual.PNG "Exemplo de modelo conceitual.")
 ---
@@ -51,9 +45,9 @@ O modelo de dados do CO2ntaZero foi projetado para suportar a rastreabilidade de
 
 ### Modelo relacional
 
-O modelo lógico abaixo representa as coleções do banco de dados NoSQL e seus relacionamentos por referência (ObjectId).
+O modelo relacional corresponde à representação dos dados, organizando as informações em tabelas (relações) compostas por linhas (tuplas) e colunas (atributos), juntamente com as restrições de integridade, chaves primárias e chaves estrangeiras.
 
-> **Nota:** Embora o MongoDB seja NoSQL, mantemos relacionamentos lógicos para garantir a integridade referencial da aplicação.
+Elabore o modelo utilizando uma ferramenta de modelagem apropriada.
 
 ![Exemplo de um modelo relacional](images/modelo_relacional.PNG "Exemplo de modelo relacional.")
 ---
@@ -62,69 +56,32 @@ O modelo lógico abaixo representa as coleções do banco de dados NoSQL e seus 
 > - [Criando um modelo relacional - documentação da IBM](https://www.ibm.com/docs/pt-br/cognos-analytics/12.0.0?topic=designer-creating-relational-model)
 > - [Como fazer um modelo relacional](https://www.youtube.com/watch?v=DWWIREUkxOI)
 
-
 ### Modelo físico
 
-Como utilizamos MongoDB com Mongoose, o modelo físico é definido através de **Schemas** na aplicação Node.js, e não por scripts SQL `CREATE TABLE`. Abaixo estão as definições dos principais Schemas baseados no Roteiro de Arquitetura:
+Insira aqui o script de criação das tabelas do banco de dados.
 
-**User Schema (Proprietário)**
-```javascript
-const UserSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  cpf: { type: String, required: true, unique: true }, // Identificador da Pessoa Física
-  passwordHash: { type: String, required: true, select: false },
-  companyId: { type: mongoose.Schema.Types.ObjectId, ref: "Company" }, // Contexto atual
-  companies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Company" }], // Unidades gerenciadas
-  active: { type: Boolean, default: true }
-}, {
-  timestamps: true
-});
-```
+Como o sistema CO2ntaZero utiliza uma abordagem NoSQL com **MongoDB**, o modelo físico não é representado por scripts SQL (DDL), mas sim pelos schemas de validação estruturados via Mongoose no backend.
 
-**Company Schema (Unidades de Gestão)**
-```javascript
-const CompanySchema = new mongoose.Schema({
-  ownerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  type: { type: String, enum: ["BUSINESS", "RESIDENTIAL"], default: "BUSINESS" },
-  name: { type: String, required: true },
-  cnpj: { 
-    type: String, 
-    unique: true, 
-    sparse: true,
-    required: function() { return this.type === 'BUSINESS'; }
-  },
-  email: { 
-    type: String, 
-    unique: true, 
-    sparse: true,
-    required: function() { return this.type === 'BUSINESS'; }
-  },
-  address: { 
-    type: String, 
-    required: function() { return this.type === 'RESIDENTIAL'; }
-  },
-  isActive: { type: Boolean, default: true },
-}, {
-  timestamps: true
-});
-```
+Exemplo do Schema Principal de Consumos (`Consumptions`):
 
-**Consumption Schema (Consumo e Emissões)**
 ```javascript
-const ConsumptionSchema = new mongoose.Schema({
+const consumptionSchema = new mongoose.Schema({
   companyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Company', required: true },
-  type: { type: String, enum: ['energy', 'water', 'fuel'], required: true },
-  quantity: { type: Number, required: true }, // Quantidade consumida (kWh, m3, L)
-  date: { type: Date, required: true },
-  carbonFootprint: { type: Number }, // Calculado: value * emissionFactor
-  description: String,
-  evidenceUrl: String, // URL do comprovante
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  resourceType: { type: String, enum: ['energy', 'water', 'fuel'], required: true },
+  amount: { type: Number, required: true },
+  carbonFootprint: { type: Number, required: true }, // Calculado automaticamente
+  referenceMonth: { type: Date, required: true },
+  createdAt: { type: Date, default: Date.now }
 });
 ```
 
 
 ## Tecnologias
+
+Descreva as tecnologias utilizadas para implementar a solução proposta. Liste todas as tecnologias envolvidas, incluindo linguagens de programação, frameworks, bibliotecas, serviços web, IDEs, ferramentas de apoio e quaisquer outros recursos relevantes para o desenvolvimento.  
+
+Apresente também um diagrama ou figura que ilustre a visão operacional, mostrando como as tecnologias interagem entre si durante o uso do sistema, desde a ação do usuário até a obtenção da resposta.
 
 A arquitetura do sistema adota o padrão **Serverless First**, priorizando plataformas que extraem a complexidade de infraestrutura.
 
@@ -156,11 +113,19 @@ A hospedagem da plataforma foi realizada de forma distribuída para otimizar a p
 2.  **Backend (Azure):** A API Node.js é containerizada via Docker e hospedada no Azure App Service. Isso garante que o ambiente de produção seja idêntico ao de desenvolvimento e facilita a escalabilidade horizontal.
 3.  **Banco de Dados (MongoDB Atlas):** O banco de dados é gerenciado pelo MongoDB Atlas, um serviço de banco de dados como serviço (DBaaS) que provê segurança, backups automáticos e alta disponibilidade.
 
+Explique como a hospedagem e o lançamento da plataforma foram realizados.
+
+O lançamento da plataforma CO2ntaZero foi orquestrado utilizando uma infraestrutura de nuvem moderna e distribuída, separando as camadas de apresentação e lógica de negócios:
+
+1.  **Frontend (Vercel):** A interface web (React e HTML/JS) foi hospedada na Vercel, aproveitando a rede de entrega de conteúdo (CDN) global e o pipeline de CI/CD nativo integrado ao repositório GitHub para implantações automatizadas e velozes.
+2.  **Backend (Microsoft Azure):** A API (Node.js/Express) foi provisionada no **Azure App Service**. Isso proporciona um ambiente seguro, escalável e de nível corporativo para o processamento contínuo das regras de negócios e cálculos de sustentabilidade.
+3.  **Banco de Dados (MongoDB Atlas):** A camada de persistência foi alocada no MongoDB Atlas (Cluster na nuvem), garantindo alta disponibilidade, backups automáticos e segurança no armazenamento de credenciais, sem a necessidade de gerenciar servidores de banco físicos.
+
 > **Links úteis**:
-> - [Website com GitHub Pages](https://pages.github.com/)
-> - [Programação colaborativa com Repl.it](https://repl.it/)
-> - [Azure App Service Documentation](https://learn.microsoft.com/en-us/azure/app-service/)
-> - [Deploy Node.js to Azure App Service](https://learn.microsoft.com/en-us/azure/app-service/quickstart-nodejs)
+> - Website com GitHub Pages
+> - Programação colaborativa com Repl.it
+> - Getting started with Heroku
+> - Publicando seu site no Heroku
 
 ## Qualidade de software
 
@@ -168,9 +133,31 @@ Conceituar qualidade é uma tarefa complexa, mas ela pode ser vista como um mét
 
 No contexto do desenvolvimento de software, qualidade pode ser entendida como um conjunto de características a serem atendidas, de modo que o produto de software atenda às necessidades de seus usuários. Entretanto, esse nível de satisfação nem sempre é alcançado de forma espontânea, devendo ser continuamente construído. Assim, a qualidade do produto depende fortemente do seu respectivo processo de desenvolvimento.
 
+Conceituar qualidade é uma tarefa complexa, mas ela pode ser vista como um método gerencial que, por meio de procedimentos disseminados por toda a organização, busca garantir um produto final que satisfaça às expectativas dos stakeholders.
+
+No contexto do desenvolvimento de software, qualidade pode ser entendida como um conjunto de características a serem atendidas, de modo que o produto de software atenda às necessidades de seus usuários. Entretanto, esse nível de satisfação nem sempre é alcançado de forma espontânea, devendo ser continuamente construído. Assim, a qualidade do produto depende fortemente do seu respectivo processo de desenvolvimento.
+
 A norma internacional ISO/IEC 25010, que é uma atualização da ISO/IEC 9126, define oito características e 30 subcaracterísticas de qualidade para produtos de software. Com base nessas características e nas respectivas subcaracterísticas, identifique as subcaracterísticas que sua equipe utilizará como base para nortear o desenvolvimento do projeto de software, considerando alguns aspectos simples de qualidade. Justifique as subcaracterísticas escolhidas pelo time e elenque as métricas que permitirão à equipe avaliar os objetos de interesse.
 
+A norma internacional ISO/IEC 25010 norteia a qualidade do sistema CO2ntaZero. A equipe selecionou as seguintes subcaracterísticas como pilares do desenvolvimento:
+
+1. **Adequação Funcional (Completude Funcional):**
+   - **Justificativa:** É essencial que a calculadora converta corretamente os gastos em CO2 equivalente para que a proposta de valor seja entregue.
+   - **Métrica:** Percentual de cálculos de emissão validados contra os fatores oficiais do GHG Protocol/MCTI nos testes automatizados (Alvo: 100%).
+
+2. **Eficiência de Desempenho (Comportamento em Relação ao Tempo):**
+   - **Justificativa:** A plataforma será usada por pequenos comerciantes em suas rotinas; demoras carregando gráficos desmotivam o uso.
+   - **Métrica:** Tempo médio de resposta da API para carregar o Dashboard de Sustentabilidade (Alvo: < 800ms).
+
+3. **Usabilidade (Apreensibilidade e Estética):**
+   - **Justificativa:** O público-alvo possui pouca familiaridade com sistemas complexos. O design deve ser intuitivo.
+   - **Métrica:** Taxa de sucesso sem assistência nos cenários de testes de usabilidade com os donos de negócios (Alvo: 100%).
+
+4. **Segurança (Confidencialidade):**
+   - **Justificativa:** O sistema lida com dados de CNPJ e histórico financeiro/consumo, o que exige alinhamento rigoroso com a LGPD.
+   - **Métrica:** Validação do isolamento de dados no ambiente de teste - *Single Owner* (Alvo: 0 vazamentos lógicos entre contas).
+
 > **Links úteis**:
-> - [ISO/IEC 25010:2011 - Systems and Software Engineering — Systems and Software Quality Requirements and Evaluation (SQuaRE) — System and Software Quality Models](https://www.iso.org/standard/35733.html/)
-> - [Análise sobre a ISO 9126 – NBR 13596](https://www.tiespecialistas.com.br/analise-sobre-iso-9126-nbr-13596/)
-> - [Qualidade de software - Engenharia de Software](https://www.devmedia.com.br/qualidade-de-software-engenharia-de-software-29/18209)
+> - ISO/IEC 25010:2011 - Systems and Software Engineering — Systems and Software Quality Requirements and Evaluation (SQuaRE) — System and Software Quality Models
+> - Análise sobre a ISO 9126 – NBR 13596
+> - Qualidade de software - Engenharia de Software

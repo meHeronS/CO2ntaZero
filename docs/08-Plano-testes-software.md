@@ -10,6 +10,8 @@ Não deixe de enumerar os casos de teste de forma sequencial e garantir que o(s)
 
 Por exemplo:
 
+O plano de testes abrange o fluxo principal (core) da aplicação, garantindo que o ciclo de vida do usuário, segurança e cálculos do motor de sustentabilidade operem de forma confiável.
+
 | **Caso de teste**  | **CT-001 – Autenticação (Login)**  |
 |:---: |:---: |
 | Requisito associado | RF-005 - Controle de Acesso e Autenticação. |
@@ -36,15 +38,33 @@ Por exemplo:
 | Critério de êxito | - O registro da Empresa A NÃO deve aparecer para a Empresa B. |
 | Responsável pela elaboração do caso de teste | Joao Vinicius |
 
+<br>
+
+| **Caso de teste**  | **CT-004 – Motor de Anomalias (Regra de 15%)**  |
+|:---: |:---: |
+| Requisito associado | RF-003 - Validação de variações mensais e alertas. |
+| Objetivo do teste | Validar se o backend detecta um aumento discrepante no consumo e dispara uma notificação. |
+| Passos | 1. Logar no sistema. <br> 2. Criar lançamentos baseados em um histórico constante (ex: 100 kWh). <br> 3. Lançar um consumo mensal de 150 kWh (50% a mais). <br> 4. Acessar o Dashboard. |
+| Critério de êxito | - O ícone de notificações deve acender. <br> - Uma mensagem "Alerta de Variação > 15%" deve aparecer na caixa de avisos. |
+| Responsável pela elaboração do caso de teste | Heron Victor |
+
+<br>
+
+| **Caso de teste**  | **CT-005 – Gestão de Metas**  |
+|:---: |:---: |
+| Requisito associado | RF-004 - Gamificação e conscientização de metas. |
+| Objetivo do teste | Validar o fluxo de CRUD (Criar, Editar e Excluir) das metas do usuário. |
+| Passos | 1. Acessar menu de Metas. <br> 2. Criar uma nova meta (Ex: Reduzir Energia em 10%). <br> 3. Editar a meta criada. <br> 4. Excluir a meta criada. |
+| Critério de êxito | - O backend processa e atualiza os dados em tempo real no banco MongoDB (respostas HTTP 2xx). |
+| Responsável pela elaboração do caso de teste | Gustavo Costa |
 
 ## Ferramentas de testes (opcional)
 
 Comente sobre as ferramentas de testes utilizadas.
- 
+
 > **Links úteis**:
 > - [IBM - criação e geração de planos de teste](https://www.ibm.com/developerworks/br/local/rational/criacao_geracao_planos_testes_software/index.html)
 > - [Práticas e técnicas de testes ágeis](http://assiste.serpro.gov.br/serproagil/Apresenta/slides.pdf)
 > - [Teste de software: conceitos e tipos de testes](https://blog.onedaytesting.com.br/teste-de-software/)
-> - [Criação e geração de planos de teste de software](https://www.ibm.com/developerworks/br/local/rational/criacao_geracao_planos_testes_software/index.html)
 > - [Ferramentas de teste para JavaScript](https://geekflare.com/javascript-unit-testing/)
 > - [UX Tools](https://uxdesign.cc/ux-user-research-and-user-testing-tools-2d339d379dc7)

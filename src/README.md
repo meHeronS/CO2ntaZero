@@ -2,8 +2,6 @@
 
 Este diretório contém todos os arquivos-fonte necessários para o funcionamento do sistema **CO2ntaZero**, uma Plataforma Full Stack (Web/PWA) focada em transformar a gestão de recursos básicos em uma estratégia de sustentabilidade ativa.
 
-> Aqui devem ficar os arquivos-fonte do projeto: HTML, CSS, JavaScript, imagens e outros necessários para o funcionamento do sistema.
-
 ## Estrutura de Código
 
 O projeto utiliza uma arquitetura **MVC Desacoplada** com a seguinte organização:
@@ -21,9 +19,8 @@ src/
 │       └── src/        # Componentes e Páginas
 │
 └── db/                 # Scripts de Banco de Dados
-    ├── seed.js         # População inicial (Dados base)
-    ├── clean.js        # Limpeza do banco (Reset)
-    └── create-test...  # Massa de dados para testes
+    ├── init.js          # Script de inicialização do MongoDB
+    └── seed.js          # Script para popular o banco com dados iniciais
 ```
 
 *   [Código do front-end](./front) -- **Aplicação Web (React.js)**
@@ -89,7 +86,7 @@ Recomendamos o uso de containers para garantir paridade do ambiente.
 
 ## Instalação do Site
 
-É necessário implantá-lo em um servidor web de sua preferência. Existem diversos servidores web gratuitos que podem ser utilizados, tal como GitHub Pages (GitHub.IO), Vercel, Render, Netlify, Surge.sh, entre outros. Acesso: https://co2ntazero.vercel.app
+A implantação do sistema em produção utiliza arquitetura Serverless/PaaS. O **Frontend** foi dimensionado para hospedagem na **Vercel** (para entrega veloz da interface), enquanto a **API do Backend** roda no **Microsoft Azure App Service**. Os dados trafegam e são persistidos globalmente no **MongoDB Atlas**.
 
 ## Histórico de versões
 

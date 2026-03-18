@@ -18,8 +18,6 @@ const UserSchema = new Schema({
   // Múltiplas Unidades: Lista de todas as unidades que este usuário é dono (ex: Casa, Bar)
   companies: [{ type: Schema.Types.ObjectId, ref: "Company" }],
   
-  role: { type: String, enum: ["ADMIN", "MANAGER", "USER"], default: "ADMIN" },
-  
   // Campo checado pelo authMiddleware para bloquear logins indesejados
   active: { type: Boolean, default: true },
 }, { timestamps: true });
