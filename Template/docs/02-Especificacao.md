@@ -6,14 +6,11 @@ Esta seção define o escopo inicial do CO2ntaZero, focando nas necessidades ess
 
 ## Modelo de negócio (*Business Model Canvas*)
 
-<<<<<<< HEAD
 O *Business Model Canvas* (BMC) é uma ferramenta de planejamento estratégico que descreve, de forma visual e integrada, como uma organização cria, entrega e captura valor.  
 
-No contexto deste projeto, o BMC auxilia no alinhamento da equipe em relação aos aspectos essenciais do negócio, servindo como base para decisões técnicas, de design e de priorização de funcionalidades.  
+O planejamento estratégico inicial foi consolidado no *Business Model Canvas* abaixo, destacando a proposta de valor voltada para a simplicidade e a conscientização. No contexto deste projeto, o BMC auxilia no alinhamento da equipe em relação aos aspectos essenciais do negócio, servindo como base para decisões técnicas, de design e de priorização de funcionalidades.
 
-A seguir, apresenta-se um exemplo que deve ser adaptado pelo grupo de acordo com as características do projeto.  
-
-![Quadro de modelo de negócios](images/bmc.png "Exemplo de BMC.")
+![Quadro de modelo de negócios](images/bmc.png "BMC CO2ntaZero")
 
 ## Personas
 
@@ -24,24 +21,6 @@ A seguir, apresenta-se um exemplo que deve ser adaptado pelo grupo de acordo com
 5. **Roberto (Dono de Frota/Logística):** 50 anos. Possui 3 caminhões de entrega. Quer medir o impacto do diesel consumido e estabelecer metas de redução para atrair clientes corporativos que exigem relatórios ambientais.
 6. **Fernanda (Consultora de Sustentabilidade):** 35 anos. Trabalha ajudando pequenos negócios a implementarem ações ESG. Precisa de uma ferramenta simples para recomendar e usar no diagnóstico de seus clientes.
 
-> **Links úteis**:
-> - [Rock content](https://rockcontent.com/blog/personas/)
-> - [Hotmart](https://blog.hotmart.com/pt-br/como-criar-persona-negocio/)
-> - [O que é persona?](https://resultadosdigitais.com.br/blog/persona-o-que-e/)
-> - [Persona x público-alvo](https://flammo.com.br/blog/persona-e-publico-alvo-qual-a-diferenca/)
-> - [Mapa de empatia](https://resultadosdigitais.com.br/blog/mapa-da-empatia/)
-> - [Mapa de stalkeholders](https://www.racecomunicacao.com.br/blog/como-fazer-o-mapeamento-de-stakeholders/)
-=======
-O planejamento estratégico inicial foi consolidado no *Business Model Canvas* abaixo, destacando a proposta de valor voltada para a simplicidade e a conscientização.
-
-![Quadro de modelo de negócios](images/bmc.png "BMC CO2ntaZero")
-
-## Personas
-
-1. **Ana (Pequena Empresária):** 32 anos. Busca reduzir custos fixos da padaria e engajar clientes com práticas sustentáveis.
-2. **Sr. Vander (Proprietário):** 65 anos. Precisa de uma ferramenta extremamente simples para monitorar contas e evitar desperdícios no bar e em casa.
->>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
-
 > **Nota:** O foco inicial é garantir usabilidade para perfis não-técnicos.
 
 ## Histórias de usuários
@@ -50,7 +29,6 @@ Priorizamos as histórias que garantem o ciclo básico de valor: **Lançamento -
 
 |EU COMO... `PERSONA`| QUERO/PRECISO ... `FUNCIONALIDADE` |PARA ... `MOTIVO/VALOR`                 |
 |--------------------|------------------------------------|----------------------------------------|
-<<<<<<< HEAD
 |Ana (Empresária)    | Lançar o consumo de combustível das entregas | Calcular a pegada de carbono da logística da minha padaria. |
 |Carlos (Gerente)    | Configurar a sensibilidade do alerta de variação | Ajustar o monitoramento para a realidade sazonal da minha empresa (respeitando o mínimo de 15%). |
 |Usuário Geral       | Ver dicas de como reduzir meu consumo | Aprender a ser mais sustentável e economizar dinheiro. |
@@ -61,11 +39,6 @@ Priorizamos as histórias que garantem o ciclo básico de valor: **Lançamento -
 |Roberto (Logística) | Cadastrar múltiplos veículos e lançar consumo de diesel | Monitorar a emissão da minha frota para apresentar a clientes empresariais. |
 |Fernanda (Consultora)| Visualizar um histórico claro e exportável de emissões | Utilizar os dados para elaborar um relatório ESG de entrada para meus clientes. |
 |Carlos (Gerente)    | Visualizar um dashboard com a evolução das emissões em gráficos | Apresentar os resultados de redução de custos nas reuniões de diretoria. |
-=======
-|Sr. Vander          | Cadastrar minhas contas de luz     | Saber se houve aumento excessivo no mês|
-|Ana                 | Receber alertas de variação        | Identificar vazamentos ou desperdício rapidamente |
-|Usuário Comum       | Ver meu impacto em carbono         | Entender como meu consumo afeta o ambiente |
->>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
 
 ## Requisitos Iniciais (Sprint 1)
 
@@ -74,7 +47,6 @@ O escopo da primeira sprint foca na estruturação e nas funcionalidades "core".
 ### Requisitos funcionais
 |ID    | Descrição do Requisito  | Prioridade |
 |------|-----------------------------------------|----|
-<<<<<<< HEAD
 |RF-001| O sistema deve permitir o lançamento de diversos tipos de consumo (Água, Luz, Combustível, Resíduos) baseados em tabelas oficiais. | ALTA | 
 |RF-002| O sistema deve calcular a pegada de carbono e exibir a equivalência em árvores necessárias para compensação. | ALTA |
 |RF-003| O sistema deve validar variações mensais e emitir alertas se o consumo variar acima de um percentual configurável pelo usuário (respeitando o mínimo de 15%). | ALTA |
@@ -83,16 +55,10 @@ O escopo da primeira sprint foca na estruturação e nas funcionalidades "core".
 |RF-006| O sistema deve garantir o isolamento lógico de dados entre diferentes contas (Single Owner). | ALTA |
 |RF-007| O sistema deve permitir que um único usuário (CPF) gerencie múltiplos CNPJs (Matriz/Filiais ou Negócios distintos). | ALTA |
 |RF-008| O sistema deve bloquear o cadastro de CNPJ ou E-mail Corporativo já existentes para evitar fraudes e duplicidade. | ALTA |
-=======
-|RF-001| Cadastro de consumo (Energia, Água) | ALTA | 
-|RF-002| Alerta de variação (>15%) | ALTA |
-|RF-003| Exibição de impacto em CO2 | ALTA |
->>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
 
 ### Requisitos não funcionais
 |ID     | Descrição do Requisito  |Prioridade |
 |-------|-------------------------|----|
-<<<<<<< HEAD
 |RNF-001| O sistema deve ser uma aplicação web responsiva (acessível via navegador), sendo a versão mobile apenas conceitual. | ALTA | 
 |RNF-002| O sistema deve garantir a segurança dos dados (LGPD) com criptografia. | ALTA |
 |RNF-003| A interface deve ser intuitiva e autoexplicativa, projetada para usuários com pouca afinidade tecnológica (como a persona Vander). | ALTA |
@@ -107,28 +73,6 @@ O backend utiliza fatores de conversão alinhados com o Inventário Nacional de 
 *   **Água Potável:** Fator de tratamento e distribuição (~0,35 kgCO2e/m³).
 *   **Gasolina Comum:** Combustão móvel (~2,27 kgCO2e/Litro).
 *   **GLP (Gás de Cozinha):** Combustão estacionária (~2,98 kgCO2e/kg).
-
-Com base nas histórias de usuários, enumere os requisitos da sua solução. Classifique esses requisitos em dois grupos:
-
-- [Requisitos funcionais
- (RF)](https://pt.wikipedia.org/wiki/Requisito_funcional):
- correspondem a uma funcionalidade que deve estar presente na
-  plataforma (ex: cadastro de usuário).
-- [Requisitos não funcionais
-  (RNF)](https://pt.wikipedia.org/wiki/Requisito_n%C3%A3o_funcional):
-  correspondem a uma característica técnica, seja de usabilidade,
-  desempenho, confiabilidade, segurança ou outro (ex: suporte a
-  dispositivos iOS e Android).
-
-Lembre-se de que cada requisito deve corresponder a uma e somente uma característica-alvo da sua solução. Além disso, certifique-se de que todos os aspectos capturados nas histórias de usuários foram cobertos.
-
-> **Links úteis**:
-> - [O que são requisitos funcionais e requisitos não funcionais?](https://codificar.com.br/requisitos-funcionais-nao-funcionais/)
-> - [Entenda o que são requisitos de software, a diferença entre requisito funcional e não funcional, e como identificar e documentar cada um deles](https://analisederequisitos.com.br/requisitos-funcionais-e-requisitos-nao-funcionais-o-que-sao/)
-=======
-|RNF-001| Responsividade (Mobile First) | ALTA | 
-|RNF-002| Interface Simplificada (Poucos cliques) | ALTA |
->>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
 
 ## Restrições
 

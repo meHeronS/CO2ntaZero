@@ -1,7 +1,6 @@
 # Introdução
 
-<<<<<<< HEAD
-A sustentabilidade deixou de ser apenas um conceito ambiental para se tornar uma necessidade econômica e social. No entanto, para pequenos empreendedores e cidadãos comuns, a barreira de entrada para o "mundo verde" ainda é alta, envolta em cálculos complexos e burocracia. O projeto **CO2ntaZero** nasce para quebrar essa barreira, traduzindo dados de consumo cotidiano em impacto ambiental tangível.
+A sustentabilidade deixou de ser apenas um conceito ambiental para se tornar uma necessidade econômica e social. No entanto, para pequenos empreendedores e cidadãos comuns, a barreira de entrada para o "mundo verde" ainda é alta, envolta em cálculos complexos e burocracia. O projeto **CO2ntaZero** visa desenvolver um sistema web para auxiliar no controle de consumo de recursos básicos e na conscientização ambiental, nascendo para quebrar essa barreira e traduzir dados de faturas (energia e água) em impacto ambiental tangível e informações sobre pegada de carbono.
 
 ## Cliente
 
@@ -11,9 +10,6 @@ O projeto conta com a validação prática do **Valtinho's Bar** (Parceiro Exten
 *   **Representante:** Sr. Vander (65 anos), proprietário.
 *   **Desafio:** O estabelecimento possui freezers antigos e alto consumo de energia. O proprietário tem dificuldade em entender as faturas técnicas da companhia elétrica e só percebe aumentos excessivos quando a conta já chegou, inviabilizando ações corretivas rápidas.
 *   **Demanda:** Ferramenta simples para monitorar gastos e evitar surpresas financeiras, com interesse secundário em obter um "selo verde" para marketing.
-=======
-O projeto **CO2ntaZero** visa desenvolver um sistema web para auxiliar no controle de consumo de recursos básicos e na conscientização ambiental. A aplicação foca em traduzir dados de faturas (energia e água) em informações sobre pegada de carbono.
->>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
 
 ## Problema
 

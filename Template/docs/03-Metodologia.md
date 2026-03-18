@@ -34,7 +34,6 @@ Discuta como a configuração do projeto foi feita na ferramenta de versionament
 
 ## Planejamento do projeto
 
-<<<<<<< HEAD
 ### Roadmap de Sprints
 
 O projeto segue a metodologia ágil, dividido em 5 Sprints, cobrindo desde a concepção até a validação com o parceiro extensionista.
@@ -44,34 +43,24 @@ O projeto segue a metodologia ágil, dividido em 5 Sprints, cobrindo desde a con
 3.  **Sprint 3 (Frontend e Integração):** Desenvolvimento das telas principais (Dashboard, Lançamentos), integração com API e gamificação (Árvores).
 4.  **Sprint 4 (Inteligência e Testes):** Implementação da regra de alertas (15%), relatórios de resíduos e execução do Plano de Testes de Software.
 5.  **Sprint 5 (Validação e Entrega):** Testes de Usabilidade com o parceiro (Valtinho's Bar), correção de bugs finais e preparação da apresentação final.
-=======
-### Roadmap de Fases (Macro)
-
-O desenvolvimento do CO2ntaZero foi dividido em fases estratégicas para garantir entregas tangíveis:
-1.  **Sprint 1 (Iniciação / Fundação):** Mapeamento do escopo, estruturação do Backend e containerização da camada de Dados.
-2.  **Sprint 2-5:** Desenvolvimento faseado das funcionalidades de fluxo de consumo, calculadora, anomalias e validação.
->>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
 
 ###  Divisão de papéis
 
 > Apresente a divisão de papéis entre os membros do grupo em cada Sprint. O desejável é que, em cada Sprint, o aluno assuma papéis diferentes na equipe. Siga o modelo do exemplo abaixo:
 
 #### Sprint 1
-- _Scrum master_: Saulo Luiz de Oliveira e Silva
-- Protótipos: Heron Victor Vieira da Silva
-- Testes: Joao Vinicius Rodrigues Santos
-- Documentação: Gustavo Costa Pinho Tavares
-<<<<<<< HEAD
-- Arquitetura: Caio Vieira de Freitas
+- _Scrum master_: Grupo (Todos)
+- Protótipos: Grupo (Todos)
+- Testes: Grupo (Todos)
+- Documentação: Grupo (Todos)
+- Arquitetura: Grupo (Todos)
 
 #### Sprint 2
-- _Scrum master_: Heron Victor Vieira da Silva
-- Desenvolvedor _back-end_: Heron Victor Vieira da Silva
+- _Scrum master_: A definir
+- Desenvolvedor _back-end_: A definir
 - Desenvolvedor _front-end_: A definir
 - Analista de Processos (BPMN): A definir
 - Testes: A definir
-=======
->>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
 
 ###  Quadro de tarefas
 
@@ -83,34 +72,50 @@ Atualizado em: 17/03/2026
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-<<<<<<< HEAD
-| Gustavo Costa | Objetivos e Contexto      | 03/02/2026 | 10/02/2026 | ✔️ | 10/02/2026 |
-| Heron Victor  | Histórias de Usuário (10+)| 01/01/2026 | 07/01/2026 | ✔️ | 07/01/2026 |
-| João Vinicius | Personas (6)              | 01/01/2026 | 12/02/2026 | ✔️ | 12/02/2026 |
-| Saulo Luiz    | Configuração Repositório  | 01/02/2026 | 07/02/2026 | ✔️ | 05/02/2026 |
-| Caio Vieira   | Arquitetura de Dados      | 05/02/2026 | 15/02/2026 | ✔️ | 15/02/2026 |
-| Todos         | Slides Apresentação       | 10/03/2026 | 17/03/2026 | ✔️ | 17/03/2026 |
+| Grupo (Todos) | Objetivos e Contexto      | 03/02/2026 | 10/02/2026 | ✔️ | 10/02/2026 |
+| Grupo (Todos) | Histórias de Usuário (10+)| 01/01/2026 | 07/01/2026 | ✔️ | 07/01/2026 |
+| Grupo (Todos) | Personas (6)              | 01/01/2026 | 12/02/2026 | ✔️ | 12/02/2026 |
+| Grupo (Todos) | Configuração Repositório  | 01/02/2026 | 07/02/2026 | ✔️ | 05/02/2026 |
+| Grupo (Todos) | Arquitetura de Dados      | 05/02/2026 | 15/02/2026 | ✔️ | 15/02/2026 |
+| Grupo (Todos) | Slides Apresentação       | 10/03/2026 | 17/03/2026 | ✔️ | 17/03/2026 |
 
 #### Sprint 2
 
-Atualizado em: 25/03/2026
+Atualizado em: 17/03/2026
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| Heron Victor  | Backend: Autenticação (JWT)     | 20/03/2026 | 25/03/2026 | ❌ |            |
-| Heron Victor  | Backend: Motor de Cálculo (GHG) | 20/03/2026 | 30/03/2026 | ❌ |            |
-| Heron Victor  | Backend: Validação Duplicidade  | 20/03/2026 | 30/03/2026 | ❌ |            |
+| A definir     | Backend: Autenticação (JWT)     | 20/03/2026 | 25/03/2026 | ❌ |            |
+| A definir     | Backend: Motor de Cálculo (GHG) | 20/03/2026 | 30/03/2026 | ❌ |            |
+| A definir     | Backend: Validação Duplicidade  | 20/03/2026 | 30/03/2026 | ❌ |            |
 | A definir     | Frontend: Tela de Login         | 25/03/2026 | 10/04/2026 | ❌ |            |
 | A definir     | Frontend: Dashboard Principal   | 25/03/2026 | 10/04/2026 | ❌ |            |
 | A definir     | Modelagem Processos (BPMN)      | 25/03/2026 | 10/04/2026 | ❌ |            |
 | A definir     | Extensão: Comprovação Visita (Fotos) | 25/03/2026 | 10/04/2026 | ❌ |            |
 
-=======
-| Grupo (Todos) | Ideação, Definição do Problema e Contexto | 03/02/2026 | 20/02/2026 | ✔️ | 20/02/2026 |
-| Grupo (Todos) | Levantamento de Requisitos e Personas     | 21/02/2026 | 05/03/2026 | ✔️ | 05/03/2026 |
-| Grupo (Todos) | Configuração Inicial e Arquitetura        | 06/03/2026 | 15/03/2026 | ✔️ | 15/03/2026 |
-| Grupo (Todos) | Documentação e Apresentação Final         | 10/03/2026 | 17/03/2026 | ✔️ | 17/03/2026 |
->>>>>>> fe99acbc4d7ae3ca1b3720e77445f8245755086a
+#### Sprint 3
+
+| Responsável   | Tarefa/Requisito | Iniciado em | Prazo | Status | Terminado em |
+| :----         | :----            | :----:      | :----:| :----: | :----:       |
+| A definir     | Frontend: Telas Lançamento  | - | - | ❌ | |
+| A definir     | Frontend: Integração API    | - | - | ❌ | |
+| A definir     | Gamificação e Impacto       | - | - | ❌ | |
+
+#### Sprint 4
+
+| Responsável   | Tarefa/Requisito | Iniciado em | Prazo | Status | Terminado em |
+| :----         | :----            | :----:      | :----:| :----: | :----:       |
+| A definir     | Backend: Regra de Alertas (15%) | - | - | ❌ | |
+| A definir     | Backend: Resíduos/Relatórios | - | - | ❌ | |
+| A definir     | Execução Testes de Software | - | - | ❌ | |
+
+#### Sprint 5
+
+| Responsável   | Tarefa/Requisito | Iniciado em | Prazo | Status | Terminado em |
+| :----         | :----            | :----:      | :----:| :----: | :----:       |
+| A definir     | Testes de Usabilidade       | - | - | ❌ | |
+| A definir     | Correção de Bugs Finais     | - | - | ❌ | |
+| A definir     | Preparação Apresentação     | - | - | ❌ | |
 
 Legenda:
 - ✔️: terminado
