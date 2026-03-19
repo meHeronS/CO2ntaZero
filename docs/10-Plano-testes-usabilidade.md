@@ -30,6 +30,8 @@ Objetivando respeitar as diretrizes da Lei Geral de Proteção de Dados, as info
 
 > Apresente os cenários de testes utilizados na realização dos testes de usabilidade da sua aplicação. Escolha cenários de testes que demonstrem as principais histórias de usuário sendo realizadas. Neste tópico, você deve detalhar quais funcionalidades foram avaliadas, o grupo de usuários que foi escolhido para participar do teste e as ferramentas utilizadas.
 
+Para a execução deste plano, as funcionalidades avaliadas correspondem ao fluxo principal da aplicação (Cadastro de Consumo e Visualização de Metas/Alertas no Dashboard). O grupo de usuários escolhido é formado por proprietários de pequenos negócios e administradores de residências (semelhantes à Persona do Sr. Vander), que possuem pouca afinidade com sistemas complexos. As ferramentas utilizadas para os testes serão a observação direta presencial, guiada por roteiro, com anotação das métricas de tempo e cliques, e coleta de feedback verbal para a satisfação subjetiva.
+
 ## Cenários de teste de usabilidade
 
 | Nº do cenário | Descrição do cenário |

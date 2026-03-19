@@ -45,7 +45,7 @@ Este documento detalha a lógica e o comportamento esperado dos scripts do front
 *   **Como Funciona:**
     1.  **Requisição à API:** Ao clicar em "Entrar", envia uma requisição `POST` para `/api/auth/login` com o e-mail e a senha.
     2.  **Tratamento da Resposta:**
-        *   **Sucesso (200):** A API retorna um objeto contendo `token`, `refreshToken` e `user`. O script `login.js` deve:
+        *   **Sucesso (200):** A API retorna uma resposta de sucesso (padrão `responseHelper`), contendo `token`, `refreshToken` e `user` dentro da propriedade `data`. O script `login.js` deve:
             1.  Salvar o `token` no `localStorage`.
             2.  Salvar o `refreshToken` no `localStorage`.
             3.  Salvar o objeto `user` (contendo nome, e-mail, etc.) no `localStorage`.

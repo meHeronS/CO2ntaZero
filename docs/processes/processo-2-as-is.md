@@ -12,31 +12,56 @@
 
 #### Detalhamento das atividades
 
-_Descreva aqui cada uma das propriedades das atividades do processo 2. Devem estar relacionadas com o modelo de processo apresentado anteriormente._
+_Descreva aqui cada uma das propriedades das atividades do processo 2. 
+Devem estar relacionadas com o modelo de processo apresentado anteriormente._
 
 _Os tipos de dados a serem utilizados são:_
 
-* **Área de texto** - campo texto de múltiplas linhas
-* **Caixa de texto** - campo texto de uma linha
-* **Número** - campo numérico
-* **Data** - campo do tipo data (dd-mm-aaaa)
-* **Hora** - campo do tipo hora (hh:mm:ss)
-* **Data e Hora** - campo do tipo data e hora (dd-mm-aaaa, hh:mm:ss)
-* **Imagem** - campo contendo uma imagem
-* **Seleção única** - campo com várias opções de valores que são mutuamente exclusivas (tradicional radio button ou combobox)
-* **Seleção múltipla** - campo com várias opções que podem ser selecionadas mutuamente (tradicional checkbox ou listbox)
-* **Arquivo** - campo de upload de documento
-* **Link** - campo que armazena uma URL
-* **Tabela** - campo formado por uma matriz de valores
+_* **Área de texto** - campo texto de múltiplas linhas_
 
-**Atividade 1: Análise de Fatura Alta**
+_* **Caixa de texto** - campo texto de uma linha_
 
-| **Campo**       | **Tipo**         | **Restrições** | **Valor default** |
-| ---             | ---              | ---            | ---               |
-| Valor da Fatura | Número           | Valor monetário (R$) | |
-| Comparativo Mental| Caixa de Texto | Subjetivo ("Acho que veio alto") | |
+_* **Número** - campo numérico_
 
-| **Comandos**         |  **Destino**                   | **Tipo** |
+_* **Data** - campo do tipo data (dd-mm-aaaa)_
+
+_* **Hora** - campo do tipo hora (hh:mm:ss)_
+
+_* **Data e Hora** - campo do tipo data e hora (dd-mm-aaaa, hh:mm:ss)_
+
+_* **Imagem** - campo contendo uma imagem_
+
+_* **Seleção única** - campo com várias opções de valores que são mutuamente exclusivas (tradicional radio button ou combobox)_
+
+_* **Seleção múltipla** - campo com várias opções que podem ser selecionadas mutuamente (tradicional checkbox ou listbox)_
+
+_* **Arquivo** - campo de upload de documento_
+
+_* **Link** - campo que armazena uma URL_
+
+_* **Tabela** - campo formado por uma matriz de valores_
+
+**Atividade 1: Recebimento da Fatura**
+
+| **Campo**          | **Tipo**         | **Restrições**                 | **Valor padrão** |
+| ---                | ---              | ---                            | ---              |
+| Valor da Fatura    | Número           | Valor monetário em Reais (R$)  |                  |
+| Consumo Mensal     | Número           | Medida física (kWh, m³, etc)   |                  |
+| Data de Vencimento | Data             | Formato dd-mm-aaaa             |                  |
+
+| **Comandos**         |  **Destino**                   | **Tipo**          |
 | ---                  | ---                            | ---               |
-| Reclamar            | Concessionária                 |                   |
-| Pagar               | Fim                            | default           |
+| Ler Fatura           | Atividade 2: Análise Financeira| padrão            |
+| Guardar sem ver      | Fim (Sem análise)              | cancelar          |
+
+**Atividade 2: Análise Financeira (Susto/Reclamação)**
+
+| **Campo**          | **Tipo**         | **Restrições**                     | **Valor padrão** |
+| ---                | ---              | ---                                | ---              |
+| Comparativo Mental | Caixa de texto   | Subjetivo ("Acho que veio alto")   |                  |
+| Ação Desejada      | Seleção única    | Pagar, Reclamar, Procurar vazamento| Pagar            |
+
+| **Comandos**         |  **Destino**                   | **Tipo**          |
+| ---                  | ---                            | ---               |
+| Pagar Fatura         | Fim (Processo concluído)       | padrão            |
+| Ligar na Ouvidoria   | Concessionária                 |                   |

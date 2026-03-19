@@ -9,8 +9,12 @@ const { Schema, model } = mongoose;
 
 const CompanySchema = new Schema({
   name: { type: String, required: true, trim: true }, // Ex: "Valtinho's Bar"
-  documentType: { type: String, enum: ["CPF", "CNPJ"], required: true },
-  document: { type: String, required: true, unique: true, trim: true }, // Impede duplicação de CNPJ
+  type: { type: String, enum: ["BUSINESS", "RESIDENTIAL"], required: true, default: "BUSINESS" },
+  cnpj: { type: String, trim: true, unique: true, sparse: true }, // sparse permite que seja nulo em RESIDENTIAL, mas único se preenchido
+  email: { type: String, trim: true },
+  phone: { type: String, trim: true },
+  plan: { type: String, enum: ["BASIC", "PREMIUM", "PRO"], default: "BASIC" },
+  ownerId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   
   // Dados Básicos para Relatórios ESG
   address: { type: String, trim: true },

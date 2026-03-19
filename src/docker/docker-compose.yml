@@ -3,8 +3,8 @@ version: '3.8'
 services:
   backend:
     build:
-      context: ../codes/backend
-      dockerfile: ../../docker/backend.Dockerfile
+      context: ../back
+      dockerfile: ../docker/backend.Dockerfile
     container_name: co2ntazero-backend
     ports:
       - "5000:5000"
@@ -18,7 +18,7 @@ services:
     networks:
       - co2ntazero-network
     volumes:
-      - ../codes/backend:/usr/src/app
+      - ../back:/usr/src/app
       - /usr/src/app/node_modules
 
   frontend:
@@ -27,7 +27,7 @@ services:
     ports:
       - "3000:80"
     volumes:
-      - ../codes/frontend:/usr/share/nginx/html
+      - ../front/Legacy:/usr/share/nginx/html
     depends_on:
       - backend
     networks:

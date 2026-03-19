@@ -5,8 +5,7 @@ const EmissionFactorSchema = new mongoose.Schema({
     source: {
         type: String,
         required: true, 
-        unique: true,
-        enum: ["energia_eletrica_SIN", "agua_tratada", "gasolina", "diesel", "glp", "residuos_organicos"]
+        unique: true
     },
     factor: {
         type: Number,
@@ -14,8 +13,7 @@ const EmissionFactorSchema = new mongoose.Schema({
     },
     unit: {
         type: String,
-        required: true,
-        enum: ["kWh", "m3", "litro", "kg"]
+        required: true
     },
     referenceYear: {
         type: Number,
@@ -30,4 +28,3 @@ const EmissionFactorSchema = new mongoose.Schema({
 });
 
 export default mongoose.models.EmissionFactor || mongoose.model("EmissionFactor", EmissionFactorSchema);
-

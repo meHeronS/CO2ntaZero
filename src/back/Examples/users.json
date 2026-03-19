@@ -2,17 +2,17 @@
   {
     "name": "Heron Silva",
     "email": "heron@co2ntazero.com",
-    "password": "Puc@1234",
-    "role": "ADMIN_COMPANY",
-    "companyId": "ObjectId('66f9a7f7d15e4d1b4b8e1123')",
-    "isActive": true
+    "cpf": "11122233344",
+    "companyId": "66f9a7f7d15e4d1b4b8e1123",
+    "companies": ["66f9a7f7d15e4d1b4b8e1123"],
+    "active": true
   },
   {
     "name": "Maria Costa",
     "email": "maria@techsolutions.com",
-    "password": "Puc@1234",
-    "role": "USER_COMPANY",
-    "companyId": "ObjectId('66f9a7f7d15e4d1b4b8e1124')",
-    "isActive": true
+    "cpf": "55566677788",
+    "companyId": "66f9a7f7d15e4d1b4b8e1124",
+    "companies": ["66f9a7f7d15e4d1b4b8e1124"],
+    "active": true
   }
 ]

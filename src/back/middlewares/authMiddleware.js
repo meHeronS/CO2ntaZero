@@ -16,12 +16,20 @@ import User from "../models/User.js";
  */
 export async function authMiddleware(req, res, next) {
   try {
-    // 1. Extração do Token: Verifica se o cabeçalho 'Authorization' existe e se segue o padrão "Bearer [token]".
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-      return res.status(401).json({ message: "Acesso negado. Token de autenticação não fornecido ou em formato inválido." });
+    // 1. Extração do Token: Tenta obter primariamente do Cookie Seguro (HttpOnly).
+    // Caso não exista (ex: cliente front-end legado), faz o fallback para o cabeçalho 'Authorization'.
+    let token = req.cookies?.token;
+
+    if (!token) {
+      const authHeader = req.headers.authorization;
+      if (authHeader && authHeader.startsWith("Bearer ")) {
+        token = authHeader.split(" ")[1];
+      }
     }
-    const token = authHeader.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ message: "Acesso negado. Token de autenticação não fornecido ou inválido." });
+    }
 
     // 2. Verificação do Token: Usa `jwt.verify` para checar a assinatura e a data de expiração do token.
     let payload;

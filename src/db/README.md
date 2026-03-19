@@ -47,8 +47,10 @@ Collection: COMPANIES
 {
   "_id": ObjectId("..."),
   "name": "Bar do Parceiro",
-  "documentType": "CNPJ", // ou CPF
-  "document": "00.000.000/0001-00",
+  "type": "BUSINESS", // ou RESIDENTIAL
+  "cnpj": "00000000000100",
+  "email": "contato@bar.com",
+  "ownerId": ObjectId("..."), // Ref -> Users
   "active": true,
   "createdAt": ISODate("...")
 }
@@ -56,6 +58,7 @@ Collection: COMPANIES
 Collection: USERS
 {
   "_id": ObjectId("..."),
+  "cpf": "11122233344",
   "companyId": ObjectId("..."), // Contexto atual selecionado pelo usuário
   "name": "Gestor João",
   "email": "gestor@bar.com",

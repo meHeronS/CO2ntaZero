@@ -2,6 +2,10 @@
 
 <span style="color:red">Pré-requisitos: <a href="05-Projeto-interface.md"> Projeto de interface</a></span>
 
+Defina como o software é estruturado em termos dos componentes que fazem parte da solução e do ambiente de hospedagem da aplicação.  
+
+Apresente um diagrama que ilustre a visão estrutural do sistema, mostrando como os componentes (front-end, back-end, banco de dados, serviços externos etc.) se organizam e se comunicam, bem como onde estão hospedados.  
+
 A arquitetura do CO2ntaZero é baseada na stack **MERN** (MongoDB, Express, React, Node.js), utilizando uma abordagem de microsserviços containerizados via Docker. A solução adota o modelo **Single Owner** (Proprietário Único), onde um usuário (CPF) gerencia múltiplas unidades (Companies), garantindo isolamento lógico de dados.
 
 A comunicação entre o Frontend (React Web) e o Backend (Node.js API) ocorre via RESTful API, com autenticação segura via JWT (JSON Web Tokens). A persistência de dados é realizada no MongoDB Atlas (Cloud).
@@ -21,6 +25,8 @@ A comunicação entre o Frontend (React Web) e o Backend (Node.js API) ocorre vi
 O diagrama de classes ilustra graficamente a estrutura do software e como cada uma das classes estará interligada. Essas classes servem de modelo para materializar os objetos que serão executados na memória.
 
 Elabore o diagrama de classes utilizando uma ferramenta de modelagem apropriada.
+
+> *(Insira aqui a imagem do Diagrama de Classes)*
 
 > **Links úteis**:
 > - [Diagramas de classes - documentação da IBM](https://www.ibm.com/docs/pt-br/rational-soft-arch/9.7.0?topic=diagrams-class)
@@ -107,14 +113,6 @@ A arquitetura do sistema adota o padrão **Serverless First**, priorizando plata
 
 ## Hospedagem
 
-A hospedagem da plataforma foi realizada de forma distribuída para otimizar a performance e a escalabilidade:
-
-1.  **Frontend (Vercel):** O código React.js é hospedado na Vercel, que oferece uma rede de distribuição de conteúdo (CDN) global, garantindo carregamento rápido da interface para o usuário final.
-2.  **Backend (Azure):** A API Node.js é containerizada via Docker e hospedada no Azure App Service. Isso garante que o ambiente de produção seja idêntico ao de desenvolvimento e facilita a escalabilidade horizontal.
-3.  **Banco de Dados (MongoDB Atlas):** O banco de dados é gerenciado pelo MongoDB Atlas, um serviço de banco de dados como serviço (DBaaS) que provê segurança, backups automáticos e alta disponibilidade.
-
-Explique como a hospedagem e o lançamento da plataforma foram realizados.
-
 O lançamento da plataforma CO2ntaZero foi orquestrado utilizando uma infraestrutura de nuvem moderna e distribuída, separando as camadas de apresentação e lógica de negócios:
 
 1.  **Frontend (Vercel):** A interface web (React e HTML/JS) foi hospedada na Vercel, aproveitando a rede de entrega de conteúdo (CDN) global e o pipeline de CI/CD nativo integrado ao repositório GitHub para implantações automatizadas e velozes.
@@ -122,16 +120,12 @@ O lançamento da plataforma CO2ntaZero foi orquestrado utilizando uma infraestru
 3.  **Banco de Dados (MongoDB Atlas):** A camada de persistência foi alocada no MongoDB Atlas (Cluster na nuvem), garantindo alta disponibilidade, backups automáticos e segurança no armazenamento de credenciais, sem a necessidade de gerenciar servidores de banco físicos.
 
 > **Links úteis**:
-> - Website com GitHub Pages
-> - Programação colaborativa com Repl.it
-> - Getting started with Heroku
-> - Publicando seu site no Heroku
+> - [Website com GitHub Pages](https://pages.github.com/)
+> - [Programação colaborativa com Repl.it](https://repl.it/)
+> - [Getting started with Heroku](https://devcenter.heroku.com/start)
+> - [Publicando seu site no Heroku](http://pythonclub.com.br/publicando-seu-hello-world-no-heroku.html)
 
 ## Qualidade de software
-
-Conceituar qualidade é uma tarefa complexa, mas ela pode ser vista como um método gerencial que, por meio de procedimentos disseminados por toda a organização, busca garantir um produto final que satisfaça às expectativas dos stakeholders.
-
-No contexto do desenvolvimento de software, qualidade pode ser entendida como um conjunto de características a serem atendidas, de modo que o produto de software atenda às necessidades de seus usuários. Entretanto, esse nível de satisfação nem sempre é alcançado de forma espontânea, devendo ser continuamente construído. Assim, a qualidade do produto depende fortemente do seu respectivo processo de desenvolvimento.
 
 Conceituar qualidade é uma tarefa complexa, mas ela pode ser vista como um método gerencial que, por meio de procedimentos disseminados por toda a organização, busca garantir um produto final que satisfaça às expectativas dos stakeholders.
 
@@ -158,6 +152,6 @@ A norma internacional ISO/IEC 25010 norteia a qualidade do sistema CO2ntaZero. A
    - **Métrica:** Validação do isolamento de dados no ambiente de teste - *Single Owner* (Alvo: 0 vazamentos lógicos entre contas).
 
 > **Links úteis**:
-> - ISO/IEC 25010:2011 - Systems and Software Engineering — Systems and Software Quality Requirements and Evaluation (SQuaRE) — System and Software Quality Models
-> - Análise sobre a ISO 9126 – NBR 13596
-> - Qualidade de software - Engenharia de Software
+> - [ISO/IEC 25010:2011 - Systems and Software Engineering — Systems and Software Quality Requirements and Evaluation (SQuaRE) — System and Software Quality Models](https://www.iso.org/standard/35733.html/)
+> - [Análise sobre a ISO 9126 – NBR 13596](https://www.tiespecialistas.com.br/analise-sobre-iso-9126-nbr-13596/)
+> - [Qualidade de software - Engenharia de Software](https://www.devmedia.com.br/qualidade-de-software-engenharia-de-software-29/18209)

@@ -1,14 +1,4 @@
 
-> **Links úteis**:
-> - [Protótipos: baixa, média ou alta fidelidade?](https://medium.com/ladies-that-ux-br/prot%C3%B3tipos-baixa-m%C3%A9dia-ou-alta-fidelidade-71d897559135)
-> - [Protótipos vs wireframes](https://www.nngroup.com/videos/prototypes-vs-wireframes-ux-projects/)
-> - [Ferramentas de wireframes](https://rockcontent.com/blog/wireframes/)
-> - [MarvelApp](https://marvelapp.com/developers/documentation/tutorials/)
-> - [Figma](https://www.figma.com/)
-> - [Adobe XD](https://www.adobe.com/br/products/xd.html#scroll)
-> - [Axure](https://www.axure.com/edu) (Licença Educacional)
-> - [InvisionApp](https://www.invisionapp.com/) (Licença Educacional)
-
 # Projeto de interface
 
 <span style="color:red">Pré-requisitos: <a href="02-Especificacao.md"> Especificação do projeto</a></span>
@@ -18,8 +8,6 @@ Visão geral da interação do usuário pelas telas do sistema e protótipo inte
 Apresente as principais interfaces da plataforma. Discuta como ela foi elaborada de forma a atender os requisitos funcionais, não funcionais e histórias de usuário abordados na <a href="02-Especificacao.md"> Especificação do projeto</a></span>.
 
  ## User flow
-
-Fluxo de usuário (user flow) é uma técnica que permite ao desenvolvedor mapear todo o fluxo de navegação do usuário na aplicação. Essa técnica serve para alinhar os caminhos e as possíveis ações que o usuário pode realizar junto com os membros da equipe.
 
 Fluxo de usuário (user flow) é uma técnica que permite ao desenvolvedor mapear todo o fluxo de navegação do usuário na aplicação. Essa técnica serve para alinhar os caminhos e as possíveis ações que o usuário pode realizar junto com os membros da equipe.
 
@@ -59,12 +47,21 @@ São protótipos usados no design de interface para sugerir a estrutura de um si
 
 ![Exemplo de wireframe](images/wireframe.png)
  
+> **Links úteis**:
+> - [Protótipos: baixa, média ou alta fidelidade?](https://medium.com/ladies-that-ux-br/prot%C3%B3tipos-baixa-m%C3%A9dia-ou-alta-fidelidade-71d897559135)
+> - [Protótipos vs wireframes](https://www.nngroup.com/videos/prototypes-vs-wireframes-ux-projects/)
+> - [Ferramentas de wireframes](https://rockcontent.com/blog/wireframes/)
+> - [MarvelApp](https://marvelapp.com/developers/documentation/tutorials/)
+> - [Figma](https://www.figma.com/)
+> - [Adobe XD](https://www.adobe.com/br/products/xd.html#scroll)
+> - [Axure](https://www.axure.com/edu) (Licença Educacional)
+> - [InvisionApp](https://www.invisionapp.com/) (Licença Educacional)
+
 ## Protótipo interativo
 
-O protótipo interativo do CO2ntaZero permite a navegação pelas principais funcionalidades, como login, dashboard de indicadores e formulários de cadastro de consumo.
-
-
 Apresente o protótipo interativo das telas da aplicação, permitindo a navegação simulada pelo sistema. Esse protótipo deve refletir as funcionalidades e interações planejadas, e servir como base para validação com usuários e equipe.  
+
+O protótipo interativo do CO2ntaZero permite a navegação pelas principais funcionalidades, como login, dashboard de indicadores e formulários de cadastro de consumo.
 
 > **Exemplo:** inserir link para o protótipo no Figma, MarvelApp, InvisionApp, etc.
 
@@ -98,6 +95,8 @@ Dê ênfase especial às telas relacionadas aos processos BPMN já mapeados e do
 
 ### Tela principal do sistema
 
+Descrição da tela principal do sistema.
+
 A tela principal (Dashboard) apresenta uma visão consolidada dos indicadores de consumo e sustentabilidade. O fluxo de navegação obedece ao seguinte Menu:
 
 *   **Resumo Ambiental (Home):** Calculadora de Impacto Ambiental, medidor de "Árvores Restantes" e gráficos de evolução.
@@ -110,26 +109,26 @@ A tela principal (Dashboard) apresenta uma visão consolidada dos indicadores de
 
 ### Telas dos processos BPMN
 
-#### Processo 1 - Gestão Multi-Unidade (Seleção de Contexto)
+#### Processo 1
+
+Descrição das telas relativas às atividades do processo 1.
 
 Este processo abrange as telas de **Login**, **Cadastro de Usuário/Unidade (Empresa ou Residência)** e a **Seleção de Contexto** (alternância entre Casa ou Bar). A interface garante que o usuário consiga gerenciar múltiplos locais de forma isolada, respeitando a regra de Single Owner.
 
-> Inserir imagens das telas de Login, Cadastro e a Seleção de Contexto.
+> Inserir imagens das telas correspondentes às atividades do processo 1.
 
-#### Processo 2 - Dashboard de Monitoramento e Lançamento
+#### Processo 2
+
+Descrição das telas relativas às atividades do processo 2.
 
 Telas dedicadas à visualização consolidada dos indicadores de consumo (água e luz) e sustentabilidade (carbono equivalente). Inclui também a interface simplificada para o **Lançamento de Consumo** mensal e de gestão de resíduos.
 
-> Inserir imagens do Dashboard e do formulário de lançamento.
-
-#### Processo 3 - Configuração de Alertas e Metas
-
-Telas dedicadas à parametrização do motor de anomalias (ex: configurar alerta para variação > 15%) e visualização das notificações recebidas pelo sistema, alertando sobre possíveis vazamentos, gastos excessivos ou alcance de metas.
-
-> Inserir imagens da tela de configurações e caixa de notificações.
+> Inserir imagens das telas correspondentes às atividades do processo 2.
 
 ### Demais telas do sistema
 
 Apresente e descreva brevemente as demais telas que compõem o sistema, mesmo que não estejam vinculadas diretamente a processos BPMN.
+
+Telas dedicadas à parametrização do motor de anomalias (ex: configurar alerta para variação > 15%) e visualização das notificações recebidas pelo sistema, alertando sobre possíveis vazamentos, gastos excessivos ou alcance de metas.
 
 > Inserir imagens das demais telas.

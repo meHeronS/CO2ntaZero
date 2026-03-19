@@ -2,11 +2,11 @@
 
 Esta pasta reúne documentos oficiais referentes à anuência de projetos de desenvolvimento de software vinculados à PUC Minas. Esses documentos são obrigatórios e utilizados, entre outras finalidades, para o registro de autoria intelectual junto ao INPI por meio da PROPPG, quando aplicável.
 
-## ⚠️ Atenção
+## Atenção
 - Leia atentamente as orientações abaixo e preencha apenas os documentos correspondentes ao seu caso.
 - Todos os arquivos devem estar em formato **PDF**, com o mesmo nome do modelo, alterando apenas a extensão.
 
-### a) ✅ Ata de anuência de projeto com parceiro externo
+### a) Ata de anuência de projeto com parceiro externo
 
 Essa ata é de preenchimento obrigatório e registra a concordância de todos os participantes com o registro do projeto junto ao INPI, incluindo as informações do parceiro externo, além de autorizar o uso dos dados pessoais necessários para esse processo.
 
@@ -20,7 +20,7 @@ Essa ata é de preenchimento obrigatório e registra a concordância de todos os
 
 ---
 
-### b) 🧾 Procuração do Núcleo de Inovação Tecnológica (NIT)
+### b) Procuração do Núcleo de Inovação Tecnológica (NIT)
 
 Documento obrigatório quando o parceiro externo deseja ser **cotitular do software**.
 
@@ -37,7 +37,7 @@ Por meio da procuração, o parceiro concede poderes à PUC Minas para realizar 
 
 ---
 
-### c) 📌 Termo de renúncia a direitos de cotitularidade
+### c) Termo de renúncia a direitos de cotitularidade
 
 Utilizado quando o parceiro externo participa do projeto, mas **não deseja ser cotitular do software**.
 

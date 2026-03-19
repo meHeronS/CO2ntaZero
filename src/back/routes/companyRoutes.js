@@ -14,12 +14,14 @@ import {
 } from "../controllers/companyController.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { auditMiddleware } from "../middlewares/auditMiddleware.js";
+import { validate } from "../validators/validationMiddleware.js";
+import { createCompanySchema, updateCompanySchema } from "../validators/companyValidation.js";
 
 const router = express.Router();
 
 // Rota para cadastrar uma nova empresa.
 // POST /api/companies
-router.post("/", authMiddleware, auditMiddleware("CREATE_COMPANY"), createCompany);
+router.post("/", authMiddleware, validate(createCompanySchema), auditMiddleware("CREATE_COMPANY"), createCompany);
 
 // Rota para listar todas as empresas vinculadas ao usuário.
 // GET /api/companies
@@ -32,7 +34,7 @@ router.get("/:id", authMiddleware, getCompanyById);
 
 // Rota para atualizar os dados de uma empresa.
 // PUT /api/companies/:id
-router.put("/:id", authMiddleware, auditMiddleware("UPDATE_COMPANY"), updateCompany);
+router.put("/:id", authMiddleware, validate(updateCompanySchema), auditMiddleware("UPDATE_COMPANY"), updateCompany);
 
 // Rota para desativar uma empresa (soft delete).
 // PATCH /api/companies/:id/deactivate

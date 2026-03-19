@@ -17,11 +17,20 @@ Atualmente, o processo de controle de contas e consumo nas empresas alvo (PMEs) 
 *   **Delay de informação:** O consumo excessivo só é percebido 30 dias depois, na chegada da próxima fatura.
 *   **Perda de dados:** Planilhas salvas localmente sem backup ou versionamento.
 
+![Modelo BPMN do Processo 1 AS IS](images/processo_1_asis.png "Modelo BPMN do Processo 1 AS IS.")
+![Modelo BPMN do Processo 2 AS IS](images/processo_2_asis.png "Modelo BPMN do Processo 2 AS IS.")
+
 ## Descrição geral da proposta (Modelagem TO BE)
 
 O processo proposto envolve o uso da plataforma CO2ntaZero. O usuário seleciona a Unidade (sua Residência ou seu Comércio), insere os dados de consumo e o sistema valida instantaneamente. O motor de cálculo converte os dados em CO2e automaticamente. Simultaneamente, um motor de anomalias verifica o histórico e, se detectar variação superior a 15%, dispara um alerta proativo para o usuário. Isso elimina o erro humano de cálculo, centraliza a informação e permite ação rápida contra desperdícios.
 
 Além disso, o sistema foi projetado considerando a possibilidade futura de integrar ferramentas de Inteligência Artificial (IA) e conexões diretas com companhias de energia, visando facilitar ainda mais a vida do usuário através da automação de dados.
+
+**Limites e Alinhamento Estratégico:**
+A solução atual possui o limite de depender da inserção manual de dados pelo usuário (visto que não possui leitura OCR ou integração bancária no MVP). Ainda assim, alinha-se perfeitamente ao objetivo do negócio de democratizar e simplificar o acesso a dados ambientais para pequenos empreendedores, criando conscientização imediata por meio de uma interface intuitiva.
+
+![Modelo BPMN do Processo 1 TO BE](images/processo_1_tobe.png "Modelo BPMN do Processo 1 TO BE.")
+![Modelo BPMN do Processo 2 TO BE](images/processo_2_tobe.png "Modelo BPMN do Processo 2 TO BE.")
 
 ## Modelagem dos processos
 
@@ -44,5 +53,7 @@ Use o seguinte modelo:
 | Pegada de Carbono Mensal | Monitorar impacto ambiental | Total de emissões de CO2 equivalente por mês | Tabela Consumptions | Σ (Consumo * Fator de Emissão) |
 | Taxa de Anomalias | Identificar eficiência operacional | Percentual de registros que geraram alertas de desvio | Tabela Alerts | (Total de Alertas / Total de Registros) * 100 |
 | Redução de Consumo | Avaliar eficácia das metas | Comparativo de consumo entre períodos | Tabela Consumptions | ((Consumo Mês Anterior - Consumo Atual) / Consumo Mês Anterior) * 100 |
+| Taxa de Sucesso das Metas | Avaliar engajamento e efetividade | Percentual de metas de redução concluídas com sucesso | Tabela Goals | (Metas Atingidas / Total de Metas Criadas) * 100 |
+| Frequência de Lançamentos | Medir o uso contínuo do sistema | Média de lançamentos realizados por usuário ao mês | Tabela Consumptions | Total de Lançamentos no Mês / Total de Usuários Ativos |
 
 Obs.: todas as informações necessárias para gerar os indicadores devem estar no diagrama de classe a ser apresentado posteriormente.

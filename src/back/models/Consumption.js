@@ -45,18 +45,12 @@ const ConsumptionSchema = new Schema({
   description: { type: String, trim: true },
   notes: { type: String, trim: true }, // Adicionado para compatibilidade com o controller
   
-  // Arquivo de comprovante/fatura
-  attachment: { type: String },
-
   // Status
   status: { 
     type: String, 
     enum: ["verified", "estimated", "manual_input"],
     default: "manual_input" 
-  },
-  
-  deleted: { type: Boolean, default: false, select: false },
-  deletedAt: { type: Date, select: false }
+  }
 
 }, { timestamps: true });
 

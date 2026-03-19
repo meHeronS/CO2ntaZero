@@ -145,25 +145,31 @@ components:
         email:
           type: string
           example: usuario@empresa.com
-        role:
+        companyId:
           type: string
-          example: USER_COMPANY
+          example: 665c2c1f2d3e4a0012ab34cd
     LoginResponse:
       type: object
       properties:
+        success:
+          type: boolean
+          example: true
         message:
           type: string
-          example: Login realizado com sucesso!
-        token:
-          type: string
-          description: Access token JWT
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-        refreshToken:
-          type: string
-          description: Refresh token JWT
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-        user:
-          $ref: '#/components/schemas/LoginUser'
+          example: Login realizado com sucesso.
+        data:
+          type: object
+          properties:
+            token:
+              type: string
+              description: Access token JWT
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+            refreshToken:
+              type: string
+              description: Refresh token JWT
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+            user:
+              $ref: '#/components/schemas/LoginUser'
     RefreshRequest:
       type: object
       required: [token]
@@ -175,10 +181,16 @@ components:
     RefreshResponse:
       type: object
       properties:
-        token:
-          type: string
-          description: Novo access token JWT
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            token:
+              type: string
+              description: Novo access token JWT
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
     LogoutResponse:
       type: object
       properties:

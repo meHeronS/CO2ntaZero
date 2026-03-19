@@ -12,15 +12,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Importa os modelos do Backend (Sobe 2 níveis e entra em back/models)
-import User from '../../back/models/User.js';
-import Company from '../../back/models/Company.js';
-import Consumption from '../../back/models/Consumption.js';
-import EmissionFactor from '../../back/models/EmissionFactor.js';
-import bcrypt from 'bcryptjs';
-
-// Ajuste os caminhos se necessário para importar seus modelos
-import Permission from '../../back/models/Permission.js'; 
-import { initPermissions } from '../../back/scripts/initPermissions.js';
 
 // Carrega as variáveis do arquivo .env do backend
 const envPath = path.join(__dirname, '../../back/.env');
@@ -56,74 +47,42 @@ const registerAndLogin = async (companyName) => {
     const adminEmail = `admin@${companyName.toLowerCase().replace(/\s/g, '')}.com`;
     const adminPassword = 'senhaforte123';
 
-    // --- ETAPA 1: AGIR COMO ROOT (Acesso direto ao DB) ---
-    console.log(`[ROOT] Validando estado da empresa '${companyName}' e do admin '${adminEmail}'...`);
-
-    const adminRole = await Permission.findOne({ name: 'ADMIN_COMPANY' });
-    if (!adminRole) {
-        throw new Error('Permissão "ADMIN_COMPANY" não encontrada. O script initPermissions precisa ser executado.');
-    }
-
-    // Garante que a empresa exista
-    let company = await Company.findOne({ name: companyName });
-    if (!company) {
-        console.log(`[ROOT] Empresa '${companyName}' nao encontrada. Criando...`);
-        company = await Company.create({
-            name: companyName,
-            cnpj: faker.string.numeric(14),
-            email: adminEmail,
-        });
-        console.log(`[ROOT] Empresa '${companyName}' criada com ID: ${company._id}`);
-    }
-
-    // Garante que o usuário admin exista e tenha a permissão correta
-    let adminUser = await User.findOne({ email: adminEmail });
-    if (!adminUser) {
-        console.log(`[ROOT] Usuario admin '${adminEmail}' nao encontrado. Criando...`);
-        const salt = await bcrypt.genSalt(10);
-        const passwordHash = await bcrypt.hash(adminPassword, salt);
-        adminUser = await User.create({
+    console.log(`[API] Validando registro e login da empresa '${companyName}'...`);
+    
+    let adminToken;
+    let companyCnpj = faker.string.numeric(14);
+    
+    try {
+        // Tenta logar primeiro
+        const loginRes = await axios.post(`${API_URL}/auth/login`, { email: adminEmail, password: adminPassword });
+        adminToken = loginRes.data.data.token;
+        console.log(`[API] Usuário já existia. Login realizado com sucesso.`);
+    } catch (err) {
+        // Se falhar, registra
+        console.log(`[API] Usuário não encontrado. Registrando...`);
+        await axios.post(`${API_URL}/auth/register`, {
             name: `Admin ${companyName}`,
             email: adminEmail,
-            passwordHash,
-            companyId: company._id,
-            role: adminRole._id,
+            password: adminPassword,
+            cpf: faker.string.numeric(11),
+            type: 'BUSINESS',
+            companyName: companyName,
+            cnpj: companyCnpj,
+            companyEmail: adminEmail
         });
-        console.log(`[ROOT] Usuario admin '${adminEmail}' criado com a permissao correta.`);
-    } else if (adminUser.role.toString() !== adminRole._id.toString()) {
-        console.log(`[ROOT] Usuario '${adminEmail}' encontrado com a permissao errada. Corrigindo...`);
-        adminUser.role = adminRole._id;
-        await adminUser.save();
-        console.log(`[ROOT] Permissao do usuario '${adminEmail}' corrigida para ADMIN_COMPANY.`);
-    } else {
-        console.log(`[ROOT] Usuario admin '${adminEmail}' ja existe e tem a permissao correta.`);
+        console.log(`[API] Registro concluído. Efetuando login...`);
+        const loginRes = await axios.post(`${API_URL}/auth/login`, { email: adminEmail, password: adminPassword });
+        adminToken = loginRes.data.data.token;
     }
 
-    // --- ETAPA 2: AGIR COMO CLIENTE DA API ---
-    console.log(`[API] Tentando login como '${adminEmail}' para obter token...`);
-    try {
-        const loginResponse = await axios.post(`${API_URL}/auth/login`, { email: adminEmail, password: adminPassword });        
-        console.log(`[API] Login realizado com sucesso.`);
-        
-        // Retorna um objeto completo com todos os dados relevantes
-        return {
-            adminToken: loginResponse.data.data.token,
-            companyName: company.name,
-            companyCnpj: company.cnpj,
-            adminEmail: adminUser.email,
-            adminName: adminUser.name,
-            adminPassword: adminPassword,
-        };
-    } catch (error) {
-        console.error(`Erro inesperado durante a tentativa de login via API para '${adminEmail}':`);
-        if (error.response) {
-            console.error('Status:', error.response.status);
-            console.error('Data:', JSON.stringify(error.response.data, null, 2));
-        } else {
-            console.error('Mensagem:', error.message);
-        }
-        throw error; // Re-lança o erro original para obter o stack trace completo.
-    }
+    return {
+        adminToken,
+        companyName,
+        companyCnpj,
+        adminEmail,
+        adminName: `Admin ${companyName}`,
+        adminPassword
+    };
 };
 
 
@@ -171,7 +130,7 @@ const createAlertsForCompany = async (token, count) => {
     for (let i = 0; i < count; i++) {
         const payload = {
             message: faker.lorem.sentence(5),
-            type: faker.helpers.arrayElement(['anomaly_detected', 'goal_at_risk', 'limit_exceeded']),
+            type: faker.helpers.arrayElement(['anomaly_detected', 'goal_achieved', 'limit_approaching']),
             read: false
         };
         // Assumindo que existe uma rota POST /api/alerts para criar alertas manualmente (pode não existir)
@@ -199,11 +158,11 @@ const createConsumptionsForCompany = async (token, count) => {
         
         const payload = {
             resourceType: resourceType,
-            quantity: faker.number.float({ min: 50, max: 2000, multipleOf: 0.01 }),
+            quantity: faker.number.float({ min: 50, max: 2000 }),
             unit: units[resourceType],
             date: faker.date.recent({ days: 60 }),
-            description: `Consumo de ${resourceType} - ${faker.date.past().getMonth()}`,
-            cost: faker.number.float({ min: 100, max: 5000, multipleOf: 0.01 })
+            notes: `Consumo de ${resourceType} - ${faker.date.past().getMonth()}`,
+            cost: faker.number.float({ min: 100, max: 5000 })
         };
         console.log(`   - [API] Criando consumo: ${resourceType} (${payload.quantity} ${payload.unit})`);
         const promise = axios.post(`${API_URL}/consumptions`, payload, { headers: { Authorization: `Bearer ${token}` } });
@@ -212,37 +171,6 @@ const createConsumptionsForCompany = async (token, count) => {
 
     await Promise.all(consumptionPromises);
     console.log(`${count} consumos criados com sucesso.`);
-};
-
-/**
- * Cria usuários comuns (não-admin) para uma empresa.
- * Requer o token de um admin para autorização.
- */
-const createStandardUsersForCompany = async (adminToken, count) => {
-    console.log(`Criando ${count} novos usuarios comuns (nao-admin) via API...`);
-
-    // Busca o ID da permissão 'USER_COMPANY' para usar na criação.
-    const userRole = await Permission.findOne({ name: 'USER_COMPANY' }).lean();
-    if (!userRole) {
-        throw new Error('A permissão "USER_COMPANY" não foi encontrada. O script initPermissions precisa ser executado.');
-    }
-
-    for (let i = 0; i < count; i++) {
-        try {
-            const payload = {
-                name: faker.person.fullName(),
-                email: faker.internet.email().toLowerCase(),
-                password: 'senhafraca123',
-                role: userRole._id, // Envia o ObjectId da permissão de usuário comum
-            };
-            const response = await axios.post(`${API_URL}/users`, payload, { headers: { Authorization: `Bearer ${adminToken}` } });
-            const createdId = response.data?.data?._id;
-            console.log(`   - [API] Usuario '${payload.email}' criado com ID: ${createdId}`);
-        } catch (error) {
-            console.error(`   - [API] Falha ao criar usuario: ${error.response?.data?.message || error.message}`);
-        }
-    }
-    console.log(`${count} usuarios comuns criados com sucesso.`);
 };
 
 /**
@@ -285,9 +213,6 @@ const run = async () => {
     console.log('\nIniciando populacao do banco de dados ---');
 
     try {
-        // Garante que as permissões básicas existam antes de criar usuários.
-        await initPermissions();
-        // await seedEmissionFactors(); // Comentado pois não temos o import/arquivo no contexto atual
         const createdDataSummary = [];
 
         const companiesToProcess = ['Empresa FrontEnd', 'Empresa BackEnd', 'Empresa React'];
@@ -297,8 +222,6 @@ const run = async () => {
             const companyData = await registerAndLogin(companyName);
             createdDataSummary.push(companyData);
             
-            // Para cada empresa, cria 5 de cada tipo de processo usando a API
-            await createStandardUsersForCompany(companyData.adminToken, 3); // Cria 3 usuários comuns
             await createConsumptionsForCompany(companyData.adminToken, 5);
             await createGoalsForCompany(companyData.adminToken, 5);
             await createAlertsForCompany(companyData.adminToken, 3); // Cria 3 alertas para cada empresa

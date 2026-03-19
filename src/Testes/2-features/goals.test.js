@@ -1,7 +1,7 @@
 // =================================================================================
 // ARQUIVO: Testes/2-features/goals.test.js
 //
-// DESCRIÇÃO: Suíte de testes para o Módulo de Metas Financeiras (CRUD),
+// DESCRIÇÃO: Suíte de testes para o Módulo de Metas de Sustentabilidade (CRUD),
 //            validando o ciclo completo de criação, listagem, atualização e exclusão.
 // =================================================================================
 
@@ -9,7 +9,7 @@ import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
 
-const SETUP_FILE = path.join('Testes', 'test-setup.json'); // Caminho relativo para o arquivo de setup
+const SETUP_FILE = path.join(__dirname, '..', 'test-setup.json'); // Usando __dirname para evitar erros de diretório
 
 describe('5. Módulo de Metas (CRUD)', () => {
     let userToken;
@@ -38,10 +38,11 @@ describe('5. Módulo de Metas (CRUD)', () => {
 
     test('deve CRIAR uma nova meta com sucesso', async () => {
         const goalData = {
-            title: 'Economizar para novo maquinário',
-            type: 'saving',
-            targetAmount: 10000,
-            currentAmount: 1500,
+            title: 'Reduzir consumo de energia do galpão',
+            resourceType: 'electricity',
+            targetReductionPercentage: 15,
+            baselineConsumption: 1500,
+            startDate: new Date().toISOString(),
             deadline: new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString(),
         };
 
@@ -52,7 +53,7 @@ describe('5. Módulo de Metas (CRUD)', () => {
         expect(response.status).toBe(201);
         expect(response.data.data).toHaveProperty('_id');
         expect(response.data.data.title).toBe(goalData.title);
-        expect(response.data.data.targetAmount).toBe(goalData.targetAmount);
+        expect(response.data.data.targetReductionPercentage).toBe(goalData.targetReductionPercentage);
 
         createdGoalId = response.data.data._id;
     });
@@ -74,8 +75,8 @@ describe('5. Módulo de Metas (CRUD)', () => {
         expect(createdGoalId).toBeDefined();
 
         const updatedData = {
-            title: 'Economizar para novo maquinário (URGENTE)',
-            currentAmount: 2000,
+            title: 'Reduzir consumo de energia do galpão (URGENTE)',
+            targetReductionPercentage: 20,
         };
 
         const response = await axios.put(`${API_URL}/goals/${createdGoalId}`, updatedData, {
@@ -84,7 +85,7 @@ describe('5. Módulo de Metas (CRUD)', () => {
 
         expect(response.status).toBe(200);
         expect(response.data.data.title).toBe(updatedData.title);
-        expect(response.data.data.currentAmount).toBe(updatedData.currentAmount);
+        expect(response.data.data.targetReductionPercentage).toBe(updatedData.targetReductionPercentage);
     });
 
     test('deve EXCLUIR uma meta existente', async () => {
@@ -95,7 +96,7 @@ describe('5. Módulo de Metas (CRUD)', () => {
         });
 
         expect(response.status).toBe(200);
-        expect(response.data.message).toBe('Meta removida com sucesso.');
+        expect(response.data.message).toBe('Meta removida com sucesso');
 
         createdGoalId = null;
 

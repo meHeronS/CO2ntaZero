@@ -5,7 +5,8 @@
     "models/",
     "routes/",
     "config/",
-    "middlewares/"
+    "middlewares/",
+    "validators/"
   ],
   "ignore": [
     "Testes/",

@@ -73,6 +73,8 @@ export const getCompanies = async (req, res) => {
 
 export const getCompanyById = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) return errorResponse(res, { status: 400, message: "ID de empresa inválido." });
+
     // Busca pelo ID e garante que o usuário logado é o dono
     const company = await Company.findOne({ _id: req.params.id, ownerId: req.user.userId });
     // Se nenhuma empresa for encontrada com o ID fornecido, retorna um erro 404.
@@ -87,6 +89,8 @@ export const getCompanyById = async (req, res) => {
 
 export const updateCompany = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) return errorResponse(res, { status: 400, message: "ID de empresa inválido." });
+
     // Encontra a empresa pelo ID e OwnerID e atualiza com os dados do req.body.
     // A opção { new: true } garante que o documento retornado seja a versão atualizada.
     const updated = await Company.findOneAndUpdate(
@@ -108,6 +112,8 @@ export const updateCompany = async (req, res) => {
 
 export const deactivateCompany = async (req, res) => {
   try {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) return errorResponse(res, { status: 400, message: "ID de empresa inválido." });
+
     const company = await Company.findOne({ _id: req.params.id, ownerId: req.user.userId });
     // Se a empresa não for encontrada, retorna 404.
     if (!company) {

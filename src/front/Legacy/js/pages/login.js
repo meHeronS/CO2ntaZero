@@ -15,17 +15,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify({ email, password })
                 });
                 
-                const data = await response.json();
+                const responseJson = await response.json();
                 
                 if (response.ok) {
                     // 2. SALVANDO O PASSAPORTE (TOKEN): O backend gera um token JWT de autorização.
                     // Guardamos no localStorage para usar na apiHelper.js depois, e puxar o Dashboard.
-                    localStorage.setItem('token', data.token);
-                    localStorage.setItem('refreshToken', data.refreshToken);
-                    localStorage.setItem('user', JSON.stringify(data.user));
+                    const payload = responseJson.data ? responseJson.data : responseJson;
+                    localStorage.setItem('token', payload.token);
+                    localStorage.setItem('refreshToken', payload.refreshToken);
+                    localStorage.setItem('user', JSON.stringify(payload.user));
                     window.location.href = '/pages/startPage.html'; // Redireciona para o Dashboard
                 } else {
-                    alert(data.message || 'Credenciais inválidas. Tente novamente.');
+                    alert(responseJson.message || 'Credenciais inválidas. Tente novamente.');
                 }
             } catch (error) {
                 alert('Erro ao conectar ao servidor. Verifique se o backend está rodando.');

@@ -14,7 +14,7 @@
  */
 
 import mongoose from 'mongoose';
-import User from '../../models/User.js';
+import User from '../../back/models/User.js';
 
 describe('Security: Persistência de Dados Manuais', () => {
   // Lista de e-mails dos usuários que devem sobreviver ao processo de teste.
@@ -40,7 +40,7 @@ describe('Security: Persistência de Dados Manuais', () => {
   });
 
   test('deve garantir que os usuários de teste manuais permaneçam no banco após a execução de `npm test`', async () => {
-    console.log('\n--- 🛡️  Teste de Persistência: Verificando dados manuais... ---');
+    console.log('\n--- Teste de Persistência: Verificando dados manuais... ---');
 
     for (const testUser of manualTestUsers) {
       const userInDb = await User.findOne({ email: testUser.email });

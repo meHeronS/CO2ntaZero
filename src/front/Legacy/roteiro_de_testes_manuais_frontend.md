@@ -125,24 +125,8 @@ Valida o ciclo completo de gerenciamento de consumos e cálculo da pegada de car
 
 ---
 
-## 5. Módulo de Uploads
+## 5. Módulo de Relatórios
 
-- [ ] **Anexar Fatura/Comprovante a um Consumo:**
-    - **Ação:** Em um consumo existente, clique no ícone de anexo, selecione um arquivo (PDF ou imagem da conta) e confirme.
-    - **Resultado Esperado:** A interface deve indicar que o anexo foi enviado com sucesso. Um ícone ou link para visualizar o anexo deve aparecer ao lado do registro de consumo.
-
-- [ ] **Remover Anexo:**
-    - **Ação:** Em um consumo que já possui um anexo, clique na opção para remover o anexo.
-    - **Resultado Esperado:** O anexo deve ser removido e a interface atualizada para refletir que não há mais um anexo associado.
-
----
-
-## 6. Módulo de Relatórios
-
-- [ ] **Gerar e Exportar Relatórios via Menu:**
+- [ ] **Visualizar Relatório de Emissões:**
     - **Ação:** Com alguns consumos cadastrados, vá para a página de relatórios.
     - **Resultado Esperado (Visualização):** Os gráficos e a tabela de resumo devem exibir a conversão em pegada de carbono correspondente aos dados dos consumos cadastrados.
-    - **Ação:** Clique no menu "Exportar Relatório" e selecione a opção "Relatório de Emissões".
-    - **Resultado Esperado (Exportação de Emissões):** Um arquivo PDF (`relatorio-emissoes.pdf`) deve ser baixado, contendo o histórico consolidado de emissões de CO2e.
-    - **Ação:** No mesmo menu, selecione a opção "Comprovante de Lançamentos".
-    - **Resultado Esperado (Exportação de Comprovantes):** Um arquivo PDF deve ser baixado, contendo um atestado consolidado dos registros do período.

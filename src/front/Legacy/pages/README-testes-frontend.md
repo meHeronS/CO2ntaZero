@@ -75,23 +75,7 @@ Antes de iniciar, certifique-se de que:
 
 ---
 
-## 4. Módulo de Anexos (Upload)
-
-- [ ] **Fazer Upload de Anexo:**
-    - **Ação:** Em um registro de consumo existente, use a função de upload para anexar um arquivo PDF (ex: fatura de luz) e, em outra, um arquivo de imagem.
-    - **Resultado Esperado:** A interface deve indicar que o anexo foi enviado com sucesso (ex: exibindo um ícone de clipe ou o nome do arquivo).
-
-- [ ] **Validação de Tipo de Arquivo (Opcional/Avançado):**
-    - **Ação:** Tente fazer o upload de um arquivo não permitido (ex: `.txt` ou `.zip`).
-    - **Resultado Esperado:** O sistema deve exibir uma mensagem de erro "Tipo de arquivo inválido" e rejeitar o upload.
-
-- [ ] **Excluir Anexo:**
-    - **Ação:** Em um registro de consumo que possui um anexo, use a função para removê-lo.
-    - **Resultado Esperado:** A indicação do anexo na interface deve desaparecer.
-
----
-
-## 5. Módulo de Metas (CRUD)
+## 4. Módulo de Metas (CRUD)
 
 - [ ] **Criar Meta:**
     - **Ação:** Crie uma nova meta de redução (ex: "Reduzir consumo de energia em 10%").
@@ -107,7 +91,7 @@ Antes de iniciar, certifique-se de que:
 
 ---
 
-## 6. Módulo de Alertas e Motor de Anomalias
+## 5. Módulo de Alertas e Motor de Anomalias
 
 - [ ] **Cenário de Preparação:**
     1. Faça login.
@@ -125,12 +109,8 @@ Antes de iniciar, certifique-se de que:
 
 ---
 
-## 7. Módulo de Relatórios
+## 6. Módulo de Relatórios
 
-- [ ] **Exportar Relatório de Emissões:**
-    - **Ação:** Com alguns consumos cadastrados, vá para a página de relatórios e clique em "Exportar Relatório de Emissões".
-    - **Resultado Esperado:** Um arquivo PDF chamado `relatorio-emissoes.pdf` (ou similar) deve ser baixado pelo navegador.
-
-- [ ] **Exportar Comprovante de Registro:**
-    - **Ação:** Em um registro específico, encontre e clique na opção "Gerar Comprovante".
-    - **Resultado Esperado:** Um arquivo PDF do comprovante correspondente àquele registro deve ser baixado.
+- [ ] **Visualizar Relatório de Emissões:**
+    - **Ação:** Com alguns consumos cadastrados, vá para a página de relatórios.
+    - **Resultado Esperado (Visualização):** Os gráficos e a tabela de resumo devem exibir a conversão em pegada de carbono correspondente aos dados dos consumos cadastrados, alimentados pelo endpoint JSON da API.

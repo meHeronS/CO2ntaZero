@@ -1,7 +1,7 @@
 [
     {
-      "companyId": "ObjectId('66f9a7f7d15e4d1b4b8e1123')",
-      "userId": "ObjectId('66f9a7f7d15e4d1b4b8e2123')",
+      "companyId": "66f9a7f7d15e4d1b4b8e1123",
+      "userId": "66f9a7f7d15e4d1b4b8e2123",
       "title": "Reduzir consumo de energia do galpão",
       "resourceType": "electricity",
       "targetReductionPercentage": 10,
@@ -11,8 +11,8 @@
       "status": "active"
     },
     {
-      "companyId": "ObjectId('66f9a7f7d15e4d1b4b8e1124')",
-      "userId": "ObjectId('66f9a7f7d15e4d1b4b8e2124')",
+      "companyId": "66f9a7f7d15e4d1b4b8e1124",
+      "userId": "66f9a7f7d15e4d1b4b8e2124",
       "title": "Meta Carbono Zero Q1",
       "resourceType": "carbon_footprint",
       "targetReductionPercentage": 5,

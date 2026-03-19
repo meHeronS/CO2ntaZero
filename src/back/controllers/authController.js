@@ -15,6 +15,7 @@ import Company from '../models/Company.js';
 import Consumption from "../models/Consumption.js"; 
 import Goal from '../models/Goal.js';
 import SessionToken from '../models/SessionToken.js';
+import Waste from '../models/Waste.js';
 import User from '../models/User.js';
 import { createLog } from '../utils/logger.js';
 
@@ -203,6 +204,23 @@ export const loginUser = async (req, res) => {
       route: req.originalUrl,
     });
 
+    // --- SEGURANÇA: Configuração dos Cookies HttpOnly ---
+    // O token de acesso tem vida curta e é usado nas requisições normais.
+    res.cookie('token', accessToken, {
+      httpOnly: true, // Impede acesso via JavaScript (Mitiga XSS)
+      secure: process.env.NODE_ENV === 'production', // Em prod, exige HTTPS
+      sameSite: 'strict', // Protege contra CSRF (Cross-Site Request Forgery)
+      maxAge: 15 * 60 * 1000 // Expira em 15 minutos
+    });
+
+    // O refresh token tem vida longa e é usado na renovação.
+    res.cookie('refreshToken', refreshTokenValue, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000 // Expira em 7 dias
+    });
+
     // Padroniza a resposta usando o `responseHelper` para consistência em toda a API.
     return successResponse(res, { data: {
         token: accessToken,
@@ -224,8 +242,9 @@ export const loginUser = async (req, res) => {
  *          impedindo que ele seja usado para gerar novos tokens de acesso.
  */
 export const logoutUser = async (req, res) => {
-  // O cliente envia o refresh token que possui, e o servidor o invalida.
-  const { refreshToken } = req.body; // Corrigido de 'token' para 'refreshToken' para alinhar com o frontend.
+  // O refresh token agora deve vir primariamente do Cookie seguro.
+  // O `req.body` fica como fallback temporário para o front legado.
+  const refreshToken = req.cookies?.refreshToken || req.body.refreshToken;
 
   // MOTIVO DA MUDANÇA: Garante que o token foi fornecido. Se a rota for pública,
   // esta validação é necessária para evitar processamento desnecessário.
@@ -256,6 +275,10 @@ export const logoutUser = async (req, res) => {
     console.error("Erro ao invalidar refresh token durante o logout:", error);
   }
 
+  // Limpa os cookies do navegador garantindo que o cliente "esqueça" as credenciais
+  res.clearCookie('token');
+  res.clearCookie('refreshToken');
+
   return successResponse(res, { message: "Logout realizado com sucesso. A sessão foi invalidada no servidor." });
 };
 
@@ -285,6 +308,15 @@ export const forgotPassword = async (req, res) => {
     // Em um app real, aqui você enviaria um e-mail para o usuário com um link contendo `resetToken`.
     // Para este projeto, retornamos o token para facilitar os testes.
     // A resposta é padronizada com o `responseHelper`.
+
+    await createLog({
+      userId: user._id,
+      companyId: user.companyId,
+      action: "FORGOT_PASSWORD",
+      description: "Solicitação de recuperação de senha gerada.",
+      route: req.originalUrl,
+    });
+
     return successResponse(res, { message: 'Token de reset enviado com sucesso (simulado).', data: { resetToken } });
 
   } catch (error) {
@@ -317,6 +349,15 @@ export const resetPassword = async (req, res) => {
     user.passwordResetToken = undefined;
     user.passwordResetExpires = undefined;
     await user.save();
+
+    await createLog({
+      userId: user._id,
+      companyId: user.companyId,
+      action: "RESET_PASSWORD",
+      description: "Senha redefinida com sucesso via token.",
+      route: req.originalUrl,
+    });
+
     return successResponse(res, { message: "Senha alterada com sucesso." });
   } catch (error) {
     return errorResponse(res, { status: 500, message: "Erro interno no servidor.", errors: error });
@@ -325,13 +366,48 @@ export const resetPassword = async (req, res) => {
 
 /**
  * @desc    (Placeholder) Renova um token de acesso expirado usando um refresh token.
- * @route   POST /api/auth/refresh-token
+ * @route   POST /api/auth/refresh
  * @access  Public
  */
 export const refreshToken = async (req, res) => {
-  // A lógica real verificaria o refresh token (geralmente vindo de um cookie httpOnly),
-  // e se válido, geraria um novo access token (e opcionalmente um novo refresh token).
-  return successResponse(res, { message: "Token atualizado (placeholder)." });
+  try {
+    // Pega o token primariamente do cookie, com fallback pro body (usado no front React/legado)
+    const rToken = req.cookies?.refreshToken || req.body.token;
+
+    if (!rToken) {
+      return errorResponse(res, { status: 400, message: "Refresh token não fornecido." });
+    }
+
+    // Verifica se a assinatura do token é válida
+    const payload = jwt.verify(rToken, process.env.REFRESH_TOKEN_SECRET);
+
+    // Valida no banco de dados se a sessão não foi revogada (Logout stateful)
+    const refreshTokenHash = crypto.createHash('sha256').update(rToken).digest('hex');
+    const session = await SessionToken.findOne({ tokenHash: refreshTokenHash, active: true });
+
+    if (!session) {
+      return errorResponse(res, { status: 401, message: "Sessão inválida ou revogada. Faça login novamente." });
+    }
+
+    // Gera um novo Access Token
+    const accessToken = jwt.sign(
+      { userId: payload.userId, companyId: payload.companyId },
+      process.env.JWT_SECRET,
+      { expiresIn: '15m' }
+    );
+
+    // Renovação do Cookie de Acesso
+    res.cookie('token', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 15 * 60 * 1000 // 15 minutos
+    });
+
+    return successResponse(res, { data: { token: accessToken } });
+  } catch (error) {
+    return errorResponse(res, { status: 401, message: "Refresh token expirado ou inválido.", errors: error.message });
+  }
 };
 
 /**
@@ -351,23 +427,23 @@ export const deleteAccount = async (req, res) => {
       return errorResponse(res, { status: 404, message: "Usuário a ser deletado não encontrado." });
     }
 
-    const companyId = userToDelete.companyId;
+    // Pega TODAS as empresas vinculadas a este CPF/Usuário
+    const companyIds = userToDelete.companies;
 
     // CORREÇÃO: Executa a exclusão em cascata dentro de uma transação para garantir atomicidade.
     // Etapa 1: Exclui todas as sessões do usuário.
     await SessionToken.deleteMany({ userId }, { session });
-    // Etapa 2: Exclui todos os alertas da empresa para evitar conflitos de referência.
-    await Alert.deleteMany({ companyId }, { session });
-    // Etapa 3: Exclui todas as metas da empresa.
-    await Goal.deleteMany({ companyId: companyId }, { session });
-    // Etapa 4: Exclui todas as transações da empresa.
-    await Consumption.deleteMany({ companyId: companyId }, { session });
-    // Etapa 5: Exclui todos os clientes da empresa (Se aplicável no futuro)
-    // await Client.deleteMany({ companyId: companyId }, { session });
+    
+    // Etapas 2 a 5: Cascade Delete PLENO - Exclui tudo de TODAS as unidades daquele usuário
+    await Alert.deleteMany({ companyId: { $in: companyIds } }, { session });
+    await Goal.deleteMany({ companyId: { $in: companyIds } }, { session });
+    await Consumption.deleteMany({ companyId: { $in: companyIds } }, { session });
+    await Waste.deleteMany({ companyId: { $in: companyIds } }, { session });
+    
     // Etapa 6: Exclui o próprio usuário.
     await User.findByIdAndDelete(userId, { session });
-    // Etapa 7: Exclui a empresa associada.
-    await Company.findByIdAndDelete(companyId, { session });
+    // Etapa 7: Exclui as empresas associadas.
+    await Company.deleteMany({ _id: { $in: companyIds } }, { session });
 
     await session.commitTransaction();
 

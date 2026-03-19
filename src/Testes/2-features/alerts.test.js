@@ -27,19 +27,18 @@ describe('6. Módulo de Alertas de Sustentabilidade', () => {
 
     it('RF-006: deve gerar alerta ao ultrapassar meta de consumo de Energia (Co2)', async () => {
         if (!authHeader) {
-            console.warn("⚠️ Pulando teste de alertas: Credenciais não encontradas. (Execute npm run test:setup antes)");
+            console.warn("Pulando teste de alertas: Credenciais não encontradas. (Execute npm run test:setup antes)");
             return;
         }
 
-        console.log('\n--- 🧪 Testando Alertas Ambientais (Energia/Co2) ---');
+        console.log('\n--- Testando Alertas Ambientais (Energia/Co2) ---');
 
         // 1. Criar Meta: Limite de 1000 kWh para o mês
         const goalPayload = {
-            description: 'Meta Limite Mensal Energia - Teste Alerta',
-            type: 'limit',
+            title: 'Meta Limite Mensal Energia - Teste Alerta',
             resourceType: 'electricity',
-            targetValue: 1000,
-            unit: 'kWh',
+            targetReductionPercentage: 10,
+            baselineConsumption: 1000,
             deadline: new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString(),
             startDate: new Date().toISOString()
         };
@@ -61,19 +60,19 @@ describe('6. Módulo de Alertas de Sustentabilidade', () => {
             // Consumo 1: 500 kWh (Total 500)
             await axios.post(`${API_URL}/consumptions`, {
                 resourceType: 'electricity',
-                amount: 500,
+                quantity: 500,
                 unit: 'kWh',
                 date: new Date().toISOString(),
-                description: 'Consumo Parcial 1'
+                notes: 'Consumo Parcial 1'
             }, { headers: authHeader });
 
             // Consumo 2: 600 kWh (Total 1100 > 1000)
             await axios.post(`${API_URL}/consumptions`, {
                 resourceType: 'electricity',
-                amount: 600,
+                quantity: 600,
                 unit: 'kWh',
                 date: new Date().toISOString(),
-                description: 'Consumo Excedente'
+                notes: 'Consumo Excedente'
             }, { headers: authHeader });
             
             console.log('   + Consumos lançados (Total esperada: 1100 kWh). Verificando alertas...');
@@ -96,10 +95,10 @@ describe('6. Módulo de Alertas de Sustentabilidade', () => {
             );
 
             if (relatedAlert) {
-                console.log(`   ✅ Alerta detectado: "${relatedAlert.message}"`);
+                console.log(`   Alerta detectado: "${relatedAlert.message}"`);
                 expect(relatedAlert).toBeDefined();
             } else {
-                console.warn('   ⚠️ Nenhum alerta específico encontrado. Verifique se o módulo de Alertas monitora consumos.');
+                console.warn('   Nenhum alerta específico encontrado. Verifique se o módulo de Alertas monitora consumos.');
                 // console.log("Alertas encontrados:", alerts);
             }
         } catch (err) {

@@ -12,8 +12,18 @@ import { successResponse, errorResponse } from "../utils/responseHelper.js";
 export const getGoals = async (req, res) => {
   try {
     const companyId = req.user.companyId;
-    const items = await Goal.find({ companyId }).sort({ createdAt: -1 });
-    return successResponse(res, { data: items });
+    const { page = 1, limit = 20 } = req.query;
+
+    const skip = (Number(page) - 1) * Number(limit);
+
+    const items = await Goal.find({ companyId })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(Number(limit));
+
+    const total = await Goal.countDocuments({ companyId });
+
+    return successResponse(res, { data: items, pagination: { total, page: Number(page), pages: Math.ceil(total / Number(limit)) } });
   } catch (error) {
     return errorResponse(res, { status: 500, message: "Erro ao listar metas de sustentabilidade", errors: error });
   }
@@ -84,6 +94,8 @@ export const createGoal = async (req, res) => {
 export const updateGoal = async (req, res) => {
     try {
         const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) return errorResponse(res, { status: 400, message: "ID de meta inválido." });
+
         const companyId = req.user.companyId;
         
         const updatedGoal = await Goal.findOneAndUpdate(
@@ -116,6 +128,8 @@ export const updateGoal = async (req, res) => {
 export const deleteGoal = async (req, res) => {
     try {
         const { id } = req.params;
+        if (!mongoose.Types.ObjectId.isValid(id)) return errorResponse(res, { status: 400, message: "ID de meta inválido." });
+
         const companyId = req.user.companyId;
 
         const deletedGoal = await Goal.findOneAndDelete({ _id: id, companyId });

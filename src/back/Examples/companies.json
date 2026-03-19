@@ -3,20 +3,22 @@
     "name": "CO2ntaZero LTDA",
     "cnpj": "12345678000195",
     "email": "contato@co2ntazero.com",
+    "type": "BUSINESS",
     "phone": "31999999999",
     "address": "Rua das Palmeiras, 123 - Betim/MG",
     "isActive": true,
     "plan": "PRO",
-    "registrationDate": "2025-10-18T00:00:00Z"
+    "createdAt": "2025-10-18T00:00:00Z"
   },
   {
     "name": "Tech Solutions BR",
     "cnpj": "98765432000155",
     "email": "suporte@techsolutions.com",
+    "type": "BUSINESS",
     "phone": "31988887777",
     "address": "Av. PUC Minas, 2000 - Contagem/MG",
     "isActive": false,
     "plan": "BASIC",
-    "registrationDate": "2025-10-18T00:00:00Z"
+    "createdAt": "2025-10-18T00:00:00Z"
   }
 ]

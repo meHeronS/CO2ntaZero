@@ -8,33 +8,35 @@ import express from "express";
 import { registerUser, loginUser, logoutUser, refreshToken, deleteAccount, forgotPassword, resetPassword } from '../controllers/authController.js';
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { auditMiddleware } from "../middlewares/auditMiddleware.js";
+import { validate } from "../validators/validationMiddleware.js";
+import { registerSchema, loginSchema, forgotPasswordSchema, resetPasswordSchema } from "../validators/authValidation.js";
 
 const router = express.Router();
 
 // Rota pública para registrar um novo usuário e sua respectiva empresa.
 // POST /api/auth/register
-router.post('/register', registerUser);
+router.post('/register', validate(registerSchema), registerUser);
 
 // Rota pública para autenticar um usuário e obter os tokens de acesso e de atualização.
 // POST /api/auth/login
-router.post("/login", loginUser);
+router.post("/login", validate(loginSchema), loginUser);
 
 // Rota para deslogar um usuário, invalidando o Refresh Token no servidor.
 // Esta rota não usa `authMiddleware` para permitir que o logout funcione mesmo se o `accessToken` tiver expirado.
 // POST /api/auth/logout
 router.post("/logout", logoutUser);
 
-// Rota para renovar um Access Token expirado usando um Refresh Token válido.
-// POST /api/auth/refresh-token
-router.post("/refresh-token", refreshToken);
+// Rota para renovar um Access Token expirado usando o Refresh Token seguro.
+// POST /api/auth/refresh
+router.post("/refresh", refreshToken);
 
 // Rota para solicitar a recuperação de senha
 // POST /api/auth/forgot-password
-router.post('/forgot-password', forgotPassword);
+router.post('/forgot-password', validate(forgotPasswordSchema), forgotPassword);
 
 // Rota para efetivamente resetar a senha com um token válido
 // POST /api/auth/reset-password/:token
-router.post('/reset-password/:token', resetPassword);
+router.post('/reset-password/:token', validate(resetPasswordSchema), resetPassword);
 
 // Rota protegida para que o usuário exclua sua própria conta e todos os dados associados.
 // DELETE /api/auth/me

@@ -141,7 +141,10 @@ O diagrama de casos de uso é o próximo passo após a elicitação de requisito
 
 O diagrama de casos de uso detalha as fronteiras do sistema CO2ntaZero e os relacionamentos entre o Proprietário (Ator) e as funcionalidades de monitoramento e cálculos.
 
+![Diagrama de Casos de Uso](images/diagrama_casos_uso.png "Diagrama de Casos de Uso do CO2ntaZero")
+
 > **Links úteis**:
+> - [Criando casos de uso](https://www.ibm.com/docs/pt-br/engineering-lifecycle-management-suite/design-rhapsody/10.0?topic=cases-creating-use)
 > - [Criando casos de uso](https://www.ibm.com/docs/pt-br/engineering-lifecycle-management-suite/design-rhapsody/10.0?topic=cases-creating-use)
 > - [Como criar diagrama de caso de uso: tutorial passo a passo](https://gitmind.com/pt/fazer-diagrama-de-caso-uso.html/)
 > - [Lucidchart](https://www.lucidchart.com/)

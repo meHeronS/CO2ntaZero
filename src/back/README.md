@@ -1,4 +1,4 @@
-# 🚀 Backend - CO2ntaZero API
+# Backend - CO2ntaZero API
 
 Este documento é o guia técnico completo para o backend da aplicação CO2ntaZero. Ele detalha a arquitetura, a estrutura de pastas, os arquivos principais e as instruções para configuração, execução e teste do servidor da API.
 
@@ -28,6 +28,7 @@ backend/
 ├── controllers/        # Orquestração das requisições (Entrada/Saída).
 ├── services/           # Regras de Negócio Puras (Cálculo Carbono, Motor de Anomalias).
 ├── middlewares/        # Interceptadores (Auth, Log, Erro, Validação).
+├── validators/         # Regras de validação (Joi) e sanitização Fail-Fast.
 ├── models/             # Schemas do Mongoose (Modelagem de Dados).
 ├── routes/             # Definição dos endpoints da API.
 ├── Testes/             # Suíte de testes automatizados (Jest/Supertest).
@@ -164,6 +165,11 @@ Como um projeto acadêmico com prazo definido, certas simplificações foram fei
     -   **Segurança:** Proteger contra ataques de injeção de NoSQL, sanitizando as entradas.
     -   **Mensagens de Erro Claras:** Retornar erros de validação detalhados e padronizados para o cliente.
 
+#### **Proteção de Cabeçalhos HTTP (Helmet)**
+-   **Implementação Atual (Simplificada):** O aplicativo utiliza as configurações padrão do Express.
+-   **Implementação Robusta (Nível de Produção):** Adicionar o pacote **`helmet`** como middleware global no `server.js`.
+    -   Ele configura automaticamente dezenas de cabeçalhos de segurança HTTP (X-Frame-Options contra clickjacking, X-XSS-Protection, etc.) e esconde a flag `X-Powered-By`, não revelando para atacantes que a API usa Express.
+
 ### 7.2. Escalabilidade e Performance
 
 #### **Cache de Dados**
@@ -174,16 +180,12 @@ Como um projeto acadêmico com prazo definido, certas simplificações foram fei
 -   **Implementação Atual (Simplificada):** O servidor roda em um único processo Node.js, utilizando apenas um núcleo da CPU.
 -   **Implementação Robusta (Nível de Produção):** Utilizar o módulo `cluster` nativo do Node.js ou uma ferramenta como o **`PM2`** para criar um "cluster" de processos, permitindo que a aplicação utilize todos os núcleos da CPU. Em uma infraestrutura maior, múltiplos servidores seriam colocados atrás de um **Load Balancer** (como Nginx) para distribuir o tráfego.
 
-### 7.3. Exclusão Lógica (Soft Deletes)
+### 7.3. Estratégia de Exclusão (Hard Delete + Logs de Auditoria)
 
 #### **Gerenciamento de Dados Excluídos**
--   **Implementação Atual (Simplificada):** As operações de exclusão (`DELETE`) removem os dados permanentemente do banco de dados (`findOneAndDelete`). Esta é uma **exclusão física (hard delete)**.
--   **Implementação Robusta (Nível de Produção):** A melhor prática seria implementar a **exclusão lógica (soft delete)**.
-    -   **Como Funciona:** Em vez de apagar o registro, um campo como `deleted: true` e `deletedAt: new Date()` seria adicionado ao documento.
-    -   **Vantagens:**
-        1.  **Recuperação de Dados:** Permite restaurar dados "excluídos" acidentalmente.
-        2.  **Auditoria e Conformidade:** Mantém um histórico completo dos dados, o que é crucial para auditorias e para estar em conformidade com regulamentações como a LGPD, que exigem a retenção de dados por um certo período.
-    -   **Implementação:** Todas as consultas de leitura (`find`, `findOne`) seriam modificadas para incluir a condição `{ deleted: { $ne: true } }`, garantindo que os dados "excluídos" não apareçam para o usuário.
+-   **Implementação Atual:** As operações de exclusão (`DELETE`) removem os dados permanentemente do banco de dados (`findOneAndDelete`). Esta é uma **exclusão física (hard delete)**.
+-   **Decisão Arquitetural:** Em sistemas ondes o erro humano de digitação é comum (como lançar a quantidade de KWh de uma conta erroneamente), permitir o "Hard Delete" é benéfico, pois previne "sujeira" nos cálculos do Dashboard e otimiza consultas no MongoDB.
+-   **Auditoria e Conformidade (LGPD):** Para garantir o rastreio (compliance), a estratégia combina a exclusão física com uma **Coleção de Logs Imutável**. Qualquer operação crítica (Criação, Edição, Exclusão ou Login) insere um documento na coleção de Logs detalhando: *quem fez, o que fez, quando e dados afetados*. O cliente tem permissão de leitura sobre esse histórico, mas nunca de exclusão/edição, provendo a trilha de auditoria exigida pela LGPD sem prejudicar a base de dados transacional.
 
 ### 7.4. Testes e CI/CD
 

@@ -55,18 +55,18 @@ const runSeed = async () => {
     // Usa a URI do ambiente ou a URI oficial de desenvolvimento do projeto
     const mongoUri = process.env.MONGO_URI || 'mongodb+srv://AdminDB:AdminDB@studiescluster.hcpbk9e.mongodb.net/co2ntazero?retryWrites=true&w=majority';
     
-    console.log('⏳ Conectando ao MongoDB Atlas...');
+    console.log('Conectando ao MongoDB Atlas...');
     await mongoose.connect(mongoUri);
-    console.log('✅ Conectado com sucesso!');
+    console.log('Conectado com sucesso!');
 
-    console.log('⏳ Atualizando Dicionário de Fatores de Emissão...');
+    console.log('Atualizando Dicionário de Fatores de Emissão...');
     await EmissionFactor.deleteMany({}); // Limpa os antigos para evitar duplicação
     await EmissionFactor.insertMany(seedData); // Insere os novos dados oficiais
 
-    console.log('✅ Fatores de Emissão (Seed) inseridos com sucesso! Motor de cálculo pronto.');
+    console.log('Fatores de Emissão (Seed) inseridos com sucesso! Motor de cálculo pronto.');
     process.exit(0);
   } catch (error) {
-    console.error('❌ Erro crítico ao rodar o seed:', error.message);
+    console.error('Erro crítico ao rodar o seed:', error.message);
     process.exit(1);
   }
 };

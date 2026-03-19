@@ -37,25 +37,44 @@ O projeto segue a metodologia ágil, dividido em 5 Sprints, cobrindo desde a con
 
 ###  Divisão de papéis
 
-Abaixo está a divisão de papéis assumidos pela equipe em cada sprint:
+Abaixo está a divisão de papéis assumidos pela equipe em cada sprint. Conforme alinhado, Heron Victor Vieira da Silva assumirá o papel fixo de Scrum Master ao longo do projeto, acumulando também atuações técnicas principais no início. Os demais papéis rotacionam entre os membros:
 
 #### Sprint 1
-- _Scrum master_: Grupo (Todos)
-- Protótipos: Grupo (Todos)
-- Testes: Grupo (Todos)
-- Documentação: Grupo (Todos)
-- Arquitetura: Grupo (Todos)
+- _Scrum master_: Heron Victor Vieira da Silva
+- Arquitetura e Estruturação BD Inicial: Grupo (Todos)
+- Documentação de Contexto: Grupo (Todos)
+- Protótipos e Personas: Grupo (Todos)
+- Requisitos e BPMN Iniciais: Grupo (Todos)
 
 #### Sprint 2
-- _Scrum master_: A definir
-- Desenvolvedor _back-end_: A definir
-- Desenvolvedor _front-end_: A definir
-- Analista de Processos (BPMN): A definir
-- Testes: A definir
+- _Scrum master_: Heron Victor Vieira da Silva
+- Desenvolvedor _back-end_ (Base Completa): Heron Victor Vieira da Silva
+- Desenvolvedor _front-end_ (Prova de Conceito Inicial): Heron Victor Vieira da Silva
+- Analista de Processos (BPMN) e Modelagem: A definir
+- Validação de Processos e Testes Iniciais: A definir
+
+#### Sprint 3
+- _Scrum master_: Heron Victor Vieira da Silva
+- Desenvolvedor _front-end_ (Integração Oficial): A definir
+- Desenvolvedor _back-end_ (Apoio): A definir
+- Gamificação e Validação: A definir
+- Engenharia de Testes (Revisão): A definir
+
+#### Sprint 4
+- _Scrum master_: Heron Victor Vieira da Silva
+- Refinamento de Inteligência (Alertas): Heron Victor Vieira da Silva
+- Relatórios e Dashboard: A definir
+- Testes de Software: A definir
+- Documentação e Validação: A definir
+
+#### Sprint 5
+- _Scrum master_: Heron Victor Vieira da Silva
+- Correções Finais Front e Back: A definir
+- Testes de Usabilidade e Apresentação: A definir
 
 ###  Quadro de tarefas
 
-Abaixo, o acompanhamento das tarefas exigidas no escopo de cada sprint:
+Abaixo, o acompanhamento das tarefas e delegamentos exigidos no escopo de cada sprint:
 
 #### Sprint 1
 
@@ -76,29 +95,28 @@ Atualizado em: 17/03/2026
 
 | Responsável   | Tarefa/Requisito | Iniciado em    | Prazo      | Status | Terminado em    |
 | :----         |    :----         |      :----:    | :----:     | :----: | :----:          |
-| Heron        | Backend: Autenticação (JWT)     | 20/03/2026 | 25/03/2026 | ✔️ | 25/03/2026 |
-| Heron        | Backend: Motor de Cálculo (GHG) | 20/03/2026 | 30/03/2026 | ✔️ | 30/03/2026 |
-| Heron        | Backend: Validação Duplicidade  | 20/03/2026 | 30/03/2026 | ✔️ | 30/03/2026 |
-| A definir     | Frontend: Tela de Login         | 25/03/2026 | 10/04/2026 | ❌ |            |
-| A definir     | Frontend: Dashboard Principal   | 25/03/2026 | 10/04/2026 | ❌ |            |
-| A definir     | Modelagem Processos (BPMN)      | 25/03/2026 | 10/04/2026 | ❌ |            |
-| A definir     | Extensão: Comprovação Visita (Fotos) | 25/03/2026 | 10/04/2026 | ❌ |            |
+| Heron Victor  | Backend: Autenticação, Cálculos e Regras| 20/03/2026 | 30/03/2026 | ✔️ | 30/03/2026 |
+| Heron Victor  | BD e Estrutura Frontend Inicial         | 20/03/2026 | 30/03/2026 | ✔️ | 30/03/2026 |
+| A definir     | Validação de Processos e Lógica         | 31/03/2026 | 10/04/2026 | ❌ |            |
+| A definir     | Frontend Oficial: Tela de Login/Dashboard| 25/03/2026 | 10/04/2026 | ❌ |            |
+| A definir     | Modelagem Processos de Negócio (BPMN)   | 25/03/2026 | 10/04/2026 | ❌ |            |
+| A definir     | Extensão: Comprovação Visita (Fotos)    | 25/03/2026 | 10/04/2026 | ❌ |            |
 
 #### Sprint 3
 
 | Responsável   | Tarefa/Requisito | Iniciado em | Prazo | Status | Terminado em |
 | :----         | :----            | :----:      | :----:| :----: | :----:       |
-| A definir     | Frontend: Telas Lançamento  | - | - | ❌ | |
-| A definir     | Frontend: Integração API    | - | - | ❌ | |
-| A definir     | Gamificação e Impacto       | - | - | ❌ | |
+| A definir     | Frontend: Telas Lançamento e API    | - | - | ❌ | |
+| A definir     | Gamificação e Validação de Fluxos   | - | - | ❌ | |
+| A definir     | Suporte Back-end / Banco de Dados   | - | - | ❌ | |
 
 #### Sprint 4
 
 | Responsável   | Tarefa/Requisito | Iniciado em | Prazo | Status | Terminado em |
 | :----         | :----            | :----:      | :----:| :----: | :----:       |
-| Heron        | Backend: Regra de Alertas (15%) | - | - | ✔️ | 17/03/2026 |
-| A definir     | Backend: Resíduos/Relatórios | - | - | ❌ | |
-| A definir     | Execução Testes de Software | - | - | ❌ | |
+| Heron         | Backend: Regra de Alertas (15%) | - | - | ✔️ | 17/03/2026 |
+| A definir     | Resíduos, Relatórios e Dashboard| - | - | ❌ | |
+| A definir     | Execução Testes de Software     | - | - | ❌ | |
 
 #### Sprint 5
 

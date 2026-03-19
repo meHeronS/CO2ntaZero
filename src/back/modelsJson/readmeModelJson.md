@@ -36,4 +36,4 @@ curl -X POST http://localhost:5000/api/auth/login \
   -d @authLogin.json
 ```
 
-> **Nota**: Lembre-se que os valores nos arquivos são apenas exemplos. Você deve substituí-los pelos dados reais da sua requisição. Para mais detalhes sobre cada endpoint, consulte o `README-backend.md`.
+> **Nota**: Lembre-se que os valores nos arquivos são apenas exemplos. Você deve substituí-los pelos dados reais da sua requisição. Para mais detalhes sobre cada endpoint, consulte o `README.md` localizado na raiz da pasta do backend.

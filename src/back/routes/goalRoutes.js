@@ -9,6 +9,8 @@ import {
 } from "../controllers/goalController.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { auditMiddleware } from "../middlewares/auditMiddleware.js";
+import { validate } from "../validators/validationMiddleware.js";
+import { createGoalSchema, updateGoalSchema } from "../validators/goalValidation.js";
 
 const router = express.Router();
 
@@ -19,10 +21,10 @@ router.get("/", authMiddleware, getGoals);
 router.get("/:id", authMiddleware, getGoalById);
 
 // Rota para criar uma nova meta.
-router.post("/", authMiddleware, auditMiddleware("CREATE_GOAL"), createGoal);
+router.post("/", authMiddleware, validate(createGoalSchema), auditMiddleware("CREATE_GOAL"), createGoal);
 
 // Rota para atualizar uma meta existente.
-router.put("/:id", authMiddleware, auditMiddleware("UPDATE_GOAL"), updateGoal);
+router.put("/:id", authMiddleware, validate(updateGoalSchema), auditMiddleware("UPDATE_GOAL"), updateGoal);
 
 // Rota para remover uma meta.
 router.delete("/:id", authMiddleware, auditMiddleware("DELETE_GOAL"), deleteGoal);

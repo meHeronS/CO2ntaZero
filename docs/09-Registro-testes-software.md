@@ -14,6 +14,38 @@ Para cada caso de teste definido no <a href="08-Plano-testes-software.md"> Plano
 
  *(Aguardando execução e registro de evidências)*
 
+| **Caso de teste** 	| **CT-002 – Cadastro de Consumo** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-001 - Cadastro de faturas de consumo. |
+
+ Responsável pelo registro da evidência: Saulo Luiz.
+
+ *(Aguardando execução e registro de evidências)*
+
+| **Caso de teste** 	| **CT-003 – Isolamento de Dados (Single Owner)** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-006 - Isolamento lógico de dados. |
+ 
+ Responsável pelo registro da evidência: Joao Vinicius.
+ 
+ *(Aguardando execução e registro de evidências)*
+
+| **Caso de teste** 	| **CT-004 – Motor de Anomalias (Regra de 15%)** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-003 - Validação de variações mensais e alertas. |
+ 
+ Responsável pelo registro da evidência: Heron Victor.
+ 
+ *(Aguardando execução e registro de evidências)*
+
+| **Caso de teste** 	| **CT-005 – Gestão de Metas** 	|
+|:---:	|:---:	|
+| Requisito associado | RF-004 - Gamificação e conscientização de metas. |
+ 
+ Responsável pelo registro da evidência: Gustavo Costa.
+ 
+ *(Aguardando execução e registro de evidências)*
+
 > **Links úteis**:
 > - [Screencast: entenda o que é e como gravar vídeos com ele](https://rockcontent.com/br/blog/screencast/)
 
@@ -23,25 +55,3 @@ Discorra sobre os resultados do teste, ressaltando os pontos fortes e fracos ide
 
 > **Links úteis**:
 > - [Ferramentas de Teste para JavaScript](https://geekflare.com/javascript-unit-testing/)
-
-| **Caso de teste** 	| **CT-003 – Isolamento de Dados (Single Owner)** 	|
-|:---:	|:---:	|
-| Requisito associado | RF-006 - Isolamento lógico de dados. |
- 
- Responsável pelo registro da evidência: Joao Vinicius.
- *(Aguardando execução e registro de evidências)*
-
-| **Caso de teste** 	| **CT-004 e CT-005 – Motor de Anomalias e Metas** 	|
-|:---:	|:---:	|
-| Requisito associado | RF-003, RF-004. |
- 
- Responsável pelo registro da evidência: Grupo.
- *(Aguardando execução e registro de evidências)*
-
-| **Caso de teste** 	| **CT-002 – Cadastro de Consumo** 	|
-|:---:	|:---:	|
-| Requisito associado | RF-001 - Cadastro de faturas de consumo. |
-
- Responsável pelo registro da evidência: Saulo Luiz.
-
- *(Aguardando execução e registro de evidências)*

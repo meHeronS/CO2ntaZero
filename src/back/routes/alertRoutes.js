@@ -10,6 +10,8 @@ import {
 
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { auditMiddleware } from "../middlewares/auditMiddleware.js";
+import { validate } from "../validators/validationMiddleware.js";
+import { createAlertSchema } from "../validators/alertValidation.js";
 
 const router = express.Router();
 
@@ -20,7 +22,7 @@ router.get("/", authMiddleware, getAllAlerts);
 router.get("/:id", authMiddleware, getAlertById);
 
 // Criar alerta
-router.post("/", authMiddleware, auditMiddleware("CREATE_ALERT"), createAlert);
+router.post("/", authMiddleware, validate(createAlertSchema), auditMiddleware("CREATE_ALERT"), createAlert);
 
 // Marcar como lido
 router.patch("/:id/read", authMiddleware, auditMiddleware("READ_ALERT"), markAsRead);

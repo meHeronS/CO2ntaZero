@@ -160,11 +160,11 @@ REFERENCIAL DE BASES DE DADOS (CORROBORADO PELO GOVERNO)
 
 1. BRASIL. Ministério da Ciência, Tecnologia e Inovações (MCTI). SIRENE - Fatores
    de Emissão de Eletricidade: Sistema Interligado Nacional (SIN). Brasília, 2025.
-   Link: https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/sirene/emissoes/fatores-de-emissao-de-eletricidade
+   Link: https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/sirene/emissoes/
 
 2. FGVces. Programa Brasileiro GHG Protocol: Ferramenta de Cálculo v2026.0.1.
    São Paulo: FGV, 2026.
-   Link: https://eaesp.fgv.br/centros/centro-estudos-sustentabilidade/programas/programa-brasileiro-ghg-protocol
+   Link: https://eaesp.fgv.br/centros/centro-estudos-sustentabilidade/projetos/programa-brasileiro-ghg-protocol
 
 3. EMPRESA DE PESQUISA ENERGÉTICA (EPE). Balanço Energético Nacional (BEN):
    Fatores de Conversão. Rio de Janeiro: EPE, 2024.
@@ -172,7 +172,7 @@ REFERENCIAL DE BASES DE DADOS (CORROBORADO PELO GOVERNO)
 
 4. BRASIL. Ministério das Cidades. Sistema Nacional de Informações sobre Saneamento
    (SNIS): Diagnósticos de Água e Resíduos. Brasília: SNS, 2024.
-   Link: http://www.snis.gov.br/paineis-de-informacoes-sobre-saneamento
+   Link: https://www.gov.br/cidades/pt-br/acesso-a-informacao/acoes-e-programas/saneamento/snis
 
 --------------------------------------------------------------------------------
 ROADMAP DE SPRINTS (1º Semestre 2026)

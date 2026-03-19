@@ -20,6 +20,14 @@ import cors from "cors";
 // para proteger a aplicação contra vulnerabilidades conhecidas na web.
 import helmet from "helmet";
 
+// Middleware para limitar o número de requisições de um mesmo IP,
+// prevenindo ataques de força bruta e negação de serviço (DDoS).
+import rateLimit from "express-rate-limit";
+
+// Middleware para analisar (parsear) os cookies enviados nas requisições HTTP.
+// Essencial para a nova lógica de segurança com Cookies HttpOnly.
+import cookieParser from "cookie-parser";
+
 // Carrega as variáveis de ambiente definidas no arquivo .env para o objeto
 // `process.env`, permitindo o acesso a configurações sensíveis (como senhas e chaves secretas)
 // de forma segura, sem expô-las no código-fonte.
@@ -68,8 +76,24 @@ const app = express();
 // ============================================================
 
 // Middleware para habilitar o CORS (Cross-Origin Resource Sharing),
-// permitindo que o frontend acesse a API a partir de uma origem diferente.
-app.use(cors());
+// autorizando origens específicas e o uso de credenciais (Cookies).
+const allowedOrigins = [
+  "http://localhost:3000", // Frontend Legado Local
+  "http://localhost:3001", // Frontend React Local
+  "https://co2ntazero.vercel.app" // Frontend Produção (Vercel)
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // Permite requisições sem origin (ex: Postman) ou requisições das origens autorizadas
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Bloqueado pela política de CORS do servidor.'));
+    }
+  },
+  credentials: true // OBRIGATÓRIO: Permite o tráfego de Cookies HttpOnly
+}));
 
 // Middleware de segurança Helmet. Adiciona proteção contra XSS, Clickjacking, 
 // e remove o cabeçalho 'X-Powered-By' que expõe a tecnologia do servidor.
@@ -87,6 +111,23 @@ app.use(express.urlencoded({ extended: true }));
 // Em ambiente de teste (`test`), usa um formato 'tiny' (sem cores) para manter os logs limpos.
 // Em qualquer outro ambiente, usa o formato 'dev' (colorido) para facilitar a depuração.
 app.use(morgan(process.env.NODE_ENV === 'test' ? 'tiny' : 'dev'));
+
+// Middleware nativo para interpretar Cookies de forma segura
+app.use(cookieParser());
+
+// ============================================================
+// --- 3.1. PREVENÇÃO CONTRA FORÇA BRUTA (Rate Limiting) ---
+// ============================================================
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // Janela de 15 minutos
+  max: 100, // Limita a 100 requisições por IP dentro dessa janela
+  message: { status: 429, message: "Muitas requisições geradas deste IP, tente novamente em 15 minutos." },
+  standardHeaders: true, // Retorna os cabeçalhos de rate limit padrão na resposta (`RateLimit-*`)
+  legacyHeaders: false, // Desabilita os cabeçalhos antigos (`X-RateLimit-*`)
+});
+
+// Aplica o limite de taxa em todas as rotas que começam com "/api"
+app.use("/api/", apiLimiter);
 
 // ============================================================
 // --- 4. ROTA DE VERIFICAÇÃO DE SAÚDE (Health Check) ---
@@ -151,24 +192,24 @@ const getDbUri = () => {
  */
 export async function startServer({ dbUri = getDbUri(), port = PORT } = {}) {
   try {
-    console.log('⏳ Iniciando servidor CO2ntaZero (startServer)...');
+    console.log('Iniciando servidor CO2ntaZero (startServer)...');
     
     const dbHost = dbUri?.split('@')[1]?.split('/')[0] || 'Local/Desconhecido';
     await connectDB(dbUri); // Passa a URI de conexão correta para a função connectDB
-    console.log(`🗄️  Conectado ao MongoDB em: ${dbHost}`);
-    console.log('✅ [1/1] Conexão com o banco de dados estabelecida!');
+    console.log(`Conectado ao MongoDB em: ${dbHost}`);
+    console.log('[1/1] Conexão com o banco de dados estabelecida!');
 
     // Lógica aprimorada para tentar portas alternativas se a padrão estiver em uso.
     const startListening = (currentPort) => {
       return new Promise((resolve, reject) => {
         server = app.listen(currentPort, () => {
-          console.log(`✅ Servidor rodando na porta ${currentPort}`);
+          console.log(`Servidor rodando na porta ${currentPort}`);
           // Atualiza a variável de ambiente PORT para que o resto da aplicação saiba qual porta está em uso.
           process.env.PORT = currentPort;
           resolve(server);
         }).on('error', (err) => {
           if (err.code === 'EADDRINUSE') {
-            console.warn(`⚠️  Aviso: Porta ${currentPort} está em uso. Tentando porta ${currentPort + 1}...`);
+            console.warn(`Aviso: Porta ${currentPort} está em uso. Tentando porta ${currentPort + 1}...`);
             resolve(startListening(currentPort + 1)); // Tenta a próxima porta recursivamente.
           } else {
             reject(err);
@@ -198,7 +239,7 @@ export async function stopServer() {
         console.warn('Aviso: falha ao desconectar do mongoose durante stopServer.', e.message);
       }
       server = undefined;
-      console.log('✅ Servidor e conexão com MongoDB encerrados (stopServer).');
+      console.log('Servidor e conexão com MongoDB encerrados (stopServer).');
       resolve();
     });
   });
@@ -223,9 +264,9 @@ if (process.env.NODE_ENV !== 'test') {
 // Ouve por sinais de encerramento do processo (como Ctrl+C) para garantir
 // que o servidor e a conexão com o banco de dados sejam finalizados de forma limpa.
 async function gracefulShutdown(signal) {
-  console.log(`\n🚨 Recebido sinal ${signal}. Inciando graceful shutdown...`);
+  console.log(`\nRecebido sinal ${signal}. Inciando graceful shutdown...`);
   await stopServer();
-  console.log('✅ Processo finalizado com sucesso.');
+  console.log('Processo finalizado com sucesso.');
   process.exit(0);
 }
 process.on('SIGINT', gracefulShutdown);

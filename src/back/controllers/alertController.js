@@ -1,4 +1,5 @@
 
+import mongoose from "mongoose";
 import Alert from "../models/Alert.js";
 import { createLog } from "../utils/logger.js";
 import { successResponse, errorResponse } from "../utils/responseHelper.js";
@@ -11,16 +12,21 @@ import { successResponse, errorResponse } from "../utils/responseHelper.js";
 export const getAllAlerts = async (req, res) => {
   try {
     const companyId = req.user.companyId;
-    const { limit = 20, read } = req.query;
+    const { limit = 20, page = 1, read } = req.query;
     
     const filter = { companyId };
     if (read !== undefined) filter.read = read === "true";
 
+    const skip = (Number(page) - 1) * Number(limit);
+
     const items = await Alert.find(filter)
       .sort({ createdAt: -1 })
-      .limit(parseInt(limit));
+      .skip(skip)
+      .limit(Number(limit));
       
-    return successResponse(res, { data: items });
+    const total = await Alert.countDocuments(filter);
+
+    return successResponse(res, { data: items, pagination: { total, page: Number(page), pages: Math.ceil(total / Number(limit)) } });
   } catch (error) {
     return errorResponse(res, { status: 500, message: "Erro ao listar alertas.", errors: error });
   }
@@ -34,6 +40,8 @@ export const getAllAlerts = async (req, res) => {
 export const getAlertById = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) return errorResponse(res, { status: 400, message: "ID de alerta inválido." });
+
     const companyId = req.user.companyId;
 
     const alert = await Alert.findOne({ _id: id, companyId });
@@ -87,6 +95,8 @@ export const createAlert = async (req, res) => {
 export const markAsRead = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) return errorResponse(res, { status: 400, message: "ID de alerta inválido." });
+
     const companyId = req.user.companyId;
 
     const updated = await Alert.findOneAndUpdate(
@@ -111,6 +121,8 @@ export const markAsRead = async (req, res) => {
 export const deleteAlert = async (req, res) => {
   try {
       const { id } = req.params;
+      if (!mongoose.Types.ObjectId.isValid(id)) return errorResponse(res, { status: 400, message: "ID de alerta inválido." });
+
       const companyId = req.user.companyId;
 
       const deleted = await Alert.findOneAndDelete({ _id: id, companyId });

@@ -44,10 +44,12 @@ describe('3. Teste de Isolamento de Dados (Single Owner)', () => {
             const companyData = {
                 name: `Admin Tenant ${i}`,
                 email: `tenant${i}_${timestamp}@test.com`,
+                cpf: String(timestamp + i).padEnd(11, '0').slice(0, 11),
                 password: 'password123',
                 companyName: `Company Tenant ${i} ${timestamp}`,
-                // CNPJ fake generator
-                cnpj: String(timestamp + i).padEnd(14, '0').slice(0, 14)
+                type: 'BUSINESS',
+                cnpj: String(timestamp + i).padEnd(14, '0').slice(0, 14),
+                companyEmail: `contato_${timestamp}@test.com`
             };
 
             try {
@@ -71,7 +73,7 @@ describe('3. Teste de Isolamento de Dados (Single Owner)', () => {
                     items: [] // Will store created IDs here
                 });
 
-                console.log(`✅ Empresa ${i} (${companyData.companyName}) criada e logada.`);
+                console.log(`Empresa ${i} (${companyData.companyName}) criada e logada.`);
             } catch (error) {
                 console.error(`Erro ao criar empresa ${i}:`, error.response?.data || error.message);
                 throw error;
@@ -89,13 +91,10 @@ describe('3. Teste de Isolamento de Dados (Single Owner)', () => {
             // Consumo logic (Environmental)
             const consumptionData = {
                 date: new Date().toISOString(),
-                resourceType: 'electricity_grid', // Must match valid types in your model/controller
-                amount: 100 * (i + 1),            // Amount of resource
+                resourceType: 'electricity',
+                quantity: 100 * (i + 1),
                 unit: 'kWh',
-                description: `Consumo Teste Isolamento ${company.companyName}`,
-                // Location or other required fields? 
-                // Based on previous files, maybe source/scope? 
-                // Adding generic fields that might be required
+                notes: `Consumo Teste Isolamento ${company.companyName}`,
             };
 
             try {

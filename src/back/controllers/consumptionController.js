@@ -60,7 +60,7 @@ const checkAnomaly = async (companyId, resourceType, currentQuantity, consumptio
 export const getAllConsumptions = async (req, res) => {
   try {
     const companyId = req.user.companyId;
-    const { start, end, resourceType } = req.query;
+    const { start, end, resourceType, page = 1, limit = 50 } = req.query;
     const filter = { companyId };
 
     if (start || end) {
@@ -70,8 +70,16 @@ export const getAllConsumptions = async (req, res) => {
     }
     if (resourceType) filter.resourceType = resourceType;
 
-    const items = await Consumption.find(filter).sort({ date: -1 });
-    return successResponse(res, { data: items });
+    const skip = (Number(page) - 1) * Number(limit);
+
+    const items = await Consumption.find(filter)
+      .sort({ date: -1 })
+      .skip(skip)
+      .limit(Number(limit));
+
+    const total = await Consumption.countDocuments(filter);
+
+    return successResponse(res, { data: items, pagination: { total, page: Number(page), pages: Math.ceil(total / Number(limit)) } });
   } catch (error) {
     return errorResponse(res, { status: 500, message: "Erro ao listar consumos", errors: error.message });
   }
@@ -124,7 +132,8 @@ export const createConsumption = async (req, res) => {
 
     // 4. Motor de Anomalias
     // Parâmetros: companyId, resourceType, currentQuantity, consumptionId, userId
-    checkAnomaly(companyId, resourceType, quantity, newConsumption._id, req.user.userId);
+    // Executa em background de forma segura (capturando erros para não quebrar a API)
+    checkAnomaly(companyId, resourceType, quantity, newConsumption._id, req.user.userId).catch(err => console.error("[Background Task Error] Motor de Anomalias:", err));
 
     return successResponse(res, { status: 201, data: newConsumption });
   } catch (error) {
@@ -135,11 +144,13 @@ export const createConsumption = async (req, res) => {
 export const updateConsumption = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) return errorResponse(res, { status: 400, message: "ID de consumo inválido." });
+
     const companyId = req.user.companyId;
     const updates = req.body;
 
-    // Se atualizar quantidade ou tipo, recalcula pegada
-    if (updates.quantity || updates.resourceType) {
+    // Se atualizar quantidade, tipo OU UNIDADE, recalcula pegada
+    if (updates.quantity !== undefined || updates.resourceType || updates.unit) {
         const original = await Consumption.findOne({ _id: id, companyId });
         if(!original) return errorResponse(res, { status: 404, message: "Consumo não encontrado" });
         
@@ -176,6 +187,8 @@ export const updateConsumption = async (req, res) => {
 export const deleteConsumption = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) return errorResponse(res, { status: 400, message: "ID de consumo inválido." });
+
     const companyId = req.user.companyId;
 
     const deleted = await Consumption.findOneAndDelete({ _id: id, companyId });

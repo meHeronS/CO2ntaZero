@@ -8,6 +8,9 @@ import {
     updateWaste,
     deleteWaste 
 } from '../controllers/wasteController.js';
+import { validate } from "../validators/validationMiddleware.js";
+import { createWasteSchema, updateWasteSchema } from "../validators/wasteValidation.js";
+import { auditMiddleware } from "../middlewares/auditMiddleware.js";
 
 const router = express.Router();
 
@@ -21,11 +24,11 @@ router.use(protect);
 
 router.route('/')
     .get(getWastes) // GET /api/wastes - Lista com filtro e paginação
-    .post(createWaste); // POST /api/wastes - Cria novo registro
+    .post(validate(createWasteSchema), auditMiddleware("CREATE_WASTE"), createWaste); // POST /api/wastes - Cria novo registro
 
 router.route('/:id')
     .get(getWasteById) // GET /api/wastes/:id - Detalhes
-    .put(updateWaste) // PUT /api/wastes/:id - Atualiza
-    .delete(deleteWaste); // DELETE /api/wastes/:id - Remove
+    .put(validate(updateWasteSchema), auditMiddleware("UPDATE_WASTE"), updateWaste) // PUT /api/wastes/:id - Atualiza
+    .delete(auditMiddleware("DELETE_WASTE"), deleteWaste); // DELETE /api/wastes/:id - Remove
 
 export default router;

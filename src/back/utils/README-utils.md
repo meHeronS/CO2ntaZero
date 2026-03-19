@@ -1,4 +1,4 @@
-# 🛠️ Pasta `utils` - Utilitários do Sistema
+# Pasta `utils` - Utilitários do Sistema
 
 Esta pasta contém funções e módulos auxiliares (utilitários) que são reutilizados em várias partes do backend. O objetivo principal desta pasta é centralizar código genérico, promovendo a reutilização e evitando a duplicação de lógica (princípio DRY - Don't Repeat Yourself).
 
@@ -14,7 +14,7 @@ Esta pasta contém funções e módulos auxiliares (utilitários) que são reuti
 
 ### `constants.js`
 
-**Função:** Armazena valores constantes do sistema, como os nomes das permissões (`ROOT`, `ADMIN_COMPANY`). Isso evita o uso de "strings mágicas" espalhadas pelo código, o que previne erros de digitação e facilita a manutenção.
+**Função:** Armazena valores constantes e globais do sistema. Isso evita o uso de "strings mágicas" espalhadas pelo código, o que previne erros de digitação e facilita a manutenção.
 
 ### `logger.js`
 

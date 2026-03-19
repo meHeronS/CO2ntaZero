@@ -1,4 +1,4 @@
-# 📄 Guia de Integração Frontend-Backend (Exemplos Práticos)
+# Guia de Integração Frontend-Backend (Exemplos Práticos)
 
 Este documento é um guia técnico que detalha como o frontend (construído com HTML, CSS e JavaScript puro) se comunica com a API RESTful do backend para criar uma aplicação funcional.
 
@@ -20,12 +20,13 @@ A segurança e o acesso aos dados são controlados por JSON Web Tokens (JWT).
 1.  **Ação:** O usuário preenche o e-mail e a senha em `login.html` e clica em "Entrar".
 2.  **Frontend (`login.js`):** Envia uma requisição `POST` para `/api/auth/login` com as credenciais.
 3.  **Backend:** Valida as credenciais. Se corretas, gera um `token` (access token, de curta duração) e um `refreshToken` (longa duração) e os retorna.
-4.  **Frontend:** Recebe os tokens e os salva no `localStorage` do navegador. O `localStorage` é um armazenamento persistente que mantém os dados mesmo após fechar o navegador.
+4.  **Frontend/Backend:** O backend agora envia os tokens prioritariamente através de **Cookies Seguros (`HttpOnly`)**, prevenindo ataques XSS. Para manter compatibilidade com o frontend legado, os tokens também são recebidos no payload JSON (`data.token`) e salvos no `localStorage`.
     ```javascript
     // Exemplo de código em /js/pages/login.js
-    localStorage.setItem('token', data.token);
-    localStorage.setItem('refreshToken', data.refreshToken);
-    localStorage.setItem('user', JSON.stringify(data.user)); // Salva dados do usuário para exibição na UI
+    const payload = responseJson.data ? responseJson.data : responseJson;
+    localStorage.setItem('token', payload.token);
+    localStorage.setItem('refreshToken', payload.refreshToken);
+    localStorage.setItem('user', JSON.stringify(payload.user)); // Salva dados do usuário para exibição na UI
     ```
 5.  **Redirecionamento:** O usuário é redirecionado para a `startPage.html`.
 
@@ -45,7 +46,8 @@ Uma vez logado, toda requisição para buscar ou modificar dados em rotas proteg
             'Authorization': `Bearer ${token}` // Token é enviado aqui!
         }
     });
-    const consumptions = await response.json();
+    const responseJson = await response.json();
+    const consumptions = responseJson.data; // Os dados da API vêm dentro do wrapper "data"
     ```
 3.  **Backend:** O middleware `authMiddleware.js` no servidor intercepta a requisição, valida o token e extrai o `companyId` do usuário. A busca no banco de dados é então filtrada por este `companyId`, garantindo o isolamento dos dados.
 
@@ -90,7 +92,7 @@ Uma vez logado, toda requisição para buscar ou modificar dados em rotas proteg
     3.  **Ação do Frontend (O Interceptador):**
         a.  O script do frontend intercepta essa resposta `401`.
         b.  Ele pega o `refreshToken` que está salvo no `localStorage`.
-        c.  Faz uma requisição `POST` para o endpoint `/api/auth/refresh-token` enviando o `refreshToken`.
+        c.  Faz uma requisição `POST` para o endpoint `/api/auth/refresh` enviando o `refreshToken` (junto com a flag `credentials: 'include'` no fetch).
     4.  **Resposta do Backend (Refresh):** Se o `refreshToken` for válido, o backend gera um **novo** `token` de acesso e o retorna.
     5.  **Ação Final do Frontend:**
         a.  O script salva o novo `token` no `localStorage`, substituindo o antigo.
@@ -110,89 +112,46 @@ Esta seção serve como um guia rápido para consumir os principais endpoints da
 
 -   **Listar todos os consumos:** `GET /api/consumptions`
 -   **Criar um novo consumo:** `POST /api/consumptions`
-    -   **Body**: `{ "description": "Conta de Luz", "amount": 500, "unit": "kWh", "type": "energy", "date": "2026-03-13T12:00:00.000Z" }`
+    -   **Body**: `{ "notes": "Conta de Luz", "quantity": 500, "unit": "kWh", "resourceType": "electricity", "date": "2026-03-13T12:00:00.000Z" }`
 -   **Atualizar um consumo:** `PUT /api/consumptions/{id}`
-    -   **Body**: `{ "amount": 550 }`
+    -   **Body**: `{ "quantity": 550 }`
 -   **Excluir um consumo:** `DELETE /api/consumptions/{id}`
 
 ---
 
-### b. Anexos de Consumos
-**Contexto:** `consumptions.html` (em um modal de detalhes do consumo).
-
--   **Fazer Upload de um anexo (PDF ou Imagem):** `POST /api/consumptions/{id}/upload`
-    -   **Body**: Requer um objeto `FormData` contendo o arquivo.
-    -   **Exemplo de implementação no Frontend:**
-        ```javascript
-        // Em um script que manipula o formulário de upload
-        const fileInput = document.querySelector('#meu-input-de-arquivo');
-        const consumptionId = 'ID_DO_CONSUMO';
-        const token = localStorage.getItem('token');
-
-        const formData = new FormData();
-        formData.append('attachment', fileInput.files); // 'attachment' é o nome do campo esperado pelo backend
-
-        fetch(`/api/consumptions/${consumptionId}/upload`, {
-          method: 'POST',
-          headers: { 
-            // NÃO defina 'Content-Type', o navegador fará isso automaticamente para FormData
-            'Authorization': `Bearer ${token}` 
-          },
-          body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Upload bem-sucedido:', data.message);
-            // Aqui você pode atualizar a UI para mostrar o link do anexo
-        })
-        .catch(error => console.error('Erro no upload:', error));
-        ```
--   **Excluir um anexo:** `DELETE /api/consumptions/{id}/upload`
-
----
-
-### c. Metas (CRUD)
+### b. Metas (CRUD)
 **Contexto:** `metas.html` e `js/pages/metas.js`.
 
 -   **Listar todas as metas:** `GET /api/goals`
 -   **Criar uma nova meta:** `POST /api/goals`
-    -   **Body**: `{ "title": "Reduzir 10% de Energia", "targetAmount": 450, "type": "reduction" }`
+    -   **Body**: `{ "title": "Reduzir 10% de Energia", "resourceType": "electricity", "targetReductionPercentage": 10, "baselineConsumption": 500, "startDate": "2026-03-01T00:00:00.000Z", "deadline": "2026-12-31T00:00:00.000Z" }`
 -   **Atualizar uma meta:** `PUT /api/goals/{id}`
 -   **Excluir uma meta:** `DELETE /api/goals/{id}`
 
 ---
 
-### d. Geração de Relatórios
+### c. Geração de Relatórios
 **Contexto:** `relatorios.html` e `js/pages/reports.js`.
 
--   **Exportar Relatório de Emissões em PDF:** `GET /api/reports/export/consumptions-pdf`
-    -   **Explicação:** Este endpoint retorna um arquivo PDF diretamente. O frontend precisa tratar a resposta como um `blob` para iniciar o download.
+-   **Obter Relatório de Emissões (JSON):** `GET /api/reports/emissions`
+    -   **Explicação:** Este endpoint retorna um resumo consolidado das emissões.
     -   **Exemplo de implementação no Frontend:**
         ```javascript
         // Em um script na página de relatórios
         const token = localStorage.getItem('token');
 
-        fetch('/api/reports/export/consumptions-pdf', {
+        fetch('/api/reports/emissions', {
             method: 'GET',
             headers: { 'Authorization': `Bearer ${token}` }
         })
-        .then(response => response.blob()) // Converte a resposta para um blob
-        .then(blob => {
-            const url = window.URL.createObjectURL(blob); // Cria uma URL temporária para o arquivo
-            const a = document.createElement('a'); // Cria um link temporário
-            a.href = url;
-            a.download = 'relatorio-emissoes.pdf'; // Define o nome do arquivo
-            document.body.appendChild(a);
-            a.click(); // Simula o clique para iniciar o download
-            a.remove(); // Remove o link da página
-            window.URL.revokeObjectURL(url); // Libera a memória
-        })
+        .then(response => response.json())
+        .then(data => console.log('Relatório de Emissões:', data))
         .catch(error => console.error('Erro ao gerar relatório:', error));
         ```
 
 ---
 
-### e. Recuperação de Senha
+### d. Recuperação de Senha
 **Contexto:** `forgot-password.html` e `reset-password.html`.
 
 Este é um fluxo de duas etapas.
@@ -284,29 +243,3 @@ O backend agora gera alertas automaticamente quando metas de emissão ou limites
         }
     });
     ```
-
----
-
-### g. Notificações Push
-**Contexto:** `perfil.html` (em uma seção de configurações).
-
--   **Inscrever um navegador para receber notificações:** `POST /api/notifications/subscribe`
-    -   **Body**: O objeto `PushSubscription` gerado pelo navegador. O frontend deve obter este objeto (após o usuário permitir notificações) e enviá-lo para este endpoint.
-    -   **Exemplo de implementação no Frontend:**
-        ```javascript
-        // Esta função pode ser chamada quando o usuário ativa um toggle de notificações
-        async function subscribeUser() {
-            const registration = await navigator.serviceWorker.ready;
-            const subscription = await registration.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: 'SUA_VAPID_PUBLIC_KEY_DO_BACKEND'
-            });
-
-            // Envia o objeto 'subscription' para o backend
-            await fetch('/api/notifications/subscribe', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify(subscription)
-            });
-        }
-        ```

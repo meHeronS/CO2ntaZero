@@ -68,3 +68,35 @@ export const changePassword = async (req, res) => {
     return errorResponse(res, { status: 500, message: "Erro ao alterar senha.", errors: error });
   }
 };
+
+export const switchActiveCompany = async (req, res) => {
+  try {
+    const { companyId } = req.body;
+    
+    if (!mongoose.Types.ObjectId.isValid(companyId)) {
+      return errorResponse(res, { status: 400, message: "ID de unidade inválido." });
+    }
+
+    const user = await User.findById(req.user.userId);
+    
+    // Segurança: Verifica se o usuário é realmente dono dessa unidade
+    if (!user.companies.some(id => id.toString() === companyId)) {
+      return errorResponse(res, { status: 403, message: "Acesso negado. Esta unidade não pertence a você." });
+    }
+
+    user.companyId = companyId;
+    await user.save();
+
+    await createLog({
+      userId: user._id,
+      companyId: companyId, // Log gerado já no contexto da nova empresa
+      action: "SWITCH_COMPANY",
+      description: `Contexto alterado para a unidade: ${companyId}`,
+      route: req.originalUrl,
+    });
+
+    return successResponse(res, { message: "Unidade ativa alterada com sucesso.", data: { activeCompanyId: companyId } });
+  } catch (error) {
+    return errorResponse(res, { status: 500, message: "Erro ao trocar de unidade.", errors: error });
+  }
+};

@@ -12,8 +12,8 @@ Estes exemplos são úteis para:
 ### `users.json` (Dados de Usuários)
 
 **Função:** Representa os dados de um **usuário** do sistema.
--   Contém informações de login (email, senha), o nome do usuário e a qual empresa (`companyId`) e permissão (`role`) ele está associado.
--   **Observação:** O campo `password` é enviado apenas no momento do cadastro. O sistema o converte para um `passwordHash` e nunca o armazena em texto plano.
+-   Contém informações de login (email), o nome do usuário, CPF e a qual empresa principal (`companyId`) ele está associado, além da lista de todas as empresas que ele gerencia (`companies`).
+-   **Observação:** O sistema converte a senha enviada no cadastro para um `passwordHash` e nunca a expõe nos retornos da API.
 
 ### `companies.json` (Empresas)
 

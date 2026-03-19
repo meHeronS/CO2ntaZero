@@ -34,6 +34,7 @@ async function refreshToken() {
     const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include', // Permite que o navegador envie o Cookie do Refresh Token automaticamente
       body: JSON.stringify({ token: currentRefreshToken }),
     });
 
@@ -42,9 +43,12 @@ async function refreshToken() {
       throw new Error('Falha ao renovar o token.');
     }
 
-    const data = await response.json();
-    localStorage.setItem('token', data.token); // Salva o novo access token
-    return data.token;
+    const responseJson = await response.json();
+    // Pega o token de dentro do 'data' (novo padrão) ou direto da raiz (padrão antigo)
+    const token = responseJson.data ? responseJson.data.token : responseJson.token;
+    
+    localStorage.setItem('token', token); // Salva o novo access token
+    return token;
   } catch (error) {
     // Qualquer erro na tentativa de renovação (seja de rede ou pela resposta da API)
     // resultará na falha da renovação.
@@ -74,8 +78,15 @@ export async function apiRequest(endpoint, options = {}) {
     headers['Authorization'] = `Bearer ${token}`;
   }
 
+  // Mescla as opções garantindo que os cookies seguros sejam incluídos nas requisições cross-origin
+  const fetchOptions = {
+    ...options,
+    headers,
+    credentials: 'include' // OBRIGATÓRIO: Instrui o navegador a enviar os Cookies HttpOnly
+  };
+
   // Realiza a primeira tentativa de requisição
-  let response = await fetch(`${API_BASE_URL}${endpoint}`, { ...options, headers });
+  let response = await fetch(`${API_BASE_URL}${endpoint}`, fetchOptions);
 
   // Verifica se a requisição falhou com status 401 (Não Autorizado),
   // o que geralmente indica que o Access Token expirou.
@@ -89,7 +100,8 @@ export async function apiRequest(endpoint, options = {}) {
       // Se a renovação foi bem-sucedida, atualiza o header e tenta a requisição original novamente
       console.log('Token renovado com sucesso. Repetindo a requisição original...');
       headers['Authorization'] = `Bearer ${newAccessToken}`;
-      response = await fetch(`${API_BASE_URL}${endpoint}`, { ...options, headers });
+      fetchOptions.headers = headers; // Atualiza os headers na configuração
+      response = await fetch(`${API_BASE_URL}${endpoint}`, fetchOptions);
     } else {
       // Se a renovação falhou (ex: refresh token também expirou), desloga o usuário.
       console.log('Refresh token inválido ou expirado. Deslogando...');

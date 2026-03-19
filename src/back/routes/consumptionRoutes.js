@@ -9,6 +9,8 @@ import {
 } from "../controllers/consumptionController.js";
 import { authMiddleware } from "../middlewares/authMiddleware.js";
 import { auditMiddleware } from "../middlewares/auditMiddleware.js";
+import { validate } from "../validators/validationMiddleware.js";
+import { createConsumptionSchema, updateConsumptionSchema } from "../validators/consumptionValidation.js";
 
 const router = express.Router();
 
@@ -19,10 +21,10 @@ router.get("/", authMiddleware, getAllConsumptions);
 router.get("/:id", authMiddleware, getConsumptionById);
 
 // Criar um novo registro de consumo (gera log de auditoria e pode disparar alertas)
-router.post("/", authMiddleware, auditMiddleware("CREATE_CONSUMPTION"), createConsumption);
+router.post("/", authMiddleware, validate(createConsumptionSchema), auditMiddleware("CREATE_CONSUMPTION"), createConsumption);
 
 // Atualizar consumo existente
-router.put("/:id", authMiddleware, auditMiddleware("UPDATE_CONSUMPTION"), updateConsumption);
+router.put("/:id", authMiddleware, validate(updateConsumptionSchema), auditMiddleware("UPDATE_CONSUMPTION"), updateConsumption);
 
 // Remover consumo
 router.delete("/:id", authMiddleware, auditMiddleware("DELETE_CONSUMPTION"), deleteConsumption);

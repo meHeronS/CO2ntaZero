@@ -7,6 +7,8 @@
 //            resposta de erro padronizada e segura seja enviada ao cliente.
 // =================================================================================
 
+import { errorResponse } from "../utils/responseHelper.js";
+
 /**
  * Tratador de erros global para a aplicação Express.
  * A assinatura com 4 argumentos (err, req, res, next) é o que o Express
@@ -23,7 +25,8 @@ export function errorHandler(err, req, res, next) {
 
   // Envia uma resposta de erro padronizada. Em produção, é uma boa prática não vazar
   // detalhes internos do erro (como o stack trace), enviando uma mensagem genérica.
-  res.status(statusCode).json({
+  return errorResponse(res, {
+    status: statusCode,
     message: err.message || "Ocorreu um erro inesperado no servidor.",
   });
 }
